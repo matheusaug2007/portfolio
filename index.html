@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfólio de Matheus Lopes - Desenvolvedor Web e Criador de Sites de Alto Padrão. Design exclusivo, performance excelente e SEO otimizado." />
-  <title>Matheus Lopes — Desenvolvedor Web & Portfolio</title>
-  
+  <meta name="description"
+    content="Portfólio de Matheus Lopes - Desenvolvedor Web e Criador de Sites de Alto Padrão. Design exclusivo, performance excelente e SEO otimizado." />
+  <title>Matheus Lopes — Desenvolvedor Web</title>
+
   <!-- Google Fonts: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <!-- Font Awesome para Ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -29,12 +31,12 @@
       --shadow-color: rgba(0, 102, 255, 0.04);
       --glass-bg: rgba(255, 255, 255, 0.85);
       --glass-border: rgba(0, 102, 255, 0.08);
-      
+
       --radius-sm: 8px;
       --radius-md: 16px;
       --radius-lg: 24px;
       --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      
+
       --shadow-sm: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color);
       --shadow-md: 0 10px 20px -3px var(--shadow-color), 0 4px 8px -2px var(--shadow-color);
       --shadow-lg: 0 20px 30px -5px var(--shadow-color), 0 10px 15px -5px var(--shadow-color);
@@ -55,7 +57,9 @@
     }
 
     /* ─── RESET E CONFIGURAÇÕES GERAIS ─── */
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -97,6 +101,7 @@
       transition: transform 0.1s ease, background-color 0.2s;
       display: none;
     }
+
     .cursor-ring {
       width: 32px;
       height: 32px;
@@ -111,9 +116,11 @@
       transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
       display: none;
     }
-    
+
     @media (hover: hover) and (pointer: fine) {
-      .cursor, .cursor-ring {
+
+      .cursor,
+      .cursor-ring {
         display: block;
       }
     }
@@ -122,6 +129,7 @@
       transform: translate(-50%, -50%) scale(1.8);
       background-color: var(--primary-dark);
     }
+
     body.hover-active .cursor-ring {
       transform: translate(-50%, -50%) scale(1.6);
       border-color: var(--primary-dark);
@@ -210,61 +218,42 @@
       color: var(--text-primary);
     }
 
-    .theme-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    /* Botão Dark Mode */
+    /* Alternador de Tema Minimalista (Sem círculos/bordas) */
     .theme-toggle {
       background: none;
-      border: 1.5px solid var(--border-strong);
+      border: none;
       color: var(--text-primary);
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
+      padding: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: var(--transition);
-      font-size: 1rem;
+      font-size: 1.15rem;
     }
 
     .theme-toggle:hover {
-      border-color: var(--primary);
       color: var(--primary);
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
 
-    body.dark-theme .moon-icon { display: none !important; }
-    body.dark-theme .sun-icon { display: block !important; }
-    body:not(.dark-theme) .sun-icon { display: none !important; }
-    body:not(.dark-theme) .moon-icon { display: block !important; }
-
-    .nav-btn {
-      background-color: var(--text-primary);
-      color: var(--bg-primary);
-      padding: 10px 24px;
-      border-radius: var(--radius-lg);
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: 1px solid var(--text-primary);
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    body.dark-theme .moon-icon {
+      display: none !important;
     }
 
-    .nav-btn:hover {
-      background-color: var(--primary);
-      border-color: var(--primary);
-      color: var(--white);
-      transform: translateY(-2px);
+    body.dark-theme .sun-icon {
+      display: block !important;
     }
 
-    /* Menu Hambúrguer */
+    body:not(.dark-theme) .sun-icon {
+      display: none !important;
+    }
+
+    body:not(.dark-theme) .moon-icon {
+      display: block !important;
+    }
+
+    /* Menu Hamburguer */
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -352,6 +341,7 @@
 
     .hero h1 span {
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -448,9 +438,18 @@
       border-radius: 50%;
       background-color: var(--border-strong);
     }
-    .mockup-dot:nth-child(1) { background-color: #ff5f56; }
-    .mockup-dot:nth-child(2) { background-color: #ffbd2e; }
-    .mockup-dot:nth-child(3) { background-color: #27c93f; }
+
+    .mockup-dot:nth-child(1) {
+      background-color: #ff5f56;
+    }
+
+    .mockup-dot:nth-child(2) {
+      background-color: #ffbd2e;
+    }
+
+    .mockup-dot:nth-child(3) {
+      background-color: #27c93f;
+    }
 
     .mockup-body {
       display: flex;
@@ -605,7 +604,7 @@
       transform: translateY(0);
     }
 
-    /* ─── SOBRE MIM (Redesenhado Simplificado - Img 1) ─── */
+    /* ─── SOBRE MIM (Com moldura de foto - Img 2) ─── */
     .about {
       background-color: var(--bg-secondary);
       border-top: 1px solid var(--border);
@@ -615,45 +614,53 @@
 
     .about-grid {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 80px;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 60px;
       align-items: center;
     }
 
-    /* Métricas Minimalistas expostas direto no fundo */
-    .about-metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+    /* Moldura Minimalista Premium para Foto Pessoal */
+    .about-photo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
-    .metric-box {
+    .about-photo-frame {
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-lg);
       border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
       background-color: var(--bg-primary);
-      padding: 30px 24px;
-      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
       transition: var(--transition);
     }
 
-    .metric-box:hover {
+    .about-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .about-photo-frame:hover {
       transform: translateY(-4px);
       border-color: var(--primary);
-      box-shadow: var(--shadow-md);
     }
 
-    .metric-num {
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: var(--primary);
-      line-height: 1;
-      margin-bottom: 8px;
-      letter-spacing: -1px;
+    .about-photo-frame:hover .about-photo {
+      transform: scale(1.04);
     }
 
-    .metric-lbl {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      font-weight: 500;
+    .about-photo-glow {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 65%, rgba(0, 102, 255, 0.08) 100%);
+      pointer-events: none;
     }
 
     .about-text h3 {
@@ -801,9 +808,18 @@
       height: 8px;
       border-radius: 50%;
     }
-    .browser-dot.red { background-color: #ff5f56; }
-    .browser-dot.yellow { background-color: #ffbd2e; }
-    .browser-dot.green { background-color: #27c93f; }
+
+    .browser-dot.red {
+      background-color: #ff5f56;
+    }
+
+    .browser-dot.yellow {
+      background-color: #ffbd2e;
+    }
+
+    .browser-dot.green {
+      background-color: #27c93f;
+    }
 
     .browser-content-mock {
       padding: 16px;
@@ -944,7 +960,7 @@
       opacity: 0.4;
     }
 
-    /* ─── SEÇÃO PROJETOS (No topo de Serviços) ─── */
+    /* ─── SEÇÃO PROJETOS (Substitui Serviços no topo) ─── */
     .projects {
       background-color: var(--bg-secondary);
       border-top: 1px solid var(--border);
@@ -1072,569 +1088,208 @@
       transform: translateX(4px);
     }
 
-    /* ─── CHAMADA PARA AÇÃO (CTA) VISUAL MELHORADA (Img 2) ─── */
-    .cta-visual {
+    /* ─── CHAMADA PARA AÇÃO (CTA) INTEGRADA (Sem aspecto de banner - Img 3) ─── */
+    .cta-section {
       background-color: var(--bg-primary);
       transition: background-color 0.4s;
+      border-bottom: 1px solid var(--border);
     }
 
-    .cta-card {
-      background: linear-gradient(135deg, #090a0f 0%, #00173b 100%);
-      border-radius: var(--radius-lg);
-      padding: 80px 60px;
-      box-shadow: var(--shadow-lg);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 40px;
+    .cta-content-v2 {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
       align-items: center;
     }
 
-    .cta-card::before {
-      content: '';
-      position: absolute;
-      top: -150px;
-      right: -150px;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0, 102, 255, 0.25) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .cta-left {
-      z-index: 2;
-    }
-
-    .cta-left h2 {
-      font-size: clamp(2rem, 4vw, 2.8rem);
+    .cta-content-v2 h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-primary);
       line-height: 1.2;
       letter-spacing: -1.5px;
       margin-bottom: 20px;
     }
 
-    .cta-left p {
-      color: rgba(255, 255, 255, 0.7);
+    .cta-content-v2 p {
+      color: var(--text-secondary);
       font-size: 1.1rem;
-      max-width: 580px;
-      margin-bottom: 36px;
-      font-weight: 300;
       line-height: 1.6;
-    }
-
-    .cta-features-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
       margin-bottom: 36px;
+      max-width: 680px;
     }
 
-    .cta-feat-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.85);
-      font-weight: 500;
-    }
-
-    .cta-feat-item i {
-      color: var(--primary);
-      font-size: 1rem;
-    }
-
-    .cta-btn-wrap {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn-cta-whatsapp {
-      background-color: var(--primary);
-      color: #ffffff;
-      border: 1px solid var(--primary);
-      box-shadow: 0 8px 16px rgba(0, 102, 255, 0.2);
-    }
-
-    .btn-cta-whatsapp:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(0, 102, 255, 0.4);
-    }
-
-    .btn-cta-ghost {
-      border: 1.5px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      background-color: transparent;
-    }
-
-    .btn-cta-ghost:hover {
-      border-color: #ffffff;
-      background-color: rgba(255, 255, 255, 0.05);
-      transform: translateY(-2px);
-    }
-
-    /* Stack de Cartões com Glassmorphism no CTA */
-    .cta-right {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2;
-    }
-
-    .cta-glass-stack {
-      width: 320px;
-      height: 280px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .glass-stack-card {
-      position: absolute;
-      border-radius: var(--radius-md);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-      transition: var(--transition);
-      color: #ffffff;
-    }
-
-    .card-perf {
-      background: rgba(255, 255, 255, 0.06);
-      width: 170px;
-      padding: 16px;
-      top: 20px;
-      left: 10px;
-      transform: rotate(-6deg);
-      z-index: 3;
-      animation: floatStack1 5s ease-in-out infinite alternate;
-    }
-
-    .card-perf-header {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      color: rgba(255, 255, 255, 0.6);
-      font-weight: 500;
-    }
-
-    .card-perf-header i { color: #27c93f; }
-
-    .card-perf-value {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--white);
-      margin: 4px 0;
-    }
-
-    .card-perf-sub {
-      font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .card-design {
-      background: rgba(255, 255, 255, 0.08);
-      width: 190px;
-      padding: 18px;
-      bottom: 20px;
-      right: 10px;
-      transform: rotate(4deg);
-      z-index: 2;
-      animation: floatStack2 6s ease-in-out infinite alternate;
-    }
-
-    .card-design-tag {
-      font-size: 0.7rem;
-      background-color: var(--primary);
-      padding: 3px 8px;
-      border-radius: 4px;
-      display: inline-block;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .card-design-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--white);
-    }
-
-    .card-design-dots {
-      display: flex;
-      gap: 4px;
-      margin-top: 10px;
-    }
-    .card-design-dots span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .card-seo-glass {
-      background: linear-gradient(135deg, rgba(0, 102, 255, 0.3), rgba(0, 102, 255, 0.1));
-      width: 170px;
-      padding: 12px 16px;
-      top: 90px;
-      right: 40px;
-      transform: rotate(-12deg);
-      z-index: 4;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      animation: floatStack3 4s ease-in-out infinite alternate;
-    }
-
-    .card-seo-glass i { color: #ffbd2e; }
-
-    .cta-card:hover .card-perf { transform: rotate(-2deg) translateY(-8px) translateX(-4px); }
-    .cta-card:hover .card-design { transform: rotate(1deg) translateY(8px) translateX(4px); }
-    .cta-card:hover .card-seo-glass { transform: rotate(-8deg) scale(1.05); }
-
-    /* ─── SEÇÃO CONTATO COM WIZARD PASSO A PASSO (Img 3) ─── */
-    .contact {
-      background-color: var(--bg-primary);
-      transition: background-color 0.4s;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.11fr;
-      gap: 80px;
-    }
-
-    .contact-info-panel {
+    .cta-list-clean {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-    }
-
-    .contact-sub-text {
-      color: var(--text-secondary);
+      gap: 14px;
       margin-bottom: 40px;
-      font-size: 1.05rem;
+      align-items: flex-start;
+      max-width: 520px;
+      text-align: left;
     }
 
-    .contact-links-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .contact-item-link {
+    .cta-list-item {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      border-radius: var(--radius-md);
-      background-color: var(--bg-secondary);
-      border: 1px solid var(--border);
-      transition: var(--transition);
-    }
-
-    .contact-item-link:hover {
-      border-color: var(--primary);
-      background-color: var(--bg-primary);
-      box-shadow: var(--shadow-sm);
-      transform: translateX(4px);
-    }
-
-    .contact-icon-wrapper {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-sm);
-      background-color: var(--bg-primary);
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border);
-      transition: var(--transition);
-    }
-
-    .contact-item-link:hover .contact-icon-wrapper {
-      background-color: var(--primary);
-      color: #ffffff;
-    }
-
-    .contact-label {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .contact-label span:first-child {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .contact-label span:last-child {
+      gap: 12px;
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text-primary);
     }
 
-    /* Painel do Wizard Conversacional */
-    .contact-wizard-panel {
-      background-color: var(--bg-primary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 44px;
-      box-shadow: var(--shadow-lg);
-      position: relative;
-      overflow: hidden;
-      min-height: 400px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .cta-list-item i {
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .btn-cta-v2 {
+      padding: 16px 40px;
+      font-size: 1rem;
+    }
+
+    /* ─── SEÇÃO CONTATO (Pitch Direto Minimalista - Img 4) ─── */
+    .contact {
+      background-color: var(--bg-secondary);
       transition: background-color 0.4s;
     }
 
-    .wizard-progress {
-      height: 4px;
-      width: 100%;
-      background-color: var(--border-strong);
-      border-radius: 2px;
-      margin-bottom: 30px;
-      position: relative;
-      overflow: hidden;
+    .contact-wrap-v2 {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .wizard-progress-fill {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 25%;
-      background-color: var(--primary);
-      transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    .wizard-step {
-      display: none;
-      opacity: 0;
-      transform: translateY(15px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .wizard-step.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .wizard-step h3 {
-      font-size: 1.4rem;
+    .contact-wrap-v2 h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
       font-weight: 700;
       color: var(--text-primary);
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+      letter-spacing: -1.5px;
     }
 
-    .wizard-step .step-desc {
-      font-size: 0.9rem;
+    .contact-pitch {
       color: var(--text-secondary);
-      margin-bottom: 24px;
-    }
-
-    .wizard-options {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .wizard-opt-btn {
-      background-color: var(--bg-secondary);
-      border: 1.5px solid var(--border-strong);
-      color: var(--text-primary);
-      padding: 16px 20px;
-      border-radius: var(--radius-md);
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      text-align: left;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .wizard-opt-btn i {
-      color: var(--primary);
       font-size: 1.1rem;
-      transition: var(--transition);
+      line-height: 1.65;
+      margin-bottom: 40px;
+      max-width: 680px;
     }
 
-    .wizard-opt-btn:hover {
-      border-color: var(--primary);
-      background-color: var(--bg-primary);
-      transform: translateY(-2px);
-    }
-
-    .wizard-opt-btn.selected {
-      background-color: var(--primary-light);
-      border-color: var(--primary);
-      color: var(--primary);
+    /* Botão de WhatsApp Centralizado */
+    .contact-main-btn {
+      background-color: #25d366;
+      color: #ffffff;
+      padding: 18px 44px;
+      border-radius: var(--radius-md);
+      font-size: 1.05rem;
       font-weight: 600;
-    }
-
-    .wizard-footer {
-      display: flex;
-      justify-content: space-between;
+      display: inline-flex;
       align-items: center;
-      margin-top: 32px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-strong);
-    }
-
-    .btn-wizard-nav {
-      padding: 10px 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
+      gap: 12px;
       transition: var(--transition);
+      box-shadow: 0 10px 24px rgba(37, 211, 102, 0.15);
+      margin-bottom: 60px;
     }
 
-    .btn-wizard-prev {
-      background-color: transparent;
-      color: var(--text-secondary);
-      border: none;
+    .contact-main-btn:hover {
+      background-color: #20ba59;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.3);
     }
 
-    .btn-wizard-prev:hover:not(:disabled) {
-      color: var(--text-primary);
-    }
-
-    .btn-wizard-prev:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    .btn-wizard-next {
-      background-color: var(--text-primary);
-      color: var(--bg-primary);
-      border: 1px solid var(--text-primary);
-    }
-
-    .btn-wizard-next:hover:not(:disabled) {
-      background-color: var(--primary);
-      border-color: var(--primary);
-      color: #ffffff;
-    }
-
-    .btn-wizard-next:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    /* Inputs de texto no Wizard */
-    .wizard-input-group {
-      margin-bottom: 16px;
-    }
-
-    .wizard-input-label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .wizard-text-input {
+    /* Grade de Links de Informação Minimalistas */
+    .contact-links-grid-v2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+      gap: 16px;
       width: 100%;
-      padding: 14px 18px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      background-color: var(--bg-secondary);
-      border: 1.5px solid var(--border-strong);
-      border-radius: var(--radius-md);
-      transition: var(--transition);
-      outline: none;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+      max-width: 420px;
     }
 
-    .wizard-text-input:focus {
-      border-color: var(--primary);
-      background-color: var(--bg-primary);
-      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.08);
-    }
-
-    /* Tela de Resumo Final */
-    .summary-card {
-      background-color: var(--bg-secondary);
-      border: 1px dashed var(--primary);
-      border-radius: var(--radius-md);
-      padding: 20px;
-      margin-bottom: 24px;
-    }
-
-    .summary-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      margin-bottom: 8px;
-      border-bottom: 1px dashed var(--border);
-      padding-bottom: 8px;
-    }
-
-    .summary-item:last-child {
-      margin-bottom: 0;
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .summary-label {
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-
-    .summary-val {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .btn-whatsapp-send {
-      width: 100%;
-      background-color: var(--primary);
-      color: #ffffff;
-      padding: 16px;
-      border: none;
-      border-radius: var(--radius-md);
-      font-family: 'Poppins', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
+    .contact-link-item-v2 {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 0;
+      min-height: 84px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      color: var(--text-secondary);
       transition: var(--transition);
-      box-shadow: 0 8px 16px rgba(0, 102, 255, 0.15);
     }
 
-    .btn-whatsapp-send:hover {
-      background-color: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(0, 102, 255, 0.3);
+    .contact-link-item-v2:hover:not(.loc-item) {
+      color: var(--primary);
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-link-item-v2::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(0, 102, 255, 0.08));
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .contact-link-item-v2:hover::before {
+      opacity: 1;
+    }
+
+    .contact-link-item-v2 i {
+      position: relative;
+      z-index: 1;
+      font-size: 1.45rem;
+      color: var(--primary);
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    .contact-link-item-v2.loc-item i {
+      color: var(--text-secondary);
+    }
+
+    .contact-link-item-v2:nth-child(2) i {
+      animation-delay: 0.15s;
+    }
+
+    .contact-link-item-v2:nth-child(3) i {
+      animation-delay: 0.3s;
+    }
+
+    .contact-link-item-v2:nth-child(4) i {
+      animation-delay: 0.45s;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     /* ─── FOOTER ─── */
     footer {
-      background-color: var(--bg-secondary);
+      background-color: var(--bg-primary);
       color: var(--text-secondary);
       padding: 60px 8% 30px;
       border-top: 1px solid var(--border);
@@ -1680,7 +1335,7 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: var(--bg-primary);
+      background-color: var(--bg-secondary);
       color: var(--text-primary);
       display: flex;
       align-items: center;
@@ -1688,6 +1343,22 @@
       font-size: 1.1rem;
       transition: var(--transition);
       border: 1px solid var(--border);
+    }
+
+    .social-icon-btn i {
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+
+    .footer-socials .social-icon-btn:nth-child(2) i {
+      animation-delay: 0.15s;
+    }
+
+    .footer-socials .social-icon-btn:nth-child(3) i {
+      animation-delay: 0.3s;
+    }
+
+    .footer-socials .social-icon-btn:nth-child(4) i {
+      animation-delay: 0.45s;
     }
 
     .social-icon-btn:hover {
@@ -1710,7 +1381,7 @@
       color: var(--text-primary);
     }
 
-    /* Botão Flutuante do WhatsApp */
+    /* Botão Flutuante de WhatsApp */
     .whatsapp-float {
       position: fixed;
       bottom: 30px;
@@ -1734,80 +1405,136 @@
       box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
     }
 
+    .whatsapp-float i {
+      animation: iconFloat 2.6s ease-in-out infinite;
+    }
+
     /* ─── ANIMAÇÕES KEYFRAMES ─── */
     @keyframes dotPulse {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(2.5); opacity: 0; }
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(2.5);
+        opacity: 0;
+      }
     }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes floatHero {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     @keyframes floatCard {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-8px); }
+      0% {
+        transform: translateY(0px);
+      }
+
+      100% {
+        transform: translateY(-8px);
+      }
     }
 
-    /* Cartões Flutuantes CTA */
-    @keyframes floatStack1 {
-      0% { transform: rotate(-6deg) translateY(0); }
-      100% { transform: rotate(-4deg) translateY(-6px); }
-    }
-    @keyframes floatStack2 {
-      0% { transform: rotate(4deg) translateY(0); }
-      100% { transform: rotate(2deg) translateY(8px); }
-    }
-    @keyframes floatStack3 {
-      0% { transform: rotate(-12deg) scale(1); }
-      100% { transform: rotate(-9deg) scale(1.03) translateY(-4px); }
+    @keyframes iconFloat {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-3px);
+      }
     }
 
     /* ─── RESPONSIVIDADE (MEDIA QUERIES) ─── */
     @media (max-width: 992px) {
-      header { padding: 20px 5%; }
-      header.scrolled { padding: 14px 5%; }
-      section { padding: 80px 5%; }
-      .hero { padding: 120px 5% 60px; }
-      
+      header {
+        padding: 20px 5%;
+      }
+
+      header.scrolled {
+        padding: 14px 5%;
+      }
+
+      section {
+        padding: 80px 5%;
+      }
+
+      .hero {
+        padding: 120px 5% 60px;
+      }
+
       .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 40px;
       }
+
       .hero-content {
         display: flex;
         flex-direction: column;
         align-items: center;
       }
-      .hero h1 { font-size: 3rem; }
-      .hero-desc { margin-left: auto; margin-right: auto; }
-      .hero-actions { justify-content: center; }
-      .hero-visual { order: -1; }
-      
-      .about-grid { grid-template-columns: 1fr; gap: 40px; }
-      .construction-grid { grid-template-columns: 1fr; gap: 40px; }
-      
-      .cta-card {
-        grid-template-columns: 1fr;
-        padding: 50px 30px;
-        text-align: center;
+
+      .hero h1 {
+        font-size: 3rem;
       }
-      .cta-features-grid { justify-content: center; }
-      .cta-btn-wrap { justify-content: center; }
-      .cta-right { display: none; } /* Oculta stack visual no mobile */
-      
-      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .construction-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
     }
 
     @media (max-width: 768px) {
-      .menu-toggle { display: flex; }
+      .menu-toggle {
+        display: flex;
+      }
+
       .nav-links {
         position: fixed;
         top: 0;
@@ -1822,24 +1549,51 @@
         transition: var(--transition);
         z-index: 999;
       }
-      .nav-links.active { right: 0; }
-      .nav-links a { font-size: 1.1rem; }
-      .nav-btn { display: none; }
-      
-      .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-      .menu-toggle.active span:nth-child(2) { opacity: 0; }
-      .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
-      
-      .about-metrics-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-      
-      .footer-top { flex-direction: column; align-items: center; text-align: center; }
-      .footer-bottom { flex-direction: column; text-align: center; }
-      
-      .contact-wizard-panel { padding: 30px 20px; }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-links a {
+        font-size: 1.1rem;
+      }
+
+      .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+      }
+
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .cta-list-clean {
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- Cursor Personalizado -->
@@ -1850,7 +1604,7 @@
   <header id="header">
     <div class="nav-container">
       <a href="#home" class="logo">Matheus<span>.</span>dev</a>
-      
+
       <!-- Navegação Principal -->
       <nav>
         <ul class="nav-links" id="navLinks">
@@ -1860,17 +1614,13 @@
           <li><a href="#projects">Projetos</a></li>
           <li><a href="#contact">Contato</a></li>
         </ul>
-        
+
         <div class="theme-actions">
-          <!-- Alternador de Tema -->
+          <!-- Alternador de Tema Minimalista -->
           <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar Tema">
             <i class="far fa-moon moon-icon"></i>
             <i class="far fa-sun sun-icon"></i>
           </button>
-          
-          <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-btn">
-            <i class="fab fa-whatsapp"></i> Mandar Whats
-          </a>
         </div>
       </nav>
 
@@ -1893,13 +1643,14 @@
             Disponível para novos projetos
           </div>
           <h1>Sites exclusivos que geram <span>resultados</span>.</h1>
-          <p class="hero-desc">Desenvolvedor Web criando projetos sob medida, com foco em design limpo, carregamento veloz e otimização SEO para impulsionar sua marca online.</p>
+          <p class="hero-desc">Desenvolvedor Web criando projetos sob medida, com foco em design limpo, carregamento
+            veloz e otimização SEO para impulsionar sua marca online.</p>
           <div class="hero-actions">
-            <a href="#contact" class="btn btn-primary">Fazer Orçamento <i class="fas fa-arrow-right"></i></a>
+            <a href="#contact" class="btn btn-primary">Fale Comigo! <i class="fas fa-arrow-right"></i></a>
             <a href="#projects" class="btn btn-secondary">Ver Projetos</a>
           </div>
         </div>
-        
+
         <!-- Ilustração Visual Hero -->
         <div class="hero-visual">
           <div class="mockup-container">
@@ -1921,7 +1672,7 @@
               <div class="mockup-text-line" style="margin-top: 10px;"></div>
               <div class="mockup-text-line short"></div>
             </div>
-            
+
             <div class="mockup-floating-card card-seo">
               <div class="card-icon-box"><i class="fas fa-search"></i></div>
               <div class="card-info">
@@ -1941,47 +1692,36 @@
       </div>
     </section>
 
-    <!-- ─── SOBRE MIM (Design Editorial Simplificado - Img 1) ─── -->
+    <!-- ─── SOBRE MIM (Com Moldura de Foto - Img 2) ─── -->
     <section class="about" id="about">
       <div class="container-large">
         <div class="about-grid">
-          <!-- Coluna das métricas simplificadas direto no fundo -->
-          <div class="about-metrics-grid reveal">
-            <div class="metric-box">
-              <div class="metric-num">3+</div>
-              <div class="metric-lbl">Anos de Prática</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-num">12+</div>
-              <div class="metric-lbl">Projetos Feitos</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-num">100%</div>
-              <div class="metric-lbl">Sites Responsivos</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-num">UMC</div>
-              <div class="metric-lbl">Eng. Software</div>
+          <!-- Coluna da Foto com Moldura Minimalista -->
+          <div class="about-photo-container reveal">
+            <div class="about-photo-frame">
+              <!-- DICA: Para substituir por sua foto real, basta criar uma imagem com nome 'foto-perfil.jpg' na mesma pasta e alterar o src abaixo para 'foto-perfil.jpg' -->
+              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=matheus-lopes" alt="Matheus Lopes"
+                class="about-photo" />
+              <div class="about-photo-glow"></div>
             </div>
           </div>
-          
+
           <!-- Coluna dos textos -->
           <div class="about-text reveal">
             <span class="section-label">Sobre mim</span>
-            <h3>Código limpo aliado à estética de alto nível.</h3>
-            <p>Olá! Sou o **Matheus Lopes**, estudante de Engenharia de Software na Faculdade UMC e desenvolvedor web freelancer. Minha missão é traduzir as necessidades do seu negócio em interfaces bonitas, rápidas e que transmitam profissionalismo.</p>
-            <p>Trabalho focando na experiência de uso e na clareza das informações, garantindo que seu cliente navegue sem fricção e encontre facilmente o que busca.</p>
-            
+            <h3>Quem é o Matheus?</h3>
+            <p>Olá! Sou o **Matheus Lopes**, estudante de Engenharia de Software na Faculdade UMC e desenvolvedor web
+              freelancer. Minha missão é traduzir as necessidades do seu negócio em interfaces bonitas, rápidas e que
+              transmitam profissionalismo.</p>
+            <p>Trabalho focando na experiência de uso e na clareza das informações, garantindo que seu cliente navegue
+              sem fricção e encontre facilmente o que busca.</p>
+
             <h4 class="skills-title">Tecnologias principais</h4>
             <div class="skills-flex">
-              <span class="skill-badge">HTML5 / CSS3</span>
-              <span class="skill-badge">JavaScript (ES6+)</span>
-              <span class="skill-badge">React</span>
-              <span class="skill-badge">Node.js</span>
+              <span class="skill-badge">HTML5</span>
+              <span class="skill-badge">CSS3</span>
               <span class="skill-badge">PHP</span>
               <span class="skill-badge">SQL</span>
-              <span class="skill-badge">UI/UX Design</span>
-              <span class="skill-badge">Git & GitHub</span>
             </div>
           </div>
         </div>
@@ -1995,8 +1735,9 @@
           <div class="construction-text reveal">
             <span class="section-label">Como Trabalho</span>
             <h2>Seu projeto construído passo a passo</h2>
-            <p>Acompanhe ao lado a simulação da montagem do código. Integro design refinado com código limpo de forma fluida.</p>
-            
+            <p>Acompanhe ao lado a simulação da montagem do código. Integro design refinado com código limpo de forma
+              fluida.</p>
+
             <ul class="construction-steps">
               <li class="const-step-item">
                 <div class="const-step-num">1</div>
@@ -2021,7 +1762,7 @@
               </li>
             </ul>
           </div>
-          
+
           <div class="construction-visual reveal">
             <!-- Mockup do navegador onde os elementos vão se encaixar com o scroll -->
             <div class="browser-assembly">
@@ -2040,7 +1781,7 @@
                     <span class="mock-nav-item"></span>
                   </div>
                 </div>
-                
+
                 <!-- Hero (Mock) -->
                 <div class="mock-el mock-hero">
                   <div class="mock-hero-left">
@@ -2050,7 +1791,7 @@
                   </div>
                   <div class="mock-hero-img"></div>
                 </div>
-                
+
                 <!-- Grid (Mock) -->
                 <div class="mock-el mock-grid">
                   <div class="mock-card">
@@ -2062,7 +1803,7 @@
                     <div class="mock-card-body"></div>
                   </div>
                 </div>
-                
+
                 <!-- Footer (Mock) -->
                 <div class="mock-el mock-footer">
                   <div class="mock-footer-line"></div>
@@ -2082,8 +1823,8 @@
           <h2 class="section-title">Projetos Recentes</h2>
         </div>
         <div class="projects-grid">
-          
-          <!-- Projeto 1 -->
+
+          <!-- Projeto 1 
           <div class="project-card reveal">
             <div class="project-thumb">
               ⛪
@@ -2091,7 +1832,8 @@
             </div>
             <div class="project-body">
               <h3 class="project-title">App de Liturgia</h3>
-              <p class="project-desc">App mobile-first planejado para gestão de escalas semanais e liturgia de cultos comunitários, com suporte a exportação de imagens.</p>
+              <p class="project-desc">App mobile-first planejado para gestão de escalas semanais e liturgia de cultos
+                comunitários, com suporte a exportação de imagens.</p>
               <div class="project-tags">
                 <span class="project-tag">HTML5/CSS3</span>
                 <span class="project-tag">JavaScript</span>
@@ -2102,7 +1844,7 @@
                 Acessar projeto <i class="fas fa-arrow-right"></i>
               </a>
             </div>
-          </div>
+          </div>-->
 
           <!-- Projeto 2 -->
           <div class="project-card reveal">
@@ -2112,13 +1854,14 @@
             </div>
             <div class="project-body">
               <h3 class="project-title">Senna X1 — Smart Helmet</h3>
-              <p class="project-desc">Dashboard dinâmico integrado com biometria e IA para monitoramento de capacetes inteligentes em tempo real (Projeto Universitário).</p>
-              <div class="project-tags">
+              <p class="project-desc">Dashboard dinâmico integrado com biometria e IA para monitoramento de capacetes
+                inteligentes em tempo real (Projeto Universitário).</p>
+              <!--<div class="project-tags">
                 <span class="project-tag">React</span>
                 <span class="project-tag">IoT Integration</span>
                 <span class="project-tag">AI API</span>
                 <span class="project-tag">CSS Flex</span>
-              </div>
+              </div>-->
               <a href="https://sennatechcassiano.netlify.app" target="_blank" class="project-link">
                 Acessar projeto <i class="fas fa-arrow-right"></i>
               </a>
@@ -2133,19 +1876,20 @@
             </div>
             <div class="project-body">
               <h3 class="project-title">Sites Seguros</h3>
-              <p class="project-desc">Website educacional interativo criado para conscientização de usuários leigos sobre segurança e prevenção de golpes virtuais.</p>
-              <div class="project-tags">
+              <p class="project-desc">Website educacional interativo criado para conscientização de usuários leigos
+                sobre segurança e prevenção de golpes virtuais.</p>
+              <!--<div class="project-tags">
                 <span class="project-tag">HTML5/CSS3</span>
                 <span class="project-tag">JavaScript</span>
                 <span class="project-tag">Web Security</span>
-              </div>
+              </div>-->
               <a href="https://identificacaodesitesseguros.netlify.app/" target="_blank" class="project-link">
                 Acessar projeto <i class="fas fa-arrow-right"></i>
               </a>
             </div>
           </div>
 
-          <!-- Projeto 4 -->
+          <!-- Projeto 4 - EM DESENVOLVIMENTO
           <div class="project-card reveal">
             <div class="project-thumb">
               🛍️
@@ -2153,7 +1897,8 @@
             </div>
             <div class="project-body">
               <h3 class="project-title">Lemon Importados</h3>
-              <p class="project-desc">Catálogo de vendas mobile-first com sistema de checkout rápido integrado diretamente com a API do WhatsApp e painel de controle simples.</p>
+              <p class="project-desc">Catálogo de vendas mobile-first com sistema de checkout rápido integrado
+                diretamente com a API do WhatsApp e painel de controle simples.</p>
               <div class="project-tags">
                 <span class="project-tag">HTML5/CSS</span>
                 <span class="project-tag">Firebase DB</span>
@@ -2163,9 +1908,9 @@
                 Desenvolvido Localmente
               </span>
             </div>
-          </div>
+          </div>-->
 
-          <!-- Projeto 5 -->
+          <!-- Projeto 5 - EXEMPLO DE PROJETO
           <div class="project-card reveal">
             <div class="project-thumb">
               🧵
@@ -2173,7 +1918,8 @@
             </div>
             <div class="project-body">
               <h3 class="project-title">Fiação Cocari</h3>
-              <p class="project-desc">Redesign visual moderno e responsivo focado na homepage institucional da indústria têxtil, aplicando animações dinâmicas de rolagem.</p>
+              <p class="project-desc">Redesign visual moderno e responsivo focado na homepage institucional da indústria
+                têxtil, aplicando animações dinâmicas de rolagem.</p>
               <div class="project-tags">
                 <span class="project-tag">CSS3 Grid</span>
                 <span class="project-tag">JavaScript</span>
@@ -2188,200 +1934,74 @@
         </div>
       </div>
     </section>
+          -->
 
-    <!-- ─── CHAMADA PARA AÇÃO (CTA) VISUAL MELHORADA (Img 2) ─── -->
-    <section class="cta-visual" id="cta-section">
+          <!-- ─── SEÇÃO CHAMADA PARA AÇÃO (CTA) INTEGRADA (Sem aspecto de propaganda - Img 3) ─── -->
+          <!--<section class="cta-section" id="cta-section">
       <div class="container-large">
-        <div class="cta-card reveal">
-          <div class="cta-left">
-            <span class="section-label" style="color: var(--primary);">Design & Desenvolvimento</span>
-            <h2>Deseja construir um site moderno e profissional?</h2>
-            <p>Desenvolvo soluções digitais personalizadas com foco em estética minimalista e resultados.</p>
-            
-            <div class="cta-features-grid">
-              <div class="cta-feat-item"><i class="fas fa-check-circle"></i> Design 100% Exclusivo</div>
-              <div class="cta-feat-item"><i class="fas fa-check-circle"></i> Otimizado para o Google (SEO)</div>
-              <div class="cta-feat-item"><i class="fas fa-check-circle"></i> Ultra Rápido no Mobile</div>
-              <div class="cta-feat-item"><i class="fas fa-check-circle"></i> Suporte Pós-Lançamento</div>
-            </div>
+        <div class="cta-content-v2 reveal">
+          <span class="section-label">Design & Desenvolvimento</span>
+          <h2>Deseja construir um site moderno e exclusivo?</h2>
+          <p>Desenvolvo soluções digitais personalizadas com foco em estética minimalista e excelente experiência do
+            usuário. Fale diretamente comigo e tire sua ideia do papel de forma simples e profissional.</p>
 
-            <div class="cta-btn-wrap">
-              <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20um%20orçamento%20para%20desenvolvimento%20de%20site." target="_blank" class="btn btn-cta-whatsapp">
-                <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
-              </a>
-              <a href="#contact" class="btn btn-cta-ghost">Fazer Briefing Rápido</a>
+          <div class="cta-list-clean">
+            <div class="cta-list-item"><i class="fas fa-check"></i> Design sob medida planejado para sua marca</div>
+            <div class="cta-list-item"><i class="fas fa-check"></i> Código otimizado com foco em performance e
+              carregamento ultra-rápido</div>
+            <div class="cta-list-item"><i class="fas fa-check"></i> Estrutura pensada e configurada para o Google (SEO)
             </div>
           </div>
-          
-          <div class="cta-right">
-            <!-- Stack visual glassmorphic rico -->
-            <div class="cta-glass-stack">
-              <div class="glass-stack-card card-perf">
-                <div class="card-perf-header">
-                  <i class="fas fa-bolt"></i> Speed Score
-                </div>
-                <div class="card-perf-value">99%</div>
-                <div class="card-perf-sub">Otimização máxima</div>
-              </div>
-              
-              <div class="glass-stack-card card-design">
-                <div class="card-design-tag">UI/UX Design</div>
-                <div class="card-design-title">Layout Único</div>
-                <div class="card-design-dots">
-                  <span></span><span></span><span></span>
-                </div>
-              </div>
-              
-              <div class="glass-stack-card card-seo-glass">
-                <i class="fas fa-search-dollar"></i>
-                <span>Google Rank #1</span>
-              </div>
-            </div>
-          </div>
+
+          <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20um%20orçamento%20para%20desenvolvimento%20de%20site."
+            target="_blank" class="btn btn-primary btn-cta-v2">
+            <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
+          </a>
         </div>
       </div>
-    </section>
+    </section>-->
 
-    <!-- ─── SEÇÃO CONTATO COM WIZARD PASSO A PASSO (Img 3) ─── -->
-    <section class="contact" id="contact">
-      <div class="container-large">
-        <div class="contact-grid">
-          
-          <div class="contact-info-panel reveal">
-            <div>
-              <span class="section-label">Contato</span>
-              <h2 class="section-title" style="margin-bottom: 20px;">Vamos iniciar uma conversa?</h2>
-              <p class="contact-sub-text">Use o assistente rápido ao lado para detalhar seu projeto de forma intuitiva, ou me chame diretamente pelos contatos abaixo.</p>
-            </div>
-            
-            <div class="contact-links-list">
-              <a href="https://wa.me/5544999071031" target="_blank" class="contact-item-link">
-                <div class="contact-icon-wrapper"><i class="fab fa-whatsapp"></i></div>
-                <div class="contact-label">
-                  <span>WhatsApp</span>
-                  <span>(44) 99907-1031</span>
-                </div>
-              </a>
-              <a href="mailto:matheus.augusto5117@gmail.com" class="contact-item-link">
-                <div class="contact-icon-wrapper"><i class="far fa-envelope"></i></div>
-                <div class="contact-label">
-                  <span>E-mail</span>
-                  <span>matheus.augusto5117@gmail.com</span>
-                </div>
-              </a>
-              <div class="contact-item-link" style="cursor: default;">
-                <div class="contact-icon-wrapper"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="contact-label">
-                  <span>Localização</span>
-                  <span>Mandaguari, PR · Brasil</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- ─── SEÇÃO CONTATO (Pitch Direto Minimalista - Img 4) ─── -->
+          <section class="contact" id="contact">
+            <div class="container-large">
+              <div class="contact-wrap-v2 reveal">
+                <span class="section-label">Contato</span>
+                <h2>Vamos construir algo incrível juntos?</h2>
+                <p class="contact-pitch">Estou disponível para novos projetos freelancer. Se você precisa de um site
+                  exclusivo, rápido e otimizado que passe autoridade, entre em contato comigo pelo WhatsApp.</p>
 
-          <!-- Wizard Conversacional Passo a Passo -->
-          <div class="contact-wizard-panel reveal" id="contactWizard">
-            <div class="wizard-progress">
-              <div class="wizard-progress-fill" id="wizardProgressFill"></div>
-            </div>
+                <!-- Botão Principal Destaque de Conversa -->
+                <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
+                  target="_blank" class="contact-main-btn">
+                  <i class="fab fa-whatsapp"></i> Iniciar conversa no WhatsApp
+                </a>
 
-            <!-- Passo 1: Tipo de Site -->
-            <div class="wizard-step active" data-step="1">
-              <h3>O que você deseja desenvolver?</h3>
-              <p class="step-desc">Selecione o tipo de projeto ideal para o seu momento atual.</p>
-              <div class="wizard-options">
-                <button type="button" class="wizard-opt-btn" data-value="Landing Page">
-                  <i class="fas fa-rocket"></i> Landing Page (Página única de Vendas)
-                </button>
-                <button type="button" class="wizard-opt-btn" data-value="Site Institucional">
-                  <i class="fas fa-building"></i> Site Institucional (Para empresas/profissionais)
-                </button>
-                <button type="button" class="wizard-opt-btn" data-value="Loja Virtual ou Catálogo">
-                  <i class="fas fa-shopping-cart"></i> Loja Virtual ou Catálogo de Produtos
-                </button>
-                <button type="button" class="wizard-opt-btn" data-value="Outro projeto">
-                  <i class="fas fa-ellipsis-h"></i> Outro projeto ou preciso de ajuda
-                </button>
-              </div>
-            </div>
-
-            <!-- Passo 2: Segmento de Negócio -->
-            <div class="wizard-step" data-step="2">
-              <h3>Qual o segmento do seu negócio?</h3>
-              <p class="step-desc">Isso ajuda a pensar no estilo visual e no direcionamento de design.</p>
-              <div class="wizard-options">
-                <button type="button" class="wizard-opt-btn" data-value="Serviços / Profissional Liberal">
-                  <i class="fas fa-user-tie"></i> Serviços / Consultor / Autônomo
-                </button>
-                <button type="button" class="wizard-opt-btn" data-value="Comércio / Vendas Físicas">
-                  <i class="fas fa-store"></i> Comércio Local ou Venda de Produtos
-                </button>
-                <button type="button" class="wizard-opt-btn" data-value="Tecnologia ou Startup">
-                  <i class="fas fa-laptop"></i> Startup / Tecnologia / Infoproduto
-                </button>
-                <button type="button" class="wizard-opt-btn" data-value="Outro Segmento">
-                  <i class="fas fa-briefcase"></i> Outros segmentos de mercado
-                </button>
-              </div>
-            </div>
-
-            <!-- Passo 3: Prazo / Urgência -->
-            <div class="wizard-step" data-step="3">
-              <h3>Qual a estimativa de prazo desejada?</h3>
-              <p class="step-desc">Entender seu prazo ajuda a organizar a escala de desenvolvimento.</p>
-              <div class="wizard-options">
-                <button type="button" class="wizard-opt-btn" data-value="Urgente (menos de 15 dias)">
-                  <i class="fas fa-bolt"></i> O quanto antes (Urgente) ⚡
-                </button>
-                <button type="button" class="wizard-opt-btn" data-value="Normal (até 30 dias)">
-                  <i class="fas fa-calendar-alt"></i> Em até 30 dias (Prazo ideal) 🗓️
-                </button>
-                <button type="button" class="wizard-opt-btn" data-value="Planejado (sem pressa)">
-                  <i class="fas fa-mug-hot"></i> Sem pressa, priorizo planejamento ☕
-                </button>
-              </div>
-            </div>
-
-            <!-- Passo 4: Nome e Envio -->
-            <div class="wizard-step" data-step="4">
-              <h3>Para finalizar, como te chamo?</h3>
-              <p class="step-desc">Seu briefing está pronto! Insira seu nome para gerar o envio.</p>
-              
-              <div class="wizard-input-group">
-                <label for="wizardName" class="wizard-input-label">Seu Nome Completo</label>
-                <input type="text" id="wizardName" class="wizard-text-input" placeholder="Ex: João Silva" required />
-              </div>
-
-              <div class="summary-card">
-                <div class="summary-item">
-                  <span class="summary-label">Projeto:</span>
-                  <span class="summary-val" id="sumProject">—</span>
-                </div>
-                <div class="summary-item">
-                  <span class="summary-label">Segmento:</span>
-                  <span class="summary-val" id="sumSegment">—</span>
-                </div>
-                <div class="summary-item">
-                  <span class="summary-label">Prazo:</span>
-                  <span class="summary-val" id="sumTimeline">—</span>
+                <!-- Grade de Informações e Links Minimalista -->
+                <div class="contact-links-grid-v2">
+                  <a href="mailto:matheus.augusto5117@gmail.com" class="contact-link-item-v2" aria-label="Email"
+                    title="Email">
+                    <i class="far fa-envelope"></i>
+                    <span class="sr-only">matheus.augusto5117@gmail.com</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank"
+                    class="contact-link-item-v2" aria-label="LinkedIn" title="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span class="sr-only">linkedin.com/in/matheus-lopes</span>
+                  </a>
+                  <a href="https://github.com/matheusaug2007" target="_blank" class="contact-link-item-v2"
+                    aria-label="GitHub" title="GitHub">
+                    <i class="fab fa-github"></i>
+                    <span class="sr-only">github.com/matheusaug2007</span>
+                  </a>
+                  <div class="contact-link-item-v2 loc-item" style="cursor: default;" aria-label="Localização"
+                    title="Mandaguari, PR · Brasil">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="sr-only">Mandaguari, PR · Brasil</span>
+                  </div>
                 </div>
               </div>
-
-              <button type="button" class="btn-whatsapp-send" id="btnSubmitBriefing">
-                Enviar Briefing por WhatsApp <i class="fab fa-whatsapp"></i>
-              </button>
             </div>
-
-            <!-- Rodapé do Wizard (Navegação) -->
-            <div class="wizard-footer">
-              <button type="button" class="btn-wizard-nav btn-wizard-prev" id="btnWizardPrev" disabled>Voltar</button>
-              <button type="button" class="btn-wizard-nav btn-wizard-next" id="btnWizardNext">Avançar</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
+          </section>
   </main>
 
   <!-- ─── FOOTER ─── -->
@@ -2390,9 +2010,12 @@
       <div class="footer-top">
         <a href="#home" class="logo">Matheus<span>.</span>dev</a>
         <div class="footer-socials">
-          <a href="https://wa.me/5544999071031" target="_blank" class="social-icon-btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-          <a href="https://github.com/matheusaug2007" target="_blank" class="social-icon-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank" class="social-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://wa.me/5544999071031" target="_blank" class="social-icon-btn" aria-label="WhatsApp"><i
+              class="fab fa-whatsapp"></i></a>
+          <a href="https://github.com/matheusaug2007" target="_blank" class="social-icon-btn" aria-label="GitHub"><i
+              class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank" class="social-icon-btn"
+            aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -2403,18 +2026,19 @@
   </footer>
 
   <!-- Botão Flutuante de WhatsApp -->
-  <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20fazer%20um%20orçamento." target="_blank" class="whatsapp-float" aria-label="Conversar no WhatsApp">
+  <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20fazer%20um%20orçamento." target="_blank"
+    class="whatsapp-float" aria-label="Conversar no WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
 
   <!-- ─── SCRIPT DE INTERAÇÕES E ANIMAÇÕES ─── -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      
+
       // 1. Controle do Cursor Personalizado
       const cursor = document.getElementById('customCursor');
       const ring = document.getElementById('customCursorRing');
-      
+
       if (cursor && ring) {
         let mouseX = 0, mouseY = 0;
         let ringX = 0, ringY = 0;
@@ -2437,7 +2061,7 @@
 
         // Adicionar eventos de hover nos botões e links
         function updateHoverListeners() {
-          const interactiveElements = document.querySelectorAll('a, button, input, textarea, .project-card, .metric-box, .wizard-opt-btn');
+          const interactiveElements = document.querySelectorAll('a, button, input, textarea, .project-card, .about-photo-frame');
           interactiveElements.forEach((el) => {
             el.addEventListener('mouseenter', () => {
               document.body.classList.add('hover-active');
@@ -2448,8 +2072,6 @@
           });
         }
         updateHoverListeners();
-        // Expõe para re-ouvir após mudanças dinâmicas
-        window.updateHoverListeners = updateHoverListeners;
       }
 
       // 2. Mudança de Estilo no Header ao Scroll
@@ -2501,14 +2123,13 @@
       const themeToggleBtn = document.getElementById('themeToggleBtn');
       const savedTheme = localStorage.getItem('theme');
 
-      // Aplica tema salvo no load
       if (savedTheme === 'dark') {
         document.body.classList.add('dark-theme');
       }
 
       themeToggleBtn.addEventListener('click', () => {
         document.body.classList.toggle('dark-theme');
-        
+
         if (document.body.classList.contains('dark-theme')) {
           localStorage.setItem('theme', 'dark');
         } else {
@@ -2527,185 +2148,35 @@
         window.addEventListener('scroll', () => {
           const rect = constructionSection.getBoundingClientRect();
           const windowHeight = window.innerHeight;
-          
+
           if (rect.top < windowHeight && rect.bottom > 0) {
-            // Progresso de entrada da seção na viewport (0 a 1)
             let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
             progress = Math.max(0, Math.min(1, progress));
-            
-            // Focando a animação no meio da rolagem (ex: entre 0.15 e 0.65 de progresso)
+
             let stage = (progress - 0.15) / 0.5;
             stage = Math.max(0, Math.min(1, stage));
-            
-            // Header: vem de cima (-50px)
+
+            // Header: vem de cima
             mockHeader.style.transform = `translateY(${(1 - stage) * -60}px)`;
             mockHeader.style.opacity = stage;
-            
-            // Hero: vem da esquerda (-100px)
+
+            // Hero: vem da esquerda
             mockHero.style.transform = `translateX(${(1 - stage) * -100}px)`;
             mockHero.style.opacity = stage;
-            
-            // Grid: vem da direita (100px)
+
+            // Grid: vem da direita
             mockGrid.style.transform = `translateX(${(1 - stage) * 100}px)`;
             mockGrid.style.opacity = stage;
-            
-            // Footer: vem de baixo (50px)
+
+            // Footer: vem de baixo
             mockFooter.style.transform = `translateY(${(1 - stage) * 60}px)`;
             mockFooter.style.opacity = stage;
           }
         });
       }
 
-      // 7. Conversational Contact Wizard Logic
-      const wizard = document.getElementById('contactWizard');
-      if (wizard) {
-        const steps = wizard.querySelectorAll('.wizard-step');
-        const progressFill = document.getElementById('wizardProgressFill');
-        const btnPrev = document.getElementById('btnWizardPrev');
-        const btnNext = document.getElementById('btnWizardNext');
-        const btnSubmit = document.getElementById('btnSubmitBriefing');
-        
-        let currentStepNum = 1;
-        const totalSteps = steps.length;
-
-        // Dados coletados
-        const answers = {
-          projectType: '',
-          segment: '',
-          timeline: '',
-          name: ''
-        };
-
-        // Escuta clique nas opções dos passos 1, 2 e 3
-        wizard.querySelectorAll('.wizard-step:not([data-step="4"]) .wizard-opt-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const stepContainer = btn.closest('.wizard-step');
-            const stepNum = parseInt(stepContainer.getAttribute('data-step'));
-            
-            // Limpa seleções anteriores do mesmo passo
-            stepContainer.querySelectorAll('.wizard-opt-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            
-            const value = btn.getAttribute('data-value');
-            
-            // Salva a resposta correspondente
-            if (stepNum === 1) answers.projectType = value;
-            else if (stepNum === 2) answers.segment = value;
-            else if (stepNum === 3) answers.timeline = value;
-
-            // Auto-avançar nos passos de botão com leve delay para feedback visual
-            setTimeout(() => {
-              navigateStep(1);
-            }, 250);
-          });
-        });
-
-        // Atualiza botões e progresso
-        function updateWizardUI() {
-          // Barra de progresso
-          const progressPercentage = (currentStepNum / totalSteps) * 100;
-          progressFill.style.width = progressPercentage + '%';
-
-          // Botão voltar
-          btnPrev.disabled = currentStepNum === 1;
-
-          // Botão avançar/enviar
-          if (currentStepNum === totalSteps) {
-            btnNext.style.display = 'none';
-            
-            // Preenche o resumo do passo final
-            document.getElementById('sumProject').textContent = answers.projectType || 'Não definido';
-            document.getElementById('sumSegment').textContent = answers.segment || 'Não definido';
-            document.getElementById('sumTimeline').textContent = answers.timeline || 'Não definido';
-          } else {
-            btnNext.style.display = 'block';
-            btnNext.textContent = 'Avançar';
-          }
-
-          // Valida se o passo atual tem resposta antes de permitir avançar
-          validateCurrentStep();
-        }
-
-        function validateCurrentStep() {
-          let isValid = false;
-          if (currentStepNum === 1 && answers.projectType) isValid = true;
-          else if (currentStepNum === 2 && answers.segment) isValid = true;
-          else if (currentStepNum === 3 && answers.timeline) isValid = true;
-          else if (currentStepNum === 4) {
-            // No passo final, valida se o input do nome está preenchido
-            const nameInput = document.getElementById('wizardName');
-            isValid = nameInput.value.trim().length > 0;
-          }
-          btnNext.disabled = !isValid;
-        }
-
-        // Monitora input do nome no passo 4
-        const nameInput = document.getElementById('wizardName');
-        if (nameInput) {
-          nameInput.addEventListener('input', () => {
-            answers.name = nameInput.value.trim();
-            validateCurrentStep();
-          });
-        }
-
-        // Função de navegação com fade
-        function navigateStep(direction) {
-          const nextStepNum = currentStepNum + direction;
-          if (nextStepNum < 1 || nextStepNum > totalSteps) return;
-
-          const currentStep = wizard.querySelector(`.wizard-step[data-step="${currentStepNum}"]`);
-          const nextStep = wizard.querySelector(`.wizard-step[data-step="${nextStepNum}"]`);
-
-          if (currentStep && nextStep) {
-            currentStep.style.opacity = '0';
-            currentStep.style.transform = 'translateY(-15px)';
-            
-            setTimeout(() => {
-              currentStep.classList.remove('active');
-              
-              nextStep.classList.add('active');
-              // trigger reflow
-              nextStep.offsetHeight; 
-              nextStep.style.opacity = '1';
-              nextStep.style.transform = 'translateY(0)';
-              
-              currentStepNum = nextStepNum;
-              updateWizardUI();
-              if (window.updateHoverListeners) window.updateHoverListeners();
-            }, 250);
-          }
-        }
-
-        btnNext.addEventListener('click', () => navigateStep(1));
-        btnPrev.addEventListener('click', () => navigateStep(-1));
-
-        // Envio do Briefing para o WhatsApp
-        if (btnSubmit) {
-          btnSubmit.addEventListener('click', () => {
-            const name = answers.name || document.getElementById('wizardName').value.trim();
-            if (!name) {
-              alert('Por favor, preencha o seu nome para continuar.');
-              return;
-            }
-            
-            const messageText = `Olá Matheus! Me chamo *${name}*.\n\n` +
-                                `Preenchi o assistente de orçamento rápido no seu portfólio. Aqui está o resumo do meu briefing:\n\n` +
-                                `📂 *Tipo de site:* ${answers.projectType}\n` +
-                                `🏢 *Segmento:* ${answers.segment}\n` +
-                                `🗓️ *Estimativa de prazo:* ${answers.timeline}`;
-
-            const encodedMessage = encodeURIComponent(messageText);
-            const whatsappUrl = `https://wa.me/5544999071031?text=${encodedMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
-          });
-        }
-
-        // Inicializa estado do Wizard
-        updateWizardUI();
-      }
-
     });
   </script>
 </body>
+
 </html>
