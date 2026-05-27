@@ -985,6 +985,13 @@
       box-shadow: var(--shadow-sm);
     }
 
+    .project-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
     .project-card:hover {
       transform: translateY(-8px);
       box-shadow: var(--shadow-lg);
@@ -1457,6 +1464,7 @@
     }
 
     @keyframes iconFloat {
+
       0%,
       100% {
         transform: translateY(0);
@@ -1700,8 +1708,7 @@
           <div class="about-photo-container reveal">
             <div class="about-photo-frame">
               <!-- DICA: Para substituir por sua foto real, basta criar uma imagem com nome 'foto-perfil.jpg' na mesma pasta e alterar o src abaixo para 'foto-perfil.jpg' -->
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=matheus-lopes" alt="Matheus Lopes"
-                class="about-photo" />
+              <img src="foto_matheus.jpeg" alt="Matheus Lopes" class="about-photo" />
               <div class="about-photo-glow"></div>
             </div>
           </div>
@@ -1710,16 +1717,19 @@
           <div class="about-text reveal">
             <span class="section-label">Sobre mim</span>
             <h3>Quem é o Matheus?</h3>
-            <p>Olá! Sou o **Matheus Lopes**, estudante de Engenharia de Software na Faculdade UMC e desenvolvedor web
+            <p>Olá! Sou o Matheus Augusto, estudante de Análise e Desenvolvimento de Sistemas na Unicesumar e
+              desenvolvedor web
               freelancer. Minha missão é traduzir as necessidades do seu negócio em interfaces bonitas, rápidas e que
               transmitam profissionalismo.</p>
-            <p>Trabalho focando na experiência de uso e na clareza das informações, garantindo que seu cliente navegue
-              sem fricção e encontre facilmente o que busca.</p>
+            <p>Trabalho focando na experiência do usuário, confiabilidade, usabilidade e uma navegação fenomenal. Cada
+              projeto é único e desenvolvido de acordo com as necessidades do cliente, garantindo que ele tenha um site
+              que atenda às suas expectativas.</p>
 
             <h4 class="skills-title">Tecnologias principais</h4>
             <div class="skills-flex">
               <span class="skill-badge">HTML5</span>
               <span class="skill-badge">CSS3</span>
+              <span class="skill-badge">JavaScript</span>
               <span class="skill-badge">PHP</span>
               <span class="skill-badge">SQL</span>
             </div>
@@ -1849,7 +1859,7 @@
           <!-- Projeto 2 -->
           <div class="project-card reveal">
             <div class="project-thumb">
-              🏎️
+              <img src="foto-sennatech.png" alt="Preview Senna X1" class="project-img">
               <div class="thumb-glow"></div>
             </div>
             <div class="project-body">
@@ -1871,7 +1881,7 @@
           <!-- Projeto 3 -->
           <div class="project-card reveal">
             <div class="project-thumb">
-              🔒
+              <img src="foto-site-seguro.png" alt="Preview Sites Seguros" class="project-img">
               <div class="thumb-glow"></div>
             </div>
             <div class="project-body">
@@ -1932,12 +1942,12 @@
           </div>
 
         </div>
-      </div>
+      </div>-->
     </section>
-          -->
 
-          <!-- ─── SEÇÃO CHAMADA PARA AÇÃO (CTA) INTEGRADA (Sem aspecto de propaganda - Img 3) ─── -->
-          <!--<section class="cta-section" id="cta-section">
+
+    <!-- ─── SEÇÃO CHAMADA PARA AÇÃO (CTA) INTEGRADA (Sem aspecto de propaganda - Img 3) ─── -->
+    <!--<section class="cta-section" id="cta-section">
       <div class="container-large">
         <div class="cta-content-v2 reveal">
           <span class="section-label">Design & Desenvolvimento</span>
@@ -1961,53 +1971,58 @@
       </div>
     </section>-->
 
-          <!-- ─── SEÇÃO CONTATO (Pitch Direto Minimalista - Img 4) ─── -->
-          <section class="contact" id="contact">
-            <div class="container-large">
-              <div class="contact-wrap-v2 reveal">
-                <span class="section-label">Contato</span>
-                <h2>Vamos construir algo incrível juntos?</h2>
-                <p class="contact-pitch">Estou disponível para novos projetos freelancer. Se você precisa de um site
-                  exclusivo, rápido e otimizado que passe autoridade, entre em contato comigo pelo WhatsApp.</p>
+    <!-- ─── SEÇÃO CONTATO (Pitch Direto Minimalista - Img 4) ─── -->
+    <section class="contact" id="contact">
+      <div class="container-large">
+        <div class="contact-wrap-v2 reveal">
+          <span class="section-label">Contato</span>
+          <h2>Vamos construir algo juntos?</h2>
+          <p class="contact-pitch">Estou disponível para novos projetos freelancer. Se você precisa de um site
+            exclusivo, rápido e otimizado que passe autoridade, entre em contato comigo pelo WhatsApp.</p>
 
-                <!-- Botão Principal Destaque de Conversa -->
-                <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
-                  target="_blank" class="contact-main-btn">
-                  <i class="fab fa-whatsapp"></i> Iniciar conversa no WhatsApp
-                </a>
+          <!-- Botão Principal Destaque de Conversa -->
+          <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
+            target="_blank" class="contact-main-btn">
+            <i class="fab fa-whatsapp"></i> Iniciar conversa no WhatsApp
+          </a>
 
-                <!-- Grade de Informações e Links Minimalista -->
-                <div class="contact-links-grid-v2">
-                  <a href="mailto:matheus.augusto5117@gmail.com" class="contact-link-item-v2" aria-label="Email"
-                    title="Email">
-                    <i class="far fa-envelope"></i>
-                    <span class="sr-only">matheus.augusto5117@gmail.com</span>
-                  </a>
-                  <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank"
-                    class="contact-link-item-v2" aria-label="LinkedIn" title="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                    <span class="sr-only">linkedin.com/in/matheus-lopes</span>
-                  </a>
-                  <a href="https://github.com/matheusaug2007" target="_blank" class="contact-link-item-v2"
-                    aria-label="GitHub" title="GitHub">
-                    <i class="fab fa-github"></i>
-                    <span class="sr-only">github.com/matheusaug2007</span>
-                  </a>
-                  <div class="contact-link-item-v2 loc-item" style="cursor: default;" aria-label="Localização"
-                    title="Mandaguari, PR · Brasil">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span class="sr-only">Mandaguari, PR · Brasil</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+          <!-- Grade de Informações e Links Minimalista -->
+          <div class="contact-links-grid-v2">
+            <a href="mailto:matheus.augusto5117@gmail.com" class="contact-link-item-v2" aria-label="Email"
+              title="Email">
+              <i class="far fa-envelope"></i>
+              <span class="sr-only">matheus.augusto5117@gmail.com</span>
+            </a>
+            <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank"
+              class="contact-link-item-v2" aria-label="LinkedIn" title="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+              <span class="sr-only">linkedin.com/in/matheus-lopes</span>
+            </a>
+            <a href="https://github.com/matheusaug2007" target="_blank" class="contact-link-item-v2" aria-label="GitHub"
+              title="GitHub">
+              <i class="fab fa-github"></i>
+              <span class="sr-only">github.com/matheusaug2007</span>
+            </a>
+            <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
+              target="_blank" class="contact-link-item-v2" aria-label="WhatsApp" title="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+              <span class="sr-only">WhatsApp</span>
+            </a>
+            <!-- <div class="contact-link-item-v2 loc-item" style="cursor: default;" aria-label="Localização"
+              title="Mandaguari, PR · Brasil">
+              <i class="fas fa-map-marker-alt"></i>
+              <span class="sr-only">Mandaguari, PR · Brasil</span>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ─── FOOTER ─── -->
   <footer>
     <div class="footer-container">
-      <div class="footer-top">
+      <!--<div class="footer-top">
         <a href="#home" class="logo">Matheus<span>.</span>dev</a>
         <div class="footer-socials">
           <a href="https://wa.me/5544999071031" target="_blank" class="social-icon-btn" aria-label="WhatsApp"><i
@@ -2017,10 +2032,12 @@
           <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank" class="social-icon-btn"
             aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
-      </div>
+      </div>-->
       <div class="footer-bottom">
-        <p>&copy; 2026 <strong>Matheus Lopes</strong>. Todos os direitos reservados.</p>
+        <a href="#home" class="logo">Matheus<span>.</span>dev</a>
         <p>Desenvolvido com foco em performance e design clean.</p>
+        <p>&copy; 2026 <strong>Matheus Lopes</strong>. Todos os direitos reservados.</p>
+
       </div>
     </div>
   </footer>
