@@ -1,0 +1,2711 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfólio de Matheus Lopes - Desenvolvedor Web e Criador de Sites de Alto Padrão. Design exclusivo, performance excelente e SEO otimizado." />
+  <title>Matheus Lopes — Desenvolvedor Web & Portfolio</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome para Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* ─── VARIÁVEIS E TOKENS DE DESIGN (Light Mode Default) ─── */
+    :root {
+      --primary: #0066ff;
+      --primary-light: #e6f0ff;
+      --primary-dark: #0052cc;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --text-primary: #0a2540;
+      --text-secondary: #64748b;
+      --border: rgba(0, 102, 255, 0.08);
+      --border-strong: #e2e8f0;
+      --shadow-color: rgba(0, 102, 255, 0.04);
+      --glass-bg: rgba(255, 255, 255, 0.85);
+      --glass-border: rgba(0, 102, 255, 0.08);
+      
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      
+      --shadow-sm: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color);
+      --shadow-md: 0 10px 20px -3px var(--shadow-color), 0 4px 8px -2px var(--shadow-color);
+      --shadow-lg: 0 20px 30px -5px var(--shadow-color), 0 10px 15px -5px var(--shadow-color);
+    }
+
+    /* ─── TOKENS DE DESIGN (Dark Mode Override) ─── */
+    body.dark-theme {
+      --bg-primary: #090a0f;
+      --bg-secondary: #12141c;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-strong: #1e293b;
+      --shadow-color: rgba(0, 0, 0, 0.4);
+      --glass-bg: rgba(9, 10, 15, 0.85);
+      --glass-border: rgba(255, 255, 255, 0.06);
+      --primary-light: rgba(0, 102, 255, 0.15);
+    }
+
+    /* ─── RESET E CONFIGURAÇÕES GERAIS ─── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      line-height: 1.6;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ─── CURSOR PERSONALIZADO (Apenas Desktop) ─── */
+    .cursor {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, background-color 0.2s;
+      display: none;
+    }
+    .cursor-ring {
+      width: 32px;
+      height: 32px;
+      border: 1.5px solid var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+      display: none;
+    }
+    
+    @media (hover: hover) and (pointer: fine) {
+      .cursor, .cursor-ring {
+        display: block;
+      }
+    }
+
+    body.hover-active .cursor {
+      transform: translate(-50%, -50%) scale(1.8);
+      background-color: var(--primary-dark);
+    }
+    body.hover-active .cursor-ring {
+      transform: translate(-50%, -50%) scale(1.6);
+      border-color: var(--primary-dark);
+      background-color: rgba(0, 102, 255, 0.05);
+    }
+
+    /* ─── HEADER / MENU ─── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 24px 8%;
+    }
+
+    header.scrolled {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 16px 8%;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .theme-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Botão Dark Mode */
+    .theme-toggle {
+      background: none;
+      border: 1.5px solid var(--border-strong);
+      color: var(--text-primary);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    body.dark-theme .moon-icon { display: none !important; }
+    body.dark-theme .sun-icon { display: block !important; }
+    body:not(.dark-theme) .sun-icon { display: none !important; }
+    body:not(.dark-theme) .moon-icon { display: block !important; }
+
+    .nav-btn {
+      background-color: var(--text-primary);
+      color: var(--bg-primary);
+      padding: 10px 24px;
+      border-radius: var(--radius-lg);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid var(--text-primary);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-btn:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Menu Hambúrguer */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background-color: var(--text-primary);
+      transition: var(--transition);
+    }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 140px 8% 80px;
+      background: radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.05) 0%, transparent 60%);
+      overflow: hidden;
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-content {
+      z-index: 2;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      border: 1px solid rgba(0, 102, 255, 0.12);
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .badge-status .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .badge-status .pulse-dot::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--primary);
+      border-radius: 50%;
+      animation: dotPulse 1.8s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease 0.1s both;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin-bottom: 40px;
+      font-weight: 400;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      border: 1px solid var(--primary);
+      box-shadow: 0 10px 20px rgba(0, 102, 255, 0.15);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 102, 255, 0.25);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1.5px solid var(--border-strong);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-primary);
+      background-color: rgba(0, 102, 255, 0.02);
+      transform: translateY(-2px);
+    }
+
+    /* Mockup da Ilustração */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: floatHero 6s ease-in-out infinite;
+    }
+
+    .mockup-container {
+      background: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 4 / 3;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.4s;
+    }
+
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+      border-bottom: 1.5px solid var(--bg-secondary);
+      padding-bottom: 12px;
+    }
+
+    .mockup-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--border-strong);
+    }
+    .mockup-dot:nth-child(1) { background-color: #ff5f56; }
+    .mockup-dot:nth-child(2) { background-color: #ffbd2e; }
+    .mockup-dot:nth-child(3) { background-color: #27c93f; }
+
+    .mockup-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mockup-block {
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+    }
+
+    .mockup-banner {
+      height: 70px;
+      background: linear-gradient(135deg, rgba(0, 102, 255, 0.03), rgba(0, 102, 255, 0.12));
+      border: 1px dashed var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mockup-banner::before {
+      content: '⚡ Code + Design';
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .mockup-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+    }
+
+    .mockup-text-line {
+      height: 12px;
+      background-color: var(--border-strong);
+      border-radius: 6px;
+    }
+
+    .mockup-text-line.short {
+      width: 60%;
+    }
+
+    .mockup-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      margin-left: auto;
+      box-shadow: 0 6px 12px rgba(0, 102, 255, 0.2);
+    }
+
+    .mockup-floating-card {
+      position: absolute;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: 14px 18px;
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background-color 0.4s;
+    }
+
+    .card-seo {
+      bottom: -10px;
+      left: -15px;
+      animation: floatCard 4s ease-in-out infinite alternate;
+    }
+
+    .card-speed {
+      top: 40px;
+      right: -15px;
+      animation: floatCard 4s ease-in-out infinite alternate-reverse;
+    }
+
+    .card-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .card-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-info span:first-child {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .card-info span:last-child {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* ─── SEÇÕES E ESTRUTURAS GERAIS ─── */
+    section {
+      padding: 100px 8%;
+    }
+
+    .container-large {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 60px;
+      max-width: 600px;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -1px;
+      line-height: 1.2;
+    }
+
+    /* ─── REVEAL AO SCROLL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── SOBRE MIM (Redesenhado Simplificado - Img 1) ─── */
+    .about {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background-color 0.4s;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    /* Métricas Minimalistas expostas direto no fundo */
+    .about-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .metric-box {
+      border: 1px solid var(--border);
+      background-color: var(--bg-primary);
+      padding: 30px 24px;
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+
+    .metric-box:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    .metric-num {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -1px;
+    }
+
+    .metric-lbl {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .about-text h3 {
+      font-size: clamp(1.8rem, 3vw, 2.3rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 24px;
+      letter-spacing: -0.8px;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .skills-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .skills-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-badge {
+      background-color: var(--bg-primary);
+      border: 1.5px solid var(--border-strong);
+      padding: 8px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+
+    .skill-badge:hover {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ─── SEÇÃO CONSTRUÇÃO (Animação de Scroll) ─── */
+    .construction-section {
+      background-color: var(--bg-primary);
+      border-bottom: 1px solid var(--border);
+      transition: background-color 0.4s;
+    }
+
+    .construction-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .construction-text h2 {
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      letter-spacing: -1.5px;
+    }
+
+    .construction-text p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      margin-bottom: 30px;
+    }
+
+    .construction-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .const-step-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .const-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .const-step-info h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .const-step-info p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Mockup do Navegador que se Monta */
+    .browser-assembly {
+      width: 100%;
+      max-width: 480px;
+      height: 340px;
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--border-strong);
+      box-shadow: var(--shadow-lg);
+      margin: 0 auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .browser-bar {
+      height: 36px;
+      background-color: var(--border-strong);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 6px;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .browser-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .browser-dot.red { background-color: #ff5f56; }
+    .browser-dot.yellow { background-color: #ffbd2e; }
+    .browser-dot.green { background-color: #27c93f; }
+
+    .browser-content-mock {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+      position: relative;
+    }
+
+    .mock-el {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .mock-header {
+      height: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .mock-logo {
+      width: 36px;
+      height: 8px;
+      background-color: var(--primary);
+      border-radius: 4px;
+    }
+
+    .mock-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mock-nav-item {
+      width: 14px;
+      height: 6px;
+      background-color: var(--border-strong);
+      border-radius: 3px;
+    }
+
+    .mock-hero {
+      height: 100px;
+      background: linear-gradient(135deg, rgba(0, 102, 255, 0.02), rgba(0, 102, 255, 0.08));
+      border: 1px dashed var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+    }
+
+    .mock-hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 60%;
+    }
+
+    .mock-line-title {
+      height: 10px;
+      background-color: var(--text-primary);
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    .mock-line-text {
+      height: 6px;
+      background-color: var(--text-secondary);
+      border-radius: 3px;
+      width: 70%;
+    }
+
+    .mock-hero-btn {
+      width: 32px;
+      height: 12px;
+      background-color: var(--primary);
+      border-radius: 6px;
+    }
+
+    .mock-hero-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background-color: var(--primary-light);
+    }
+
+    .mock-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: transparent;
+      border: none;
+    }
+
+    .mock-card {
+      height: 70px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      border: 1px solid var(--border);
+      background-color: var(--bg-primary);
+      border-radius: var(--radius-sm);
+    }
+
+    .mock-card-title {
+      height: 8px;
+      background-color: var(--text-primary);
+      border-radius: 4px;
+      width: 50%;
+    }
+
+    .mock-card-body {
+      height: 6px;
+      background-color: var(--text-secondary);
+      border-radius: 3px;
+      width: 90%;
+    }
+
+    .mock-footer {
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--border-strong);
+      border: none;
+    }
+
+    .mock-footer-line {
+      width: 80px;
+      height: 5px;
+      background-color: var(--text-secondary);
+      border-radius: 3px;
+      opacity: 0.4;
+    }
+
+    /* ─── SEÇÃO PROJETOS (No topo de Serviços) ─── */
+    .projects {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background-color 0.4s;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      background-color: var(--bg-primary);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+
+    .project-thumb {
+      height: 220px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, #001f4d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .project-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, transparent 60%);
+    }
+
+    .project-thumb .thumb-glow {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      background-color: var(--primary);
+      filter: blur(50px);
+      opacity: 0.15;
+      transition: var(--transition);
+    }
+
+    .project-card:hover .project-thumb .thumb-glow {
+      transform: scale(1.6);
+      opacity: 0.3;
+    }
+
+    .project-body {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .project-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .project-tag {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+      transition: var(--transition);
+      align-self: flex-start;
+    }
+
+    .project-link i {
+      transition: var(--transition);
+    }
+
+    .project-card:hover .project-link {
+      color: var(--primary-dark);
+    }
+
+    .project-card:hover .project-link i {
+      transform: translateX(4px);
+    }
+
+    /* ─── CHAMADA PARA AÇÃO (CTA) VISUAL MELHORADA (Img 2) ─── */
+    .cta-visual {
+      background-color: var(--bg-primary);
+      transition: background-color 0.4s;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, #090a0f 0%, #00173b 100%);
+      border-radius: var(--radius-lg);
+      padding: 80px 60px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 102, 255, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .cta-left {
+      z-index: 2;
+    }
+
+    .cta-left h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      letter-spacing: -1.5px;
+      margin-bottom: 20px;
+    }
+
+    .cta-left p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.1rem;
+      max-width: 580px;
+      margin-bottom: 36px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .cta-features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .cta-feat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 500;
+    }
+
+    .cta-feat-item i {
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .cta-btn-wrap {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-cta-whatsapp {
+      background-color: var(--primary);
+      color: #ffffff;
+      border: 1px solid var(--primary);
+      box-shadow: 0 8px 16px rgba(0, 102, 255, 0.2);
+    }
+
+    .btn-cta-whatsapp:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 102, 255, 0.4);
+    }
+
+    .btn-cta-ghost {
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      background-color: transparent;
+    }
+
+    .btn-cta-ghost:hover {
+      border-color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Stack de Cartões com Glassmorphism no CTA */
+    .cta-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .cta-glass-stack {
+      width: 320px;
+      height: 280px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .glass-stack-card {
+      position: absolute;
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      transition: var(--transition);
+      color: #ffffff;
+    }
+
+    .card-perf {
+      background: rgba(255, 255, 255, 0.06);
+      width: 170px;
+      padding: 16px;
+      top: 20px;
+      left: 10px;
+      transform: rotate(-6deg);
+      z-index: 3;
+      animation: floatStack1 5s ease-in-out infinite alternate;
+    }
+
+    .card-perf-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: 500;
+    }
+
+    .card-perf-header i { color: #27c93f; }
+
+    .card-perf-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin: 4px 0;
+    }
+
+    .card-perf-sub {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .card-design {
+      background: rgba(255, 255, 255, 0.08);
+      width: 190px;
+      padding: 18px;
+      bottom: 20px;
+      right: 10px;
+      transform: rotate(4deg);
+      z-index: 2;
+      animation: floatStack2 6s ease-in-out infinite alternate;
+    }
+
+    .card-design-tag {
+      font-size: 0.7rem;
+      background-color: var(--primary);
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card-design-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .card-design-dots {
+      display: flex;
+      gap: 4px;
+      margin-top: 10px;
+    }
+    .card-design-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .card-seo-glass {
+      background: linear-gradient(135deg, rgba(0, 102, 255, 0.3), rgba(0, 102, 255, 0.1));
+      width: 170px;
+      padding: 12px 16px;
+      top: 90px;
+      right: 40px;
+      transform: rotate(-12deg);
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      animation: floatStack3 4s ease-in-out infinite alternate;
+    }
+
+    .card-seo-glass i { color: #ffbd2e; }
+
+    .cta-card:hover .card-perf { transform: rotate(-2deg) translateY(-8px) translateX(-4px); }
+    .cta-card:hover .card-design { transform: rotate(1deg) translateY(8px) translateX(4px); }
+    .cta-card:hover .card-seo-glass { transform: rotate(-8deg) scale(1.05); }
+
+    /* ─── SEÇÃO CONTATO COM WIZARD PASSO A PASSO (Img 3) ─── */
+    .contact {
+      background-color: var(--bg-primary);
+      transition: background-color 0.4s;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.11fr;
+      gap: 80px;
+    }
+
+    .contact-info-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .contact-sub-text {
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      font-size: 1.05rem;
+    }
+
+    .contact-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-item-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .contact-item-link:hover {
+      border-color: var(--primary);
+      background-color: var(--bg-primary);
+      box-shadow: var(--shadow-sm);
+      transform: translateX(4px);
+    }
+
+    .contact-icon-wrapper {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-primary);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .contact-item-link:hover .contact-icon-wrapper {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .contact-label {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-label span:first-child {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .contact-label span:last-child {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Painel do Wizard Conversacional */
+    .contact-wizard-panel {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: background-color 0.4s;
+    }
+
+    .wizard-progress {
+      height: 4px;
+      width: 100%;
+      background-color: var(--border-strong);
+      border-radius: 2px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wizard-progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 25%;
+      background-color: var(--primary);
+      transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .wizard-step {
+      display: none;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .wizard-step.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .wizard-step h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .wizard-step .step-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .wizard-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .wizard-opt-btn {
+      background-color: var(--bg-secondary);
+      border: 1.5px solid var(--border-strong);
+      color: var(--text-primary);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .wizard-opt-btn i {
+      color: var(--primary);
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .wizard-opt-btn:hover {
+      border-color: var(--primary);
+      background-color: var(--bg-primary);
+      transform: translateY(-2px);
+    }
+
+    .wizard-opt-btn.selected {
+      background-color: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .wizard-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-strong);
+    }
+
+    .btn-wizard-nav {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-wizard-prev {
+      background-color: transparent;
+      color: var(--text-secondary);
+      border: none;
+    }
+
+    .btn-wizard-prev:hover:not(:disabled) {
+      color: var(--text-primary);
+    }
+
+    .btn-wizard-prev:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-wizard-next {
+      background-color: var(--text-primary);
+      color: var(--bg-primary);
+      border: 1px solid var(--text-primary);
+    }
+
+    .btn-wizard-next:hover:not(:disabled) {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-wizard-next:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Inputs de texto no Wizard */
+    .wizard-input-group {
+      margin-bottom: 16px;
+    }
+
+    .wizard-input-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .wizard-text-input {
+      width: 100%;
+      padding: 14px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      background-color: var(--bg-secondary);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .wizard-text-input:focus {
+      border-color: var(--primary);
+      background-color: var(--bg-primary);
+      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.08);
+    }
+
+    /* Tela de Resumo Final */
+    .summary-card {
+      background-color: var(--bg-secondary);
+      border: 1px dashed var(--primary);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 8px;
+    }
+
+    .summary-item:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .summary-label {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .summary-val {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .btn-whatsapp-send {
+      width: 100%;
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: var(--transition);
+      box-shadow: 0 8px 16px rgba(0, 102, 255, 0.15);
+    }
+
+    .btn-whatsapp-send:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 102, 255, 0.3);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background-color: var(--bg-secondary);
+      color: var(--text-secondary);
+      padding: 60px 8% 30px;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      transition: background-color 0.4s;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 30px;
+    }
+
+    .footer-logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
+
+    .footer-logo span {
+      color: var(--primary);
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+
+    .social-icon-btn:hover {
+      background-color: var(--primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.8rem;
+    }
+
+    .footer-bottom p strong {
+      color: var(--text-primary);
+    }
+
+    /* Botão Flutuante do WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 56px;
+      height: 56px;
+      background-color: #25d366;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+      z-index: 999;
+      transition: var(--transition);
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+    }
+
+    /* ─── ANIMAÇÕES KEYFRAMES ─── */
+    @keyframes dotPulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatHero {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes floatCard {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-8px); }
+    }
+
+    /* Cartões Flutuantes CTA */
+    @keyframes floatStack1 {
+      0% { transform: rotate(-6deg) translateY(0); }
+      100% { transform: rotate(-4deg) translateY(-6px); }
+    }
+    @keyframes floatStack2 {
+      0% { transform: rotate(4deg) translateY(0); }
+      100% { transform: rotate(2deg) translateY(8px); }
+    }
+    @keyframes floatStack3 {
+      0% { transform: rotate(-12deg) scale(1); }
+      100% { transform: rotate(-9deg) scale(1.03) translateY(-4px); }
+    }
+
+    /* ─── RESPONSIVIDADE (MEDIA QUERIES) ─── */
+    @media (max-width: 992px) {
+      header { padding: 20px 5%; }
+      header.scrolled { padding: 14px 5%; }
+      section { padding: 80px 5%; }
+      .hero { padding: 120px 5% 60px; }
+      
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero h1 { font-size: 3rem; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-visual { order: -1; }
+      
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .construction-grid { grid-template-columns: 1fr; gap: 40px; }
+      
+      .cta-card {
+        grid-template-columns: 1fr;
+        padding: 50px 30px;
+        text-align: center;
+      }
+      .cta-features-grid { justify-content: center; }
+      .cta-btn-wrap { justify-content: center; }
+      .cta-right { display: none; } /* Oculta stack visual no mobile */
+      
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 300px;
+        background-color: var(--bg-primary);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
+        flex-direction: column;
+        padding: 100px 40px;
+        transition: var(--transition);
+        z-index: 999;
+      }
+      .nav-links.active { right: 0; }
+      .nav-links a { font-size: 1.1rem; }
+      .nav-btn { display: none; }
+      
+      .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+      .menu-toggle.active span:nth-child(2) { opacity: 0; }
+      .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+      
+      .about-metrics-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      
+      .footer-top { flex-direction: column; align-items: center; text-align: center; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      
+      .contact-wizard-panel { padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor Personalizado -->
+  <div class="cursor" id="customCursor"></div>
+  <div class="cursor-ring" id="customCursorRing"></div>
+
+  <!-- ─── HEADER / NAV ─── -->
+  <header id="header">
+    <div class="nav-container">
+      <a href="#home" class="logo">Matheus<span>.</span>dev</a>
+      
+      <!-- Navegação Principal -->
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Início</a></li>
+          <li><a href="#about">Sobre</a></li>
+          <li><a href="#construcao">Processo</a></li>
+          <li><a href="#projects">Projetos</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+        
+        <div class="theme-actions">
+          <!-- Alternador de Tema -->
+          <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar Tema">
+            <i class="far fa-moon moon-icon"></i>
+            <i class="far fa-sun sun-icon"></i>
+          </button>
+          
+          <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto." target="_blank" class="nav-btn">
+            <i class="fab fa-whatsapp"></i> Mandar Whats
+          </a>
+        </div>
+      </nav>
+
+      <!-- Botão Hambúguer (Mobile) -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ─── HERO SECTION ─── -->
+    <section class="hero" id="home">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="badge-status">
+            <span class="pulse-dot"></span>
+            Disponível para novos projetos
+          </div>
+          <h1>Sites exclusivos que geram <span>resultados</span>.</h1>
+          <p class="hero-desc">Desenvolvedor Web criando projetos sob medida, com foco em design limpo, carregamento veloz e otimização SEO para impulsionar sua marca online.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Fazer Orçamento <i class="fas fa-arrow-right"></i></a>
+            <a href="#projects" class="btn btn-secondary">Ver Projetos</a>
+          </div>
+        </div>
+        
+        <!-- Ilustração Visual Hero -->
+        <div class="hero-visual">
+          <div class="mockup-container">
+            <div class="mockup-header">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-block mockup-banner"></div>
+              <div class="mockup-row">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div class="mockup-text-line"></div>
+                  <div class="mockup-text-line"></div>
+                  <div class="mockup-text-line short"></div>
+                </div>
+                <div class="mockup-circle"></div>
+              </div>
+              <div class="mockup-text-line" style="margin-top: 10px;"></div>
+              <div class="mockup-text-line short"></div>
+            </div>
+            
+            <div class="mockup-floating-card card-seo">
+              <div class="card-icon-box"><i class="fas fa-search"></i></div>
+              <div class="card-info">
+                <span>Google SEO</span>
+                <span>100/100 pontuação</span>
+              </div>
+            </div>
+            <div class="mockup-floating-card card-speed">
+              <div class="card-icon-box"><i class="fas fa-bolt"></i></div>
+              <div class="card-info">
+                <span>Carregamento</span>
+                <span>0.4s Ultra Veloz</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SOBRE MIM (Design Editorial Simplificado - Img 1) ─── -->
+    <section class="about" id="about">
+      <div class="container-large">
+        <div class="about-grid">
+          <!-- Coluna das métricas simplificadas direto no fundo -->
+          <div class="about-metrics-grid reveal">
+            <div class="metric-box">
+              <div class="metric-num">3+</div>
+              <div class="metric-lbl">Anos de Prática</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-num">12+</div>
+              <div class="metric-lbl">Projetos Feitos</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-num">100%</div>
+              <div class="metric-lbl">Sites Responsivos</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-num">UMC</div>
+              <div class="metric-lbl">Eng. Software</div>
+            </div>
+          </div>
+          
+          <!-- Coluna dos textos -->
+          <div class="about-text reveal">
+            <span class="section-label">Sobre mim</span>
+            <h3>Código limpo aliado à estética de alto nível.</h3>
+            <p>Olá! Sou o **Matheus Lopes**, estudante de Engenharia de Software na Faculdade UMC e desenvolvedor web freelancer. Minha missão é traduzir as necessidades do seu negócio em interfaces bonitas, rápidas e que transmitam profissionalismo.</p>
+            <p>Trabalho focando na experiência de uso e na clareza das informações, garantindo que seu cliente navegue sem fricção e encontre facilmente o que busca.</p>
+            
+            <h4 class="skills-title">Tecnologias principais</h4>
+            <div class="skills-flex">
+              <span class="skill-badge">HTML5 / CSS3</span>
+              <span class="skill-badge">JavaScript (ES6+)</span>
+              <span class="skill-badge">React</span>
+              <span class="skill-badge">Node.js</span>
+              <span class="skill-badge">PHP</span>
+              <span class="skill-badge">SQL</span>
+              <span class="skill-badge">UI/UX Design</span>
+              <span class="skill-badge">Git & GitHub</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SEÇÃO CONSTRUÇÃO (Animação de Scroll "Formando Site") ─── -->
+    <section class="construction-section" id="construcao">
+      <div class="container-large">
+        <div class="construction-grid">
+          <div class="construction-text reveal">
+            <span class="section-label">Como Trabalho</span>
+            <h2>Seu projeto construído passo a passo</h2>
+            <p>Acompanhe ao lado a simulação da montagem do código. Integro design refinado com código limpo de forma fluida.</p>
+            
+            <ul class="construction-steps">
+              <li class="const-step-item">
+                <div class="const-step-num">1</div>
+                <div class="const-step-info">
+                  <h4>Estrutura Limpa (Header)</h4>
+                  <p>Início com o posicionamento semântico de marcas e menus responsivos.</p>
+                </div>
+              </li>
+              <li class="const-step-item">
+                <div class="const-step-num">2</div>
+                <div class="const-step-info">
+                  <h4>Destaque Visual (Hero)</h4>
+                  <p>Adição de banner, textos persuasivos de alta legibilidade e botões de conversão.</p>
+                </div>
+              </li>
+              <li class="const-step-item">
+                <div class="const-step-num">3</div>
+                <div class="const-step-info">
+                  <h4>Componentização (Cards)</h4>
+                  <p>Organização de serviços e conteúdos em grades limpas e legíveis.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="construction-visual reveal">
+            <!-- Mockup do navegador onde os elementos vão se encaixar com o scroll -->
+            <div class="browser-assembly">
+              <div class="browser-bar">
+                <span class="browser-dot red"></span>
+                <span class="browser-dot yellow"></span>
+                <span class="browser-dot green"></span>
+              </div>
+              <div class="browser-content-mock">
+                <!-- Header (Mock) -->
+                <div class="mock-el mock-header">
+                  <div class="mock-logo"></div>
+                  <div class="mock-nav">
+                    <span class="mock-nav-item"></span>
+                    <span class="mock-nav-item"></span>
+                    <span class="mock-nav-item"></span>
+                  </div>
+                </div>
+                
+                <!-- Hero (Mock) -->
+                <div class="mock-el mock-hero">
+                  <div class="mock-hero-left">
+                    <div class="mock-line-title"></div>
+                    <div class="mock-line-text"></div>
+                    <div class="mock-hero-btn"></div>
+                  </div>
+                  <div class="mock-hero-img"></div>
+                </div>
+                
+                <!-- Grid (Mock) -->
+                <div class="mock-el mock-grid">
+                  <div class="mock-card">
+                    <div class="mock-card-title"></div>
+                    <div class="mock-card-body"></div>
+                  </div>
+                  <div class="mock-card">
+                    <div class="mock-card-title"></div>
+                    <div class="mock-card-body"></div>
+                  </div>
+                </div>
+                
+                <!-- Footer (Mock) -->
+                <div class="mock-el mock-footer">
+                  <div class="mock-footer-line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SEÇÃO PROJETOS (Substitui Serviços no topo) ─── -->
+    <section class="projects" id="projects">
+      <div class="container-large">
+        <div class="section-header reveal">
+          <span class="section-label">Portfólio</span>
+          <h2 class="section-title">Projetos Recentes</h2>
+        </div>
+        <div class="projects-grid">
+          
+          <!-- Projeto 1 -->
+          <div class="project-card reveal">
+            <div class="project-thumb">
+              ⛪
+              <div class="thumb-glow"></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">App de Liturgia</h3>
+              <p class="project-desc">App mobile-first planejado para gestão de escalas semanais e liturgia de cultos comunitários, com suporte a exportação de imagens.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML5/CSS3</span>
+                <span class="project-tag">JavaScript</span>
+                <span class="project-tag">html2canvas</span>
+                <span class="project-tag">PWA</span>
+              </div>
+              <a href="https://liturgia-culto.netlify.app" target="_blank" class="project-link">
+                Acessar projeto <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Projeto 2 -->
+          <div class="project-card reveal">
+            <div class="project-thumb">
+              🏎️
+              <div class="thumb-glow"></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Senna X1 — Smart Helmet</h3>
+              <p class="project-desc">Dashboard dinâmico integrado com biometria e IA para monitoramento de capacetes inteligentes em tempo real (Projeto Universitário).</p>
+              <div class="project-tags">
+                <span class="project-tag">React</span>
+                <span class="project-tag">IoT Integration</span>
+                <span class="project-tag">AI API</span>
+                <span class="project-tag">CSS Flex</span>
+              </div>
+              <a href="https://sennatechcassiano.netlify.app" target="_blank" class="project-link">
+                Acessar projeto <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Projeto 3 -->
+          <div class="project-card reveal">
+            <div class="project-thumb">
+              🔒
+              <div class="thumb-glow"></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Sites Seguros</h3>
+              <p class="project-desc">Website educacional interativo criado para conscientização de usuários leigos sobre segurança e prevenção de golpes virtuais.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML5/CSS3</span>
+                <span class="project-tag">JavaScript</span>
+                <span class="project-tag">Web Security</span>
+              </div>
+              <a href="https://identificacaodesitesseguros.netlify.app/" target="_blank" class="project-link">
+                Acessar projeto <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Projeto 4 -->
+          <div class="project-card reveal">
+            <div class="project-thumb">
+              🛍️
+              <div class="thumb-glow"></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Lemon Importados</h3>
+              <p class="project-desc">Catálogo de vendas mobile-first com sistema de checkout rápido integrado diretamente com a API do WhatsApp e painel de controle simples.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML5/CSS</span>
+                <span class="project-tag">Firebase DB</span>
+                <span class="project-tag">WhatsApp API</span>
+              </div>
+              <span class="project-link" style="opacity: 0.6; cursor: default;">
+                Desenvolvido Localmente
+              </span>
+            </div>
+          </div>
+
+          <!-- Projeto 5 -->
+          <div class="project-card reveal">
+            <div class="project-thumb">
+              🧵
+              <div class="thumb-glow"></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Fiação Cocari</h3>
+              <p class="project-desc">Redesign visual moderno e responsivo focado na homepage institucional da indústria têxtil, aplicando animações dinâmicas de rolagem.</p>
+              <div class="project-tags">
+                <span class="project-tag">CSS3 Grid</span>
+                <span class="project-tag">JavaScript</span>
+                <span class="project-tag">Scroll Animations</span>
+              </div>
+              <span class="project-link" style="opacity: 0.6; cursor: default;">
+                Redesign Institucional
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── CHAMADA PARA AÇÃO (CTA) VISUAL MELHORADA (Img 2) ─── -->
+    <section class="cta-visual" id="cta-section">
+      <div class="container-large">
+        <div class="cta-card reveal">
+          <div class="cta-left">
+            <span class="section-label" style="color: var(--primary);">Design & Desenvolvimento</span>
+            <h2>Deseja construir um site moderno e profissional?</h2>
+            <p>Desenvolvo soluções digitais personalizadas com foco em estética minimalista e resultados.</p>
+            
+            <div class="cta-features-grid">
+              <div class="cta-feat-item"><i class="fas fa-check-circle"></i> Design 100% Exclusivo</div>
+              <div class="cta-feat-item"><i class="fas fa-check-circle"></i> Otimizado para o Google (SEO)</div>
+              <div class="cta-feat-item"><i class="fas fa-check-circle"></i> Ultra Rápido no Mobile</div>
+              <div class="cta-feat-item"><i class="fas fa-check-circle"></i> Suporte Pós-Lançamento</div>
+            </div>
+
+            <div class="cta-btn-wrap">
+              <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Vi%20seu%20portfólio%20e%20gostaria%20de%20um%20orçamento%20para%20desenvolvimento%20de%20site." target="_blank" class="btn btn-cta-whatsapp">
+                <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
+              </a>
+              <a href="#contact" class="btn btn-cta-ghost">Fazer Briefing Rápido</a>
+            </div>
+          </div>
+          
+          <div class="cta-right">
+            <!-- Stack visual glassmorphic rico -->
+            <div class="cta-glass-stack">
+              <div class="glass-stack-card card-perf">
+                <div class="card-perf-header">
+                  <i class="fas fa-bolt"></i> Speed Score
+                </div>
+                <div class="card-perf-value">99%</div>
+                <div class="card-perf-sub">Otimização máxima</div>
+              </div>
+              
+              <div class="glass-stack-card card-design">
+                <div class="card-design-tag">UI/UX Design</div>
+                <div class="card-design-title">Layout Único</div>
+                <div class="card-design-dots">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+              
+              <div class="glass-stack-card card-seo-glass">
+                <i class="fas fa-search-dollar"></i>
+                <span>Google Rank #1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SEÇÃO CONTATO COM WIZARD PASSO A PASSO (Img 3) ─── -->
+    <section class="contact" id="contact">
+      <div class="container-large">
+        <div class="contact-grid">
+          
+          <div class="contact-info-panel reveal">
+            <div>
+              <span class="section-label">Contato</span>
+              <h2 class="section-title" style="margin-bottom: 20px;">Vamos iniciar uma conversa?</h2>
+              <p class="contact-sub-text">Use o assistente rápido ao lado para detalhar seu projeto de forma intuitiva, ou me chame diretamente pelos contatos abaixo.</p>
+            </div>
+            
+            <div class="contact-links-list">
+              <a href="https://wa.me/5544999071031" target="_blank" class="contact-item-link">
+                <div class="contact-icon-wrapper"><i class="fab fa-whatsapp"></i></div>
+                <div class="contact-label">
+                  <span>WhatsApp</span>
+                  <span>(44) 99907-1031</span>
+                </div>
+              </a>
+              <a href="mailto:matheus.augusto5117@gmail.com" class="contact-item-link">
+                <div class="contact-icon-wrapper"><i class="far fa-envelope"></i></div>
+                <div class="contact-label">
+                  <span>E-mail</span>
+                  <span>matheus.augusto5117@gmail.com</span>
+                </div>
+              </a>
+              <div class="contact-item-link" style="cursor: default;">
+                <div class="contact-icon-wrapper"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="contact-label">
+                  <span>Localização</span>
+                  <span>Mandaguari, PR · Brasil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wizard Conversacional Passo a Passo -->
+          <div class="contact-wizard-panel reveal" id="contactWizard">
+            <div class="wizard-progress">
+              <div class="wizard-progress-fill" id="wizardProgressFill"></div>
+            </div>
+
+            <!-- Passo 1: Tipo de Site -->
+            <div class="wizard-step active" data-step="1">
+              <h3>O que você deseja desenvolver?</h3>
+              <p class="step-desc">Selecione o tipo de projeto ideal para o seu momento atual.</p>
+              <div class="wizard-options">
+                <button type="button" class="wizard-opt-btn" data-value="Landing Page">
+                  <i class="fas fa-rocket"></i> Landing Page (Página única de Vendas)
+                </button>
+                <button type="button" class="wizard-opt-btn" data-value="Site Institucional">
+                  <i class="fas fa-building"></i> Site Institucional (Para empresas/profissionais)
+                </button>
+                <button type="button" class="wizard-opt-btn" data-value="Loja Virtual ou Catálogo">
+                  <i class="fas fa-shopping-cart"></i> Loja Virtual ou Catálogo de Produtos
+                </button>
+                <button type="button" class="wizard-opt-btn" data-value="Outro projeto">
+                  <i class="fas fa-ellipsis-h"></i> Outro projeto ou preciso de ajuda
+                </button>
+              </div>
+            </div>
+
+            <!-- Passo 2: Segmento de Negócio -->
+            <div class="wizard-step" data-step="2">
+              <h3>Qual o segmento do seu negócio?</h3>
+              <p class="step-desc">Isso ajuda a pensar no estilo visual e no direcionamento de design.</p>
+              <div class="wizard-options">
+                <button type="button" class="wizard-opt-btn" data-value="Serviços / Profissional Liberal">
+                  <i class="fas fa-user-tie"></i> Serviços / Consultor / Autônomo
+                </button>
+                <button type="button" class="wizard-opt-btn" data-value="Comércio / Vendas Físicas">
+                  <i class="fas fa-store"></i> Comércio Local ou Venda de Produtos
+                </button>
+                <button type="button" class="wizard-opt-btn" data-value="Tecnologia ou Startup">
+                  <i class="fas fa-laptop"></i> Startup / Tecnologia / Infoproduto
+                </button>
+                <button type="button" class="wizard-opt-btn" data-value="Outro Segmento">
+                  <i class="fas fa-briefcase"></i> Outros segmentos de mercado
+                </button>
+              </div>
+            </div>
+
+            <!-- Passo 3: Prazo / Urgência -->
+            <div class="wizard-step" data-step="3">
+              <h3>Qual a estimativa de prazo desejada?</h3>
+              <p class="step-desc">Entender seu prazo ajuda a organizar a escala de desenvolvimento.</p>
+              <div class="wizard-options">
+                <button type="button" class="wizard-opt-btn" data-value="Urgente (menos de 15 dias)">
+                  <i class="fas fa-bolt"></i> O quanto antes (Urgente) ⚡
+                </button>
+                <button type="button" class="wizard-opt-btn" data-value="Normal (até 30 dias)">
+                  <i class="fas fa-calendar-alt"></i> Em até 30 dias (Prazo ideal) 🗓️
+                </button>
+                <button type="button" class="wizard-opt-btn" data-value="Planejado (sem pressa)">
+                  <i class="fas fa-mug-hot"></i> Sem pressa, priorizo planejamento ☕
+                </button>
+              </div>
+            </div>
+
+            <!-- Passo 4: Nome e Envio -->
+            <div class="wizard-step" data-step="4">
+              <h3>Para finalizar, como te chamo?</h3>
+              <p class="step-desc">Seu briefing está pronto! Insira seu nome para gerar o envio.</p>
+              
+              <div class="wizard-input-group">
+                <label for="wizardName" class="wizard-input-label">Seu Nome Completo</label>
+                <input type="text" id="wizardName" class="wizard-text-input" placeholder="Ex: João Silva" required />
+              </div>
+
+              <div class="summary-card">
+                <div class="summary-item">
+                  <span class="summary-label">Projeto:</span>
+                  <span class="summary-val" id="sumProject">—</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-label">Segmento:</span>
+                  <span class="summary-val" id="sumSegment">—</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-label">Prazo:</span>
+                  <span class="summary-val" id="sumTimeline">—</span>
+                </div>
+              </div>
+
+              <button type="button" class="btn-whatsapp-send" id="btnSubmitBriefing">
+                Enviar Briefing por WhatsApp <i class="fab fa-whatsapp"></i>
+              </button>
+            </div>
+
+            <!-- Rodapé do Wizard (Navegação) -->
+            <div class="wizard-footer">
+              <button type="button" class="btn-wizard-nav btn-wizard-prev" id="btnWizardPrev" disabled>Voltar</button>
+              <button type="button" class="btn-wizard-nav btn-wizard-next" id="btnWizardNext">Avançar</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-top">
+        <a href="#home" class="logo">Matheus<span>.</span>dev</a>
+        <div class="footer-socials">
+          <a href="https://wa.me/5544999071031" target="_blank" class="social-icon-btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://github.com/matheusaug2007" target="_blank" class="social-icon-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank" class="social-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 <strong>Matheus Lopes</strong>. Todos os direitos reservados.</p>
+        <p>Desenvolvido com foco em performance e design clean.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão Flutuante de WhatsApp -->
+  <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20fazer%20um%20orçamento." target="_blank" class="whatsapp-float" aria-label="Conversar no WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- ─── SCRIPT DE INTERAÇÕES E ANIMAÇÕES ─── -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Controle do Cursor Personalizado
+      const cursor = document.getElementById('customCursor');
+      const ring = document.getElementById('customCursorRing');
+      
+      if (cursor && ring) {
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          cursor.style.left = mouseX + 'px';
+          cursor.style.top = mouseY + 'px';
+        });
+
+        function animateRing() {
+          ringX += (mouseX - ringX) * 0.15;
+          ringY += (mouseY - ringY) * 0.15;
+          ring.style.left = ringX + 'px';
+          ring.style.top = ringY + 'px';
+          requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        // Adicionar eventos de hover nos botões e links
+        function updateHoverListeners() {
+          const interactiveElements = document.querySelectorAll('a, button, input, textarea, .project-card, .metric-box, .wizard-opt-btn');
+          interactiveElements.forEach((el) => {
+            el.addEventListener('mouseenter', () => {
+              document.body.classList.add('hover-active');
+            });
+            el.addEventListener('mouseleave', () => {
+              document.body.classList.remove('hover-active');
+            });
+          });
+        }
+        updateHoverListeners();
+        // Expõe para re-ouvir após mudanças dinâmicas
+        window.updateHoverListeners = updateHoverListeners;
+      }
+
+      // 2. Mudança de Estilo no Header ao Scroll
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+
+      // 3. Menu Hambúrguer (Mobile)
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          menuToggle.classList.toggle('active');
+          navLinks.classList.toggle('active');
+        });
+
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+          link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+          });
+        });
+      }
+
+      // 4. Animação de Scroll (Intersection Observer)
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      reveals.forEach(el => observer.observe(el));
+
+      // 5. Dark Mode Logic
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
+      const savedTheme = localStorage.getItem('theme');
+
+      // Aplica tema salvo no load
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        
+        if (document.body.classList.contains('dark-theme')) {
+          localStorage.setItem('theme', 'dark');
+        } else {
+          localStorage.setItem('theme', 'light');
+        }
+      });
+
+      // 6. Animação de Scroll ("Site se formando" - Mockup)
+      const constructionSection = document.getElementById('construcao');
+      const mockHeader = document.querySelector('.mock-header');
+      const mockHero = document.querySelector('.mock-hero');
+      const mockGrid = document.querySelector('.mock-grid');
+      const mockFooter = document.querySelector('.mock-footer');
+
+      if (constructionSection && mockHeader && mockHero && mockGrid && mockFooter) {
+        window.addEventListener('scroll', () => {
+          const rect = constructionSection.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          
+          if (rect.top < windowHeight && rect.bottom > 0) {
+            // Progresso de entrada da seção na viewport (0 a 1)
+            let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+            progress = Math.max(0, Math.min(1, progress));
+            
+            // Focando a animação no meio da rolagem (ex: entre 0.15 e 0.65 de progresso)
+            let stage = (progress - 0.15) / 0.5;
+            stage = Math.max(0, Math.min(1, stage));
+            
+            // Header: vem de cima (-50px)
+            mockHeader.style.transform = `translateY(${(1 - stage) * -60}px)`;
+            mockHeader.style.opacity = stage;
+            
+            // Hero: vem da esquerda (-100px)
+            mockHero.style.transform = `translateX(${(1 - stage) * -100}px)`;
+            mockHero.style.opacity = stage;
+            
+            // Grid: vem da direita (100px)
+            mockGrid.style.transform = `translateX(${(1 - stage) * 100}px)`;
+            mockGrid.style.opacity = stage;
+            
+            // Footer: vem de baixo (50px)
+            mockFooter.style.transform = `translateY(${(1 - stage) * 60}px)`;
+            mockFooter.style.opacity = stage;
+          }
+        });
+      }
+
+      // 7. Conversational Contact Wizard Logic
+      const wizard = document.getElementById('contactWizard');
+      if (wizard) {
+        const steps = wizard.querySelectorAll('.wizard-step');
+        const progressFill = document.getElementById('wizardProgressFill');
+        const btnPrev = document.getElementById('btnWizardPrev');
+        const btnNext = document.getElementById('btnWizardNext');
+        const btnSubmit = document.getElementById('btnSubmitBriefing');
+        
+        let currentStepNum = 1;
+        const totalSteps = steps.length;
+
+        // Dados coletados
+        const answers = {
+          projectType: '',
+          segment: '',
+          timeline: '',
+          name: ''
+        };
+
+        // Escuta clique nas opções dos passos 1, 2 e 3
+        wizard.querySelectorAll('.wizard-step:not([data-step="4"]) .wizard-opt-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const stepContainer = btn.closest('.wizard-step');
+            const stepNum = parseInt(stepContainer.getAttribute('data-step'));
+            
+            // Limpa seleções anteriores do mesmo passo
+            stepContainer.querySelectorAll('.wizard-opt-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            
+            const value = btn.getAttribute('data-value');
+            
+            // Salva a resposta correspondente
+            if (stepNum === 1) answers.projectType = value;
+            else if (stepNum === 2) answers.segment = value;
+            else if (stepNum === 3) answers.timeline = value;
+
+            // Auto-avançar nos passos de botão com leve delay para feedback visual
+            setTimeout(() => {
+              navigateStep(1);
+            }, 250);
+          });
+        });
+
+        // Atualiza botões e progresso
+        function updateWizardUI() {
+          // Barra de progresso
+          const progressPercentage = (currentStepNum / totalSteps) * 100;
+          progressFill.style.width = progressPercentage + '%';
+
+          // Botão voltar
+          btnPrev.disabled = currentStepNum === 1;
+
+          // Botão avançar/enviar
+          if (currentStepNum === totalSteps) {
+            btnNext.style.display = 'none';
+            
+            // Preenche o resumo do passo final
+            document.getElementById('sumProject').textContent = answers.projectType || 'Não definido';
+            document.getElementById('sumSegment').textContent = answers.segment || 'Não definido';
+            document.getElementById('sumTimeline').textContent = answers.timeline || 'Não definido';
+          } else {
+            btnNext.style.display = 'block';
+            btnNext.textContent = 'Avançar';
+          }
+
+          // Valida se o passo atual tem resposta antes de permitir avançar
+          validateCurrentStep();
+        }
+
+        function validateCurrentStep() {
+          let isValid = false;
+          if (currentStepNum === 1 && answers.projectType) isValid = true;
+          else if (currentStepNum === 2 && answers.segment) isValid = true;
+          else if (currentStepNum === 3 && answers.timeline) isValid = true;
+          else if (currentStepNum === 4) {
+            // No passo final, valida se o input do nome está preenchido
+            const nameInput = document.getElementById('wizardName');
+            isValid = nameInput.value.trim().length > 0;
+          }
+          btnNext.disabled = !isValid;
+        }
+
+        // Monitora input do nome no passo 4
+        const nameInput = document.getElementById('wizardName');
+        if (nameInput) {
+          nameInput.addEventListener('input', () => {
+            answers.name = nameInput.value.trim();
+            validateCurrentStep();
+          });
+        }
+
+        // Função de navegação com fade
+        function navigateStep(direction) {
+          const nextStepNum = currentStepNum + direction;
+          if (nextStepNum < 1 || nextStepNum > totalSteps) return;
+
+          const currentStep = wizard.querySelector(`.wizard-step[data-step="${currentStepNum}"]`);
+          const nextStep = wizard.querySelector(`.wizard-step[data-step="${nextStepNum}"]`);
+
+          if (currentStep && nextStep) {
+            currentStep.style.opacity = '0';
+            currentStep.style.transform = 'translateY(-15px)';
+            
+            setTimeout(() => {
+              currentStep.classList.remove('active');
+              
+              nextStep.classList.add('active');
+              // trigger reflow
+              nextStep.offsetHeight; 
+              nextStep.style.opacity = '1';
+              nextStep.style.transform = 'translateY(0)';
+              
+              currentStepNum = nextStepNum;
+              updateWizardUI();
+              if (window.updateHoverListeners) window.updateHoverListeners();
+            }, 250);
+          }
+        }
+
+        btnNext.addEventListener('click', () => navigateStep(1));
+        btnPrev.addEventListener('click', () => navigateStep(-1));
+
+        // Envio do Briefing para o WhatsApp
+        if (btnSubmit) {
+          btnSubmit.addEventListener('click', () => {
+            const name = answers.name || document.getElementById('wizardName').value.trim();
+            if (!name) {
+              alert('Por favor, preencha o seu nome para continuar.');
+              return;
+            }
+            
+            const messageText = `Olá Matheus! Me chamo *${name}*.\n\n` +
+                                `Preenchi o assistente de orçamento rápido no seu portfólio. Aqui está o resumo do meu briefing:\n\n` +
+                                `📂 *Tipo de site:* ${answers.projectType}\n` +
+                                `🏢 *Segmento:* ${answers.segment}\n` +
+                                `🗓️ *Estimativa de prazo:* ${answers.timeline}`;
+
+            const encodedMessage = encodeURIComponent(messageText);
+            const whatsappUrl = `https://wa.me/5544999071031?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+          });
+        }
+
+        // Inicializa estado do Wizard
+        updateWizardUI();
+      }
+
+    });
+  </script>
+</body>
+</html>
