@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Portfólio de Matheus Lopes - Desenvolvedor Web e Criador de Sites de Alto Padrão. Design exclusivo, performance excelente e SEO otimizado." />
-  <title>Matheus Lopes — Desenvolvedor Web</title>
+  <title>Matheus Dev</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.webp" />
 
   <!-- Google Fonts: Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -218,39 +221,59 @@
       color: var(--text-primary);
     }
 
-    /* Alternador de Tema Minimalista (Sem círculos/bordas) */
+    /* Alternador de Tema Minimalista (Com transições premium) */
     .theme-toggle {
       background: none;
       border: none;
       color: var(--text-primary);
-      padding: 6px;
+      position: relative;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: var(--transition);
-      font-size: 1.15rem;
+      border-radius: 50%;
     }
 
     .theme-toggle:hover {
+      background-color: var(--primary-light);
       color: var(--primary);
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
 
-    body.dark-theme .moon-icon {
-      display: none !important;
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      position: absolute;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, stroke 0.3s ease;
     }
 
-    body.dark-theme .sun-icon {
-      display: block !important;
+    /* Transições dos ícones de tema */
+    body:not(.dark-theme) .moon-icon {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
     }
 
     body:not(.dark-theme) .sun-icon {
-      display: none !important;
+      opacity: 0;
+      transform: scale(0) rotate(-90deg);
     }
 
-    body:not(.dark-theme) .moon-icon {
-      display: block !important;
+    body.dark-theme .moon-icon {
+      opacity: 0;
+      transform: scale(0) rotate(90deg);
+    }
+
+    body.dark-theme .sun-icon {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
     }
 
     /* Menu Hamburguer */
@@ -1599,6 +1622,122 @@
         margin-right: auto;
       }
     }
+
+    @media (max-width: 480px) {
+
+      /* Espaçamentos mais compactos em celulares menores */
+      section {
+        padding: 60px 5%;
+      }
+
+      .hero {
+        padding: 110px 5% 40px;
+      }
+
+      /* Título Hero menor para não quebrar feio */
+      .hero h1 {
+        font-size: 2.1rem;
+        letter-spacing: -1px;
+      }
+
+      .hero-desc {
+        font-size: 1.05rem;
+        margin-bottom: 28px;
+      }
+
+      .badge-status {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        margin-bottom: 16px;
+      }
+
+      /* Títulos de seção menores */
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .about-text h3 {
+        font-size: 1.6rem;
+      }
+
+      .contact-wrap-v2 h2 {
+        font-size: 1.8rem;
+      }
+
+      .cta-content-v2 h2 {
+        font-size: 1.8rem;
+      }
+
+      /* Mockup Hero adaptado para telas estreitas */
+      .mockup-container {
+        max-width: 290px;
+        aspect-ratio: 4 / 3.2;
+        padding: 12px;
+      }
+
+      .mockup-banner {
+        height: 50px;
+      }
+
+      /* Ajuste dos cards flutuantes para não transbordar a tela */
+      .card-seo {
+        bottom: -8px;
+        left: -4px;
+        padding: 8px 12px;
+      }
+
+      .card-speed {
+        top: 25px;
+        right: -4px;
+        padding: 8px 12px;
+      }
+
+      .card-icon-box {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+      }
+
+      .card-info span:first-child {
+        font-size: 0.65rem;
+      }
+
+      .card-info span:last-child {
+        font-size: 0.8rem;
+      }
+
+      /* Correção na grade de contatos para telas pequenas */
+      .contact-links-grid-v2 {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding-top: 30px;
+        max-width: 320px;
+      }
+
+      .contact-link-item-v2 {
+        min-height: 64px;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+      }
+
+      .contact-link-item-v2 i {
+        font-size: 1.25rem;
+      }
+
+      /* Diminuir paddings de botões no mobile para caberem melhor lado a lado */
+      .btn {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+      }
+
+      .contact-main-btn {
+        padding: 14px 28px;
+        font-size: 0.95rem;
+        margin-bottom: 40px;
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 
@@ -1626,8 +1765,22 @@
         <div class="theme-actions">
           <!-- Alternador de Tema Minimalista -->
           <button class="theme-toggle" id="themeToggleBtn" aria-label="Alternar Tema">
-            <i class="far fa-moon moon-icon"></i>
-            <i class="far fa-sun sun-icon"></i>
+            <!-- Moon Icon (Lucide-style SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="moon-icon">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+            <!-- Sun Icon (Lucide-style SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="sun-icon">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
           </button>
         </div>
       </nav>
@@ -1650,9 +1803,9 @@
             <span class="pulse-dot"></span>
             Disponível para novos projetos
           </div>
-          <h1>Sites exclusivos que geram <span>resultados</span>.</h1>
-          <p class="hero-desc">Desenvolvedor Web criando projetos sob medida, com foco em design limpo, carregamento
-            veloz e otimização SEO para impulsionar sua marca online.</p>
+          <h1>Um pouco de mim e muito <span>código</span>.</h1>
+          <p class="hero-desc">Desenvolvedor Web criando projetos com foco em excelência e performance. Fazendo aquilo
+            que precisa ser feito.</p>
           <div class="hero-actions">
             <a href="#contact" class="btn btn-primary">Fale Comigo! <i class="fas fa-arrow-right"></i></a>
             <a href="#projects" class="btn btn-secondary">Ver Projetos</a>
@@ -1988,25 +2141,28 @@
 
           <!-- Grade de Informações e Links Minimalista -->
           <div class="contact-links-grid-v2">
-            <a href="mailto:matheus.augusto5117@gmail.com" class="contact-link-item-v2" aria-label="Email"
-              title="Email">
-              <i class="far fa-envelope"></i>
-              <span class="sr-only">matheus.augusto5117@gmail.com</span>
+            <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
+              target="_blank" class="contact-link-item-v2" aria-label="WhatsApp" title="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+              <span class="sr-only">WhatsApp</span>
             </a>
+
             <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank"
               class="contact-link-item-v2" aria-label="LinkedIn" title="LinkedIn">
               <i class="fab fa-linkedin-in"></i>
               <span class="sr-only">linkedin.com/in/matheus-lopes</span>
             </a>
+
             <a href="https://github.com/matheusaug2007" target="_blank" class="contact-link-item-v2" aria-label="GitHub"
               title="GitHub">
               <i class="fab fa-github"></i>
               <span class="sr-only">github.com/matheusaug2007</span>
             </a>
-            <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
-              target="_blank" class="contact-link-item-v2" aria-label="WhatsApp" title="WhatsApp">
-              <i class="fab fa-whatsapp"></i>
-              <span class="sr-only">WhatsApp</span>
+
+            <a href="mailto:matheus.augusto5117@gmail.com" class="contact-link-item-v2" aria-label="Email"
+              title="Email">
+              <i class="far fa-envelope"></i>
+              <span class="sr-only">matheus.augusto5117@gmail.com</span>
             </a>
             <!-- <div class="contact-link-item-v2 loc-item" style="cursor: default;" aria-label="Localização"
               title="Mandaguari, PR · Brasil">
