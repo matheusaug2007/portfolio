@@ -1249,7 +1249,6 @@ footer {
   }
 
   .hero-visual {
-    order: -1;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -1257,7 +1256,7 @@ footer {
 
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 20px;
   }
 
   .construction-grid {
@@ -1398,11 +1397,11 @@ footer {
 
   /* Foto de perfil responsiva */
   .about-photo-frame {
-    max-width: 220px;
+    max-width: 160px;
   }
 
   .about-photo-container {
-    margin-bottom: 24px;
+    margin-bottom: 12px;
   }
 
   .contact-wrap-v2 h2 {
