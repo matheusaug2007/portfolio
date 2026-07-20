@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Portfólio de Matheus Lopes - Desenvolvedor Web e Criador de Sites de Alto Padrão. Design exclusivo, performance excelente e SEO otimizado." />
+  <meta name="description" content="Portfólio de Matheus Lopes - Desenvolvedor Web." />
   <title>Matheus Dev</title>
 
   <!-- Favicon -->
@@ -24,6 +23,9 @@
 </head>
 
 <body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- Cursor Personalizado -->
   <div class="cursor" id="customCursor"></div>
@@ -79,13 +81,15 @@
   <main>
     <!-- ─── HERO SECTION ─── -->
     <section class="hero" id="home">
+      <!-- Canvas de Partículas -->
+      <canvas id="particlesCanvas" class="particles-canvas"></canvas>
       <div class="hero-container">
         <div class="hero-content">
           <div class="badge-status">
             <span class="pulse-dot"></span>
             Disponível para novos projetos
           </div>
-          <h1>Um pouco de mim e muito <span>código</span>.</h1>
+          <h1 id="heroTitle" class="typewriter-target">Um pouco de mim e muito <span>código</span>.</h1>
           <p class="hero-desc">Desenvolvedor Web criando projetos com foco em excelência e performance. Fazendo aquilo
             que precisa ser feito.</p>
           <div class="hero-actions">
@@ -119,15 +123,23 @@
       </div>
     </section>
 
+    <!-- Wave Separator: Hero → Sobre -->
+    <div class="wave-separator">
+      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <path class="wave-path" d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,50 1440,60 L1440,100 L0,100 Z"></path>
+      </svg>
+    </div>
+
     <!-- ─── SOBRE MIM (Com Moldura de Foto) ─── -->
     <section class="about" id="about">
       <div class="container-large">
         <div class="about-grid">
           <!-- Coluna da Foto com Moldura Minimalista -->
           <div class="about-photo-container reveal">
-            <div class="about-photo-frame">
-              <img src="foto_matheus.jpeg" alt="Matheus Lopes" class="about-photo" />
+            <div class="about-photo-frame scroll-reveal-photo" id="photoReveal">
+              <img src="matheus_bigode.jpeg" alt="Matheus Lopes" class="about-photo" />
               <div class="about-photo-glow"></div>
+              <div class="photo-reveal-mask" id="photoRevealMask"></div>
             </div>
           </div>
 
@@ -143,12 +155,12 @@
               que atenda às suas expectativas.</p>
 
             <h4 class="skills-title">Tecnologias principais</h4>
-            <div class="skills-flex">
-              <span class="skill-badge">HTML5</span>
-              <span class="skill-badge">CSS3</span>
-              <span class="skill-badge">JavaScript</span>
-              <span class="skill-badge">PHP</span>
-              <span class="skill-badge">SQL</span>
+            <div class="skills-flex stagger-container" id="skillsContainer">
+              <span class="skill-badge stagger-item">HTML5</span>
+              <span class="skill-badge stagger-item">CSS3</span>
+              <span class="skill-badge stagger-item">JavaScript</span>
+              <span class="skill-badge stagger-item">PHP</span>
+              <span class="skill-badge stagger-item">SQL</span>
             </div>
           </div>
         </div>
@@ -193,6 +205,13 @@
       </div>
     </section> -->
 
+    <!-- Wave Separator: Sobre → Projetos -->
+    <div class="wave-separator wave-flip">
+      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <path class="wave-path" d="M0,40 C240,100 480,0 720,50 C960,100 1200,20 1440,40 L1440,100 L0,100 Z"></path>
+      </svg>
+    </div>
+
     <!-- ─── SEÇÃO PROJETOS ─── -->
     <section class="projects" id="projects">
       <div class="container-large">
@@ -203,7 +222,7 @@
         <div class="projects-grid">
 
           <!-- Projeto 1 -->
-          <div class="project-card reveal">
+          <div class="project-card reveal tilt-card">
             <div class="project-thumb">
               <img src="foto-sennatech.png" alt="Preview Senna X1" class="project-img">
               <div class="thumb-glow"></div>
@@ -219,7 +238,7 @@
           </div>
 
           <!-- Projeto 2 -->
-          <div class="project-card reveal">
+          <div class="project-card reveal tilt-card">
             <div class="project-thumb">
               <img src="foto-site-seguro.png" alt="Preview Sites Seguros" class="project-img">
               <div class="thumb-glow"></div>
@@ -235,7 +254,7 @@
           </div>
 
           <!-- Projeto 3 -->
-          <div class="project-card reveal">
+          <div class="project-card reveal tilt-card">
             <div class="project-thumb">
               <img src="foto-ore-comigo.png" alt="Preview Pedido orecomigo" class="project-img">
               <div class="thumb-glow"></div>
@@ -254,14 +273,21 @@
       </div>
     </section>
 
+    <!-- Wave Separator: Projetos → Contato -->
+    <div class="wave-separator">
+      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <path class="wave-path" d="M0,50 C180,90 360,10 540,50 C720,90 900,10 1080,50 C1260,90 1380,30 1440,50 L1440,100 L0,100 Z"></path>
+      </svg>
+    </div>
+
     <!-- ─── SEÇÃO CONTATO ─── -->
     <section class="contact" id="contact">
       <div class="container-large">
         <div class="contact-wrap-v2 reveal">
           <span class="section-label">Contato</span>
           <h2>Vamos construir algo juntos?</h2>
-          <p class="contact-pitch">Estou disponível para novos projetos freelancer. Se você precisa de um site
-            exclusivo, rápido e otimizado que passe autoridade, entre em contato comigo pelo WhatsApp.</p>
+          <p class="contact-pitch">Estou disponível para novos projetos. Se você pensa em ter um site
+            personalizado, bonito e moderno, entre em contato comigo pelo WhatsApp!</p>
 
           <!-- Botão Principal Destaque de Conversa -->
           <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
@@ -272,24 +298,24 @@
           <!-- Grade de Informações e Links Minimalista -->
           <div class="contact-links-grid-v2">
             <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
-              target="_blank" class="contact-link-item-v2" aria-label="WhatsApp" title="WhatsApp">
+              target="_blank" class="contact-link-item-v2 magnetic" aria-label="WhatsApp" title="WhatsApp">
               <i class="fab fa-whatsapp"></i>
               <span class="sr-only">WhatsApp</span>
             </a>
 
             <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank"
-              class="contact-link-item-v2" aria-label="LinkedIn" title="LinkedIn">
+              class="contact-link-item-v2 magnetic" aria-label="LinkedIn" title="LinkedIn">
               <i class="fab fa-linkedin-in"></i>
               <span class="sr-only">linkedin.com/in/matheus-lopes</span>
             </a>
 
-            <a href="https://github.com/matheusaug2007" target="_blank" class="contact-link-item-v2" aria-label="GitHub"
+            <a href="https://github.com/matheusaug2007" target="_blank" class="contact-link-item-v2 magnetic" aria-label="GitHub"
               title="GitHub">
               <i class="fab fa-github"></i>
               <span class="sr-only">github.com/matheusaug2007</span>
             </a>
 
-            <a href="mailto:matheus.augusto5117@gmail.com" class="contact-link-item-v2" aria-label="Email"
+            <a href="mailto:matheus.augusto5117@gmail.com" class="contact-link-item-v2 magnetic" aria-label="Email"
               title="Email">
               <i class="far fa-envelope"></i>
               <span class="sr-only">matheus.augusto5117@gmail.com</span>
@@ -306,7 +332,7 @@
       <div class="footer-bottom">
         <a href="#home" class="logo">Matheus<span>.</span>dev</a>
         <p>Desenvolvido com foco em performance e design.</p>
-        <p>&copy; 2026 <strong>Matheus Lopes</strong>. Todos os direitos reservados.</p>
+        <p>&copy; 2026 <strong>Matheus Augusto</strong>. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>

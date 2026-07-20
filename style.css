@@ -1153,6 +1153,139 @@ footer {
   animation: iconFloat 2.6s ease-in-out infinite;
 }
 
+/* ─── SCROLL PROGRESS BAR ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), #00d4ff, var(--primary));
+  background-size: 200% 100%;
+  z-index: 10000;
+  transition: width 0.05s linear;
+  animation: progressGradient 3s linear infinite;
+  box-shadow: 0 0 10px rgba(0, 102, 255, 0.5), 0 0 20px rgba(0, 102, 255, 0.2);
+}
+
+/* ─── PARTÍCULAS CANVAS ─── */
+.particles-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── TYPEWRITER ─── */
+.typewriter-target {
+  overflow: hidden;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  background-color: var(--primary);
+  margin-left: 4px;
+  vertical-align: text-bottom;
+  animation: typewriterBlink 0.7s step-end infinite;
+}
+
+/* ─── WAVE SEPARATORS ─── */
+.wave-separator {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  margin-top: -2px;
+  margin-bottom: -2px;
+  z-index: 2;
+}
+
+.wave-separator svg {
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+.wave-separator .wave-path {
+  fill: var(--bg-secondary);
+  transition: fill 0.4s ease;
+}
+
+.wave-flip {
+  transform: scaleY(-1);
+}
+
+.wave-flip .wave-path {
+  fill: var(--bg-secondary);
+}
+
+/* Ajustar cor das waves de acordo com seções adjacentes */
+.hero + .wave-separator .wave-path {
+  fill: var(--bg-secondary);
+}
+
+/* ─── PHOTO REVEAL MASK ─── */
+.scroll-reveal-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.photo-reveal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-secondary);
+  z-index: 5;
+  transform-origin: top;
+  transition: transform 0.05s linear;
+}
+
+/* ─── TILT 3D CARDS ─── */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+.tilt-card .project-body,
+.tilt-card .project-thumb {
+  transform: translateZ(20px);
+}
+
+/* ─── STAGGER ANIMATION ─── */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1),
+              transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.stagger-item.stagger-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ─── EFEITO MAGNÉTICO ─── */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+/* ─── PARALLAX ELEMENTS ─── */
+.parallax-element {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
 /* ─── ANIMAÇÕES KEYFRAMES ─── */
 @keyframes dotPulse {
   0% {
@@ -1202,6 +1335,45 @@ footer {
   }
   50% {
     transform: translateY(-3px);
+  }
+}
+
+@keyframes typewriterBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes progressGradient {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+@keyframes waveFloat {
+  0%, 100% { d: path('M0,60 C360,120 720,0 1080,60 C1260,90 1380,50 1440,60 L1440,100 L0,100 Z'); }
+  50% { d: path('M0,50 C360,0 720,100 1080,50 C1260,20 1380,70 1440,50 L1440,100 L0,100 Z'); }
+}
+
+/* ─── ACESSIBILIDADE: RESPEITAR prefers-reduced-motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress,
+  .particles-canvas,
+  .typewriter-cursor,
+  .stagger-item,
+  .tilt-card,
+  .magnetic,
+  .photo-reveal-mask,
+  .wave-separator .wave-path {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .stagger-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .photo-reveal-mask {
+    display: none !important;
   }
 }
 
