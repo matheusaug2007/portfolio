@@ -101,11 +101,10 @@
         <div class="hero-content">
           <div class="badge-status">
             <span class="pulse-dot"></span>
-            Disponível para novos projetos
+            <span data-content="hero_badge">Disponível para novos projetos</span>
           </div>
           <h1 id="heroTitle" class="typewriter-target">Um pouco de mim e muito <span>código</span>.</h1>
-          <p class="hero-desc">Desenvolvedor Web criando projetos com foco em excelência e performance. Fazendo aquilo
-            que precisa ser feito.</p>
+          <p class="hero-desc" data-content="hero_desc">Desenvolvedor Web criando projetos com foco em excelência e performance. Fazendo aquilo que precisa ser feito.</p>
           <div class="hero-actions">
             <a href="#contact" class="btn btn-primary">Fale Comigo! <i class="fas fa-arrow-right"></i></a>
             <a href="#projects" class="btn btn-secondary">Ver Projetos</a>
@@ -160,11 +159,11 @@
           <!-- Coluna dos textos -->
           <div class="about-text reveal">
             <span class="section-label">Sobre mim</span>
-            <h2>Quem é o Matheus?</h2>
-            <p>Olá! Sou o Matheus Augusto, estudante de Análise e Desenvolvimento de Sistemas na Unicesumar e
+            <h2 data-content="about_title">Quem é o Matheus?</h2>
+            <p data-content="about_p1">Olá! Sou o Matheus Augusto, estudante de Análise e Desenvolvimento de Sistemas na Unicesumar e
               desenvolvedor web freelancer. Minha missão é traduzir as necessidades do seu negócio em interfaces
               bonitas, rápidas e que transmitam profissionalismo.</p>
-            <p>Trabalho focando na experiência do usuário, confiabilidade, usabilidade e uma navegação fenomenal. Cada
+            <p data-content="about_p2">Trabalho focando na experiência do usuário, confiabilidade, usabilidade e uma navegação fenomenal. Cada
               projeto é único e desenvolvido de acordo com as necessidades do cliente, garantindo que ele tenha um site
               que atenda às suas expectativas.</p>
 
@@ -231,7 +230,7 @@
       <div class="container-large">
         <div class="section-header reveal">
           <span class="section-label">Portfólio</span>
-          <h2 class="section-title">Projetos Recentes</h2>
+          <h2 class="section-title" data-content="projects_title">Projetos Recentes</h2>
         </div>
         <div class="projects-grid">
 
@@ -300,31 +299,31 @@
       <div class="container-large">
         <div class="contact-wrap-v2 reveal">
           <span class="section-label">Contato</span>
-          <h2>Vamos construir algo juntos?</h2>
-          <p class="contact-pitch">Estou disponível para novos projetos. Se você pensa em ter um site
+          <h2 data-content="contact_title">Vamos construir algo juntos?</h2>
+          <p class="contact-pitch" data-content="contact_pitch">Estou disponível para novos projetos. Se você pensa em ter um site
             personalizado, bonito e moderno, entre em contato comigo pelo WhatsApp!</p>
 
           <!-- Botão Principal Destaque de Conversa -->
-          <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
+          <a data-wa href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
             target="_blank" rel="noopener noreferrer" class="contact-main-btn">
             <i class="fab fa-whatsapp"></i> Iniciar conversa no WhatsApp
           </a>
 
           <!-- Grade de Informações e Links Minimalista -->
           <div class="contact-links-grid-v2">
-            <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
+            <a data-wa href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
               target="_blank" rel="noopener noreferrer" class="contact-link-item-v2 magnetic" aria-label="WhatsApp" title="WhatsApp">
               <i class="fab fa-whatsapp"></i>
               <span class="sr-only">WhatsApp</span>
             </a>
 
-            <a href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank" rel="noopener noreferrer"
+            <a data-link="linkedin" href="https://www.linkedin.com/in/matheus-augusto-lopes-201a08351" target="_blank" rel="noopener noreferrer"
               class="contact-link-item-v2 magnetic" aria-label="LinkedIn" title="LinkedIn">
               <i class="fab fa-linkedin-in"></i>
               <span class="sr-only">LinkedIn</span>
             </a>
 
-            <a href="https://github.com/matheusaug2007" target="_blank" rel="noopener noreferrer" class="contact-link-item-v2 magnetic"
+            <a data-link="github" href="https://github.com/matheusaug2007" target="_blank" rel="noopener noreferrer" class="contact-link-item-v2 magnetic"
               aria-label="GitHub" title="GitHub">
               <i class="fab fa-github"></i>
               <span class="sr-only">github.com/matheusaug2007</span>
@@ -346,19 +345,22 @@
     <div class="footer-container">
       <div class="footer-bottom">
         <a href="#home" class="logo">Matheus<span>.</span>dev</a>
-        <p>Desenvolvido com foco em performance e design.</p>
+        <p data-content="footer_tagline">Desenvolvido com foco em performance e design.</p>
         <p>&copy; 2026 <strong>Matheus Augusto</strong>. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
 
   <!-- Botão Flutuante de WhatsApp -->
-  <a href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20fazer%20um%20orçamento." target="_blank" rel="noopener noreferrer"
+  <a data-wa data-wa-msg="Olá, Matheus! Gostaria de fazer um orçamento." href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20fazer%20um%20orçamento." target="_blank" rel="noopener noreferrer"
     class="whatsapp-float" aria-label="Conversar no WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
 
   <!-- Script de Interações e Animações Externo -->
+  <script src="assets/vendor/supabase.js" defer></script>
+  <script src="assets/js/supabase-config.js" defer></script>
+  <script src="assets/js/content.js" defer></script>
   <script src="assets/js/script.js" defer></script>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "7608e650b709424786162cbe5b64b6dc"}'></script>

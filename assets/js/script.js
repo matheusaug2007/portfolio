@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+
+  // Espera o conteúdo do Supabase (ou o tempo limite) antes de ligar animações e eventos
+  try { await window.contentReady; } catch (e) { /* segue com o HTML estático */ }
 
   // E-mail montado no navegador (evita coleta por robôs de spam)
   const emailLink = document.getElementById('emailLink');
@@ -247,11 +250,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ══════════════════════════════════════════════════
   const heroTitle = document.getElementById('heroTitle');
   if (heroTitle) {
-    const phrases = [
+    const defaultPhrases = [
       { text: 'Um pouco de mim e muito ', highlight: 'código', end: '.' },
       { text: 'Criando soluções com ', highlight: 'excelência', end: '.' },
       { text: 'Transformando ideias em ', highlight: 'realidade', end: '.' },
     ];
+    const getPhrases = () => window.__heroPhrases || defaultPhrases;
     let currentPhrase = 0;
 
     heroTitle.innerHTML = '<span class="typewriter-cursor"></span>';
@@ -261,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function typePhrase() {
-      const phrase = phrases[currentPhrase];
+      const phrase = getPhrases()[currentPhrase % getPhrases().length];
       const cursorEl = heroTitle.querySelector('.typewriter-cursor');
       let charIndex = 0;
 
@@ -336,7 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(eraseChar, 30 + Math.random() * 20);
           } else {
             // Avançar para próxima frase
-            currentPhrase = (currentPhrase + 1) % phrases.length;
+            currentPhrase = (currentPhrase + 1) % getPhrases().length;
             // Pausa antes de digitar a próxima
             setTimeout(typePhrase, 800);
           }
