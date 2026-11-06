@@ -9,8 +9,18 @@ import {
   type DragEndEvent,
 } from '@dnd-kit/core'
 import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
-import { FolderOpen, Plus } from 'lucide-react'
+import { FolderOpen, Loader2, Plus } from 'lucide-react'
 import { toast } from 'sonner'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -28,6 +38,8 @@ export function ProjectsPage() {
   const [sheetOpen, setSheetOpen] = useState(false)
   const [editing, setEditing] = useState<Project | null>(null)
   const [saving, setSaving] = useState(false)
+  const [toDelete, setToDelete] = useState<Project | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -156,7 +168,13 @@ export function ProjectsPage() {
           <SortableContext items={projects.map((p) => p.id)} strategy={rectSortingStrategy}>
             <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {projects.map((p) => (
-                <SortableProjectCard key={p.id} project={p} onToggleVisible={toggleVisible} onOpen={openEdit} />
+                <SortableProjectCard
+                  key={p.id}
+                  project={p}
+                  onToggleVisible={toggleVisible}
+                  onOpen={openEdit}
+                  onDelete={setToDelete}
+                />
               ))}
             </ul>
           </SortableContext>
@@ -171,6 +189,34 @@ export function ProjectsPage() {
         onSave={save}
         onDelete={remove}
       />
+
+      <AlertDialog open={!!toDelete} onOpenChange={(o) => !o && !deleting && setToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir projeto?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir "{toDelete?.title}"? Ele sai do site e isso não pode ser desfeito.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              variant="destructive"
+              disabled={deleting}
+              onClick={async () => {
+                if (!toDelete) return
+                setDeleting(true)
+                await remove(toDelete)
+                setDeleting(false)
+                setToDelete(null)
+              }}
+            >
+              {deleting && <Loader2 className="animate-spin" aria-hidden />}
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

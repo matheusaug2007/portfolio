@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { GripVertical, ImageOff, Link2 } from 'lucide-react'
+import { GripVertical, ImageOff, Link2, Pencil, Trash2 } from 'lucide-react'
 import { cn } from 'cn'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import type { Project } from '@/lib/types'
 import { hostOf, resolveImage } from './project-utils'
@@ -17,6 +18,7 @@ type ViewProps = {
   handle?: ReactNode
   onToggleVisible?: (v: boolean) => void
   onOpen?: () => void
+  onDelete?: () => void
   className?: string
 }
 
@@ -29,6 +31,7 @@ export function ProjectCardView({
   handle,
   onToggleVisible,
   onOpen,
+  onDelete,
   className,
 }: ViewProps) {
   const img = resolveImage(image_url)
@@ -92,6 +95,35 @@ export function ProjectCardView({
             />
             {visible ? 'Visível no site' : 'Oculto no site'}
           </label>
+          {(onOpen || onDelete) && (
+            <div className="flex items-center gap-1">
+              {onOpen && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  title="Editar projeto"
+                  aria-label={`Editar ${title || 'projeto'}`}
+                  onClick={onOpen}
+                >
+                  <Pencil aria-hidden />
+                </Button>
+              )}
+              {onDelete && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                  title="Excluir projeto"
+                  aria-label={`Excluir ${title || 'projeto'}`}
+                  onClick={onDelete}
+                >
+                  <Trash2 aria-hidden />
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </article>
@@ -102,9 +134,10 @@ type CardProps = {
   project: Project
   onToggleVisible: (p: Project, v: boolean) => void
   onOpen: (p: Project) => void
+  onDelete: (p: Project) => void
 }
 
-export function SortableProjectCard({ project, onToggleVisible, onOpen }: CardProps) {
+export function SortableProjectCard({ project, onToggleVisible, onOpen, onDelete }: CardProps) {
   const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } =
     useSortable({ id: project.id })
 
@@ -118,6 +151,7 @@ export function SortableProjectCard({ project, onToggleVisible, onOpen }: CardPr
         {...project}
         onToggleVisible={(v) => onToggleVisible(project, v)}
         onOpen={() => onOpen(project)}
+        onDelete={() => onDelete(project)}
         handle={
           <button
             ref={setActivatorNodeRef}
