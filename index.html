@@ -24,10 +24,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/webp" href="imagens/favicon/favicon.webp" />
 
-  <!-- Google Fonts: Poppins -->
+  <!-- Google Fonts: Space Grotesk (títulos), Inter (texto), JetBrains Mono (detalhes) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome para Ícones -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -37,6 +37,8 @@
 </head>
 
 <body>
+  <!-- Aplica o tema salvo antes do primeiro paint (padrão: claro) -->
+  <script>if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-theme');</script>
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -129,18 +131,20 @@
               <span class="line-number">3</span><span class="code-key">"alvo"</span>: <span
                 class="code-val">"Excelência"</span>,<br>
               <span class="line-number">4</span><span class="code-key">"status"</span>: <span
-                class="code-val">"Disponível"</span>
+                class="code-val">"Disponível"</span><span class="code-caret"></span>
             </div>
           </div>
         </div>
       </div>
+      <div class="scroll-hint" aria-hidden="true">scroll</div>
     </section>
 
-    <!-- Wave Separator: Hero → Sobre -->
-    <div class="wave-separator">
-      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-        <path class="wave-path" d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,50 1440,60 L1440,100 L0,100 Z"></path>
-      </svg>
+    <!-- Faixa de tecnologias (conteúdo duplicado para o loop ficar contínuo) -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item">HTML5</span><span class="marquee-item">CSS3</span><span class="marquee-item">JavaScript</span><span class="marquee-item">PHP</span><span class="marquee-item">SQL</span><span class="marquee-item">Supabase</span><span class="marquee-item">Responsivo</span><span class="marquee-item">Performance</span>
+        <span class="marquee-item">HTML5</span><span class="marquee-item">CSS3</span><span class="marquee-item">JavaScript</span><span class="marquee-item">PHP</span><span class="marquee-item">SQL</span><span class="marquee-item">Supabase</span><span class="marquee-item">Responsivo</span><span class="marquee-item">Performance</span>
+      </div>
     </div>
 
     <!-- ─── SOBRE MIM (Com Moldura de Foto) ─── -->
@@ -167,7 +171,18 @@
               projeto é único e desenvolvido de acordo com as necessidades do cliente, garantindo que ele tenha um site
               que atenda às suas expectativas.</p>
 
-            <h4 class="skills-title">Tecnologias principais</h4>
+            <div class="about-facts">
+              <div class="fact">
+                <span class="fact-label">Formação</span>
+                <span class="fact-value">ADS · Unicesumar</span>
+              </div>
+              <div class="fact">
+                <span class="fact-label">Atuação</span>
+                <span class="fact-value">Dev Web Freelancer</span>
+              </div>
+            </div>
+
+            <h4 class="skills-title">// tecnologias principais</h4>
             <div class="skills-flex stagger-container" id="skillsContainer">
               <span class="skill-badge stagger-item">HTML5</span>
               <span class="skill-badge stagger-item">CSS3</span>
@@ -217,13 +232,6 @@
         </div>
       </div>
     </section> -->
-
-    <!-- Wave Separator: Sobre → Projetos -->
-    <div class="wave-separator wave-flip">
-      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-        <path class="wave-path" d="M0,40 C240,100 480,0 720,50 C960,100 1200,20 1440,40 L1440,100 L0,100 Z"></path>
-      </svg>
-    </div>
 
     <!-- ─── SEÇÃO PROJETOS ─── -->
     <section class="projects" id="projects">
@@ -286,14 +294,6 @@
       </div>
     </section>
 
-    <!-- Wave Separator: Projetos → Contato -->
-    <div class="wave-separator">
-      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-        <path class="wave-path"
-          d="M0,50 C180,90 360,10 540,50 C720,90 900,10 1080,50 C1260,90 1380,30 1440,50 L1440,100 L0,100 Z"></path>
-      </svg>
-    </div>
-
     <!-- ─── SEÇÃO CONTATO ─── -->
     <section class="contact" id="contact">
       <div class="container-large">
@@ -344,7 +344,7 @@
   <footer>
     <div class="footer-container">
       <div class="footer-bottom">
-        <a href="#home" class="logo">Matheus<span>.</span>dev</a>
+  <a href="#home" class="logo">Matheus<span>.</span>dev</a>
         <p data-content="footer_tagline">Desenvolvido com foco em performance e design.</p>
         <p>&copy; 2026 <strong>Matheus Augusto</strong>. Todos os direitos reservados.</p>
       </div>

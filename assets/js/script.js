@@ -139,6 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ══════════════════════════════════════════════════
   // 7. PARTÍCULAS FLUTUANTES (Canvas)
   // ══════════════════════════════════════════════════
+  // ══════════════════════════════════════════════════
   const canvas = document.getElementById('particlesCanvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -244,6 +245,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }, 200);
     });
   }
+
 
   // ══════════════════════════════════════════════════
   // 8. TYPEWRITER NA HERO (Loop Contínuo)
@@ -356,27 +358,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // ══════════════════════════════════════════════════
-  // 9. PARALLAX NO SCROLL
-  // ══════════════════════════════════════════════════
-  const terminalContainer = document.querySelector('.terminal-container');
-  const heroSection = document.querySelector('.hero');
-
-  function handleParallax() {
-    const scrollY = window.scrollY;
-
-    // Parallax do terminal — flutua mais devagar
-    if (terminalContainer && heroSection) {
-      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-      if (scrollY < heroBottom) {
-        const offset = scrollY * 0.15;
-        terminalContainer.style.transform = `translateY(${-offset}px)`;
-      }
-    }
-  }
-
-  window.addEventListener('scroll', handleParallax, { passive: true });
-
-  // ══════════════════════════════════════════════════
   // 10. PHOTO REVEAL AO SCROLL
   // ══════════════════════════════════════════════════
   const photoReveal = document.getElementById('photoReveal');
@@ -423,13 +404,17 @@ document.addEventListener('DOMContentLoaded', async () => {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = ((y - centerY) / centerY) * -8;
-      const rotateY = ((x - centerX) / centerX) * 8;
+      const rotateX = ((y - centerY) / centerY) * -4;
+      const rotateY = ((x - centerX) / centerX) * 4;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+      card.style.setProperty('--mx', x + 'px');
+      card.style.setProperty('--my', y + 'px');
+      card.style.transition = 'border-color .3s, box-shadow .3s, opacity .9s';
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
     });
 
     card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform .6s cubic-bezier(.22,.8,.25,1), border-color .3s, box-shadow .3s, opacity .9s';
       card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
     });
   });
@@ -482,20 +467,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // ══════════════════════════════════════════════════
-  // 14. WAVE SEPARATOR ANIMATION (via scroll suave)
+  // 14. LINK ATIVO NO MENU (conforme a seção visível)
   // ══════════════════════════════════════════════════
-  const wavePaths = document.querySelectorAll('.wave-path');
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sectionMap = new Map();
+  navAnchors.forEach((a) => {
+    const sec = document.querySelector(a.getAttribute('href'));
+    if (sec) sectionMap.set(sec, a);
+  });
 
-  function animateWaves() {
-    const scrollY = window.scrollY;
-    wavePaths.forEach((path, index) => {
-      const offset = Math.sin((scrollY * 0.003) + index) * 10;
-      const d = path.getAttribute('d');
-      // Leve mudança de posição Y com base no scroll
-      path.style.transform = `translateY(${offset}px)`;
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach((a) => a.classList.remove('active'));
+        sectionMap.get(entry.target).classList.add('active');
+      }
     });
-  }
+  }, { rootMargin: '-45% 0px -50% 0px' });
 
-  window.addEventListener('scroll', animateWaves, { passive: true });
+  sectionMap.forEach((_, sec) => navObserver.observe(sec));
 
 });
