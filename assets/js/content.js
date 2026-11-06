@@ -76,38 +76,50 @@
   }
 
   function renderProjects(list) {
-    const grid = document.querySelector('.projects-grid');
-    if (!grid) return;
-    grid.replaceChildren();
-    list.forEach((p) => {
-      if (!isHttps(p.url)) return;
-      const card = el('div', 'project-card reveal tilt-card');
+    // Vitrine: cada projeto vira uma "tela" (site real dentro do dispositivo) + um bloco de texto.
+    // O script.js liga a rolagem, as bolinhas e o carregamento dos sites depois que isto roda.
+    const screen = document.getElementById('scScreen');
+    const copy = document.getElementById('scCopy');
+    if (!screen || !copy) return;
+    const valid = list.filter((p) => isHttps(p.url));
+    if (!valid.length) return; // nada válido: mantém o HTML estático
+    screen.querySelectorAll('.sc-shot').forEach((n) => n.remove());
+    copy.replaceChildren();
 
-      const thumb = el('div', 'project-thumb');
+    valid.forEach((p) => {
+      const shot = el('div', 'sc-shot');
+      shot.dataset.url = p.url;
       if (isImg(p.image_url) && p.image_url) {
-        const img = el('img', 'project-img');
+        const img = el('img', 'sc-poster');
         img.src = p.image_url;
         img.alt = 'Preview ' + p.title;
         img.loading = 'lazy';
-        thumb.appendChild(img);
+        shot.appendChild(img);
       }
-      thumb.appendChild(el('div', 'thumb-glow'));
+      const frame = el('iframe', 'sc-frame');
+      frame.title = 'Prévia do site ' + p.title;
+      frame.tabIndex = -1;
+      frame.loading = 'lazy';
+      frame.dataset.src = p.url;
+      shot.appendChild(frame);
+      screen.appendChild(shot);
 
-      const body = el('div', 'project-body');
-      body.appendChild(el('h3', 'project-title', p.title));
-      body.appendChild(el('p', 'project-desc', p.description));
+      const text = el('article', 'sc-text');
+      text.appendChild(el('h3', 'project-title', p.title));
+      text.appendChild(el('p', 'project-desc', p.description));
       const a = el('a', 'project-link', 'Acessar projeto ');
       a.href = p.url;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
       a.setAttribute('aria-label', 'Acessar projeto ' + p.title);
-      const icon = el('i', 'fas fa-arrow-right');
-      a.appendChild(icon);
-      body.appendChild(a);
-
-      card.append(thumb, body);
-      grid.appendChild(card);
+      a.appendChild(el('i', 'fas fa-arrow-right'));
+      text.appendChild(a);
+      copy.appendChild(text);
     });
+
+    // o link que cobre a tela precisa ficar por cima dos sites
+    const open = document.getElementById('scOpen');
+    if (open) screen.appendChild(open);
   }
 
   function renderSkills(list) {

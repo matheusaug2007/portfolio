@@ -391,35 +391,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // ══════════════════════════════════════════════════
-  // 11. TILT 3D NOS PROJECT CARDS
-  // ══════════════════════════════════════════════════
-  const tiltCards = document.querySelectorAll('.tilt-card');
-
-  tiltCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const rotateX = ((y - centerY) / centerY) * -4;
-      const rotateY = ((x - centerX) / centerX) * 4;
-
-      card.style.setProperty('--mx', x + 'px');
-      card.style.setProperty('--my', y + 'px');
-      card.style.transition = 'border-color .3s, box-shadow .3s, opacity .9s';
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transition = 'transform .6s cubic-bezier(.22,.8,.25,1), border-color .3s, box-shadow .3s, opacity .9s';
-      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-    });
-  });
-
-  // ══════════════════════════════════════════════════
   // 12. STAGGER ANIMATION NOS SKILL BADGES
   // ══════════════════════════════════════════════════
   const staggerContainers = document.querySelectorAll('.stagger-container');
@@ -486,5 +457,156 @@ document.addEventListener('DOMContentLoaded', async () => {
   }, { rootMargin: '-45% 0px -50% 0px' });
 
   sectionMap.forEach((_, sec) => navObserver.observe(sec));
+
+  // ══════════════════════════════════════════════════
+  // 15. MANIFESTO + VITRINE DE PROJETOS (guiados pelo scroll)
+  // ══════════════════════════════════════════════════
+  const clamp = (v, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
+
+  // quanto da seção "alta" já foi rolado (0 a 1) — a parte fixa (sticky) dura (altura - tela)
+  const sectionProgress = (el) => {
+    const total = el.offsetHeight - window.innerHeight;
+    return total > 0 ? clamp(-el.getBoundingClientRect().top / total) : 0;
+  };
+
+  // ── Manifesto: as palavras vão acendendo ──
+  const manifesto = document.getElementById('manifesto');
+  const manifestoText = document.getElementById('manifestoText');
+  const manifestoMeter = document.getElementById('manifestoMeter');
+  let manifestoWords = [];
+
+  if (manifesto && manifestoText) {
+    const frag = document.createDocumentFragment();
+    [...manifestoText.childNodes].forEach((node) => {
+      const hl = node.nodeType === 1 && node.classList.contains('hl');
+      node.textContent.split(/\s+/).filter(Boolean).forEach((word) => {
+        const span = document.createElement('span');
+        span.className = 'mw' + (hl ? ' hl' : '');
+        span.textContent = word;
+        frag.appendChild(span);
+      });
+    });
+    manifestoText.replaceChildren(frag);
+    manifestoWords = [...manifestoText.children];
+  }
+
+  function updateManifesto() {
+    if (!manifestoWords.length) return;
+    const p = sectionProgress(manifesto);
+    const n = manifestoWords.length;
+    manifestoWords.forEach((w, i) => {
+      const lit = clamp(p * 1.2 * n - i);
+      w.style.opacity = (0.13 + 0.87 * lit).toFixed(3);
+      w.style.transform = 'translateY(' + ((1 - lit) * 18).toFixed(1) + 'px)';
+    });
+    if (manifestoMeter) manifestoMeter.style.width = (p * 100).toFixed(1) + '%';
+  }
+
+  // ── Vitrine de projetos ──
+  const track = document.getElementById('showcaseTrack');
+  const stage = document.getElementById('showcaseStage');
+  let updateShowcase = () => {};
+  let fitFrames = () => {};
+
+  if (track && stage) {
+    const shots = [...track.querySelectorAll('.sc-shot')];
+    const texts = [...track.querySelectorAll('.sc-text')];
+    const dotsBox = document.getElementById('scDots');
+    const urlEl = document.getElementById('scUrl');
+    const openEl = document.getElementById('scOpen');
+    const screenEl = document.getElementById('scScreen');
+    const N = Math.min(shots.length, texts.length);
+    const steps = N + 1; // projetos + painel final
+    track.style.setProperty('--steps', steps);
+
+    // numeração "01 / 03" e bolinhas
+    texts.forEach((t, i) => {
+      const n = document.createElement('span');
+      n.className = 'sc-n';
+      n.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
+      t.prepend(n);
+    });
+    const dots = [];
+    for (let i = 0; i < N; i++) {
+      const d = document.createElement('i');
+      dotsBox.appendChild(d);
+      dots.push(d);
+    }
+
+    const hostOf = (u) => { try { return new URL(u).host; } catch (e) { return ''; } };
+    let active = -1;
+    function setActive(idx) {
+      if (idx === active) return;
+      active = idx;
+      shots.forEach((el, i) => el.classList.toggle('active', i === idx));
+      texts.forEach((el, i) => el.classList.toggle('active', i === idx));
+      dots.forEach((el, i) => el.classList.toggle('on', i === idx));
+      stage.classList.toggle('is-end', idx >= N);
+      if (idx < N && urlEl) urlEl.textContent = hostOf(shots[idx].dataset.url);
+      // tela clicável: abre o projeto que está na vitrine agora
+      if (openEl) {
+        if (idx < N) {
+          const title = texts[idx].querySelector('.project-title');
+          openEl.href = shots[idx].dataset.url;
+          openEl.setAttribute('aria-label', 'Abrir projeto ' + (title ? title.textContent : ''));
+          openEl.tabIndex = 0;
+        } else {
+          openEl.tabIndex = -1;
+        }
+      }
+    }
+
+    // o site real roda dentro do dispositivo, em tamanho "de verdade" e reduzido para caber
+    const mobileMQ = window.matchMedia('(max-width: 768px)');
+    fitFrames = function () {
+      const w = screenEl.clientWidth;
+      const h = screenEl.clientHeight;
+      if (!w) return;
+      const nativeW = mobileMQ.matches ? 390 : 1280;
+      const scale = w / nativeW;
+      track.querySelectorAll('.sc-frame').forEach((fr) => {
+        fr.style.width = nativeW + 'px';
+        fr.style.height = (h / scale) + 'px';
+        fr.style.transform = 'scale(' + scale + ')';
+      });
+    };
+
+    // só carrega os sites quando a vitrine está perto de aparecer
+    let framesLoaded = false;
+    function loadFrames() {
+      if (framesLoaded) return;
+      framesLoaded = true;
+      track.querySelectorAll('.sc-frame').forEach((fr) => {
+        fr.addEventListener('load', () => fr.parentElement.classList.add('loaded'));
+        fr.src = fr.dataset.src;
+      });
+    }
+    new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) loadFrames();
+    }, { rootMargin: '100% 0px' }).observe(track);
+
+    updateShowcase = function () {
+      const p = sectionProgress(track);
+      track.style.setProperty('--p', p.toFixed(4));
+      setActive(Math.min(N, Math.floor(p * steps)));
+    };
+  }
+
+  // um único handler de scroll (com requestAnimationFrame) para as duas seções
+  let ticking = false;
+  function onScrollScenes() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateManifesto();
+      updateShowcase();
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScrollScenes, { passive: true });
+  window.addEventListener('resize', () => { fitFrames(); onScrollScenes(); });
+  fitFrames();
+  updateManifesto();
+  updateShowcase();
 
 });

@@ -233,62 +233,90 @@
       </div>
     </section> -->
 
-    <!-- ─── SEÇÃO PROJETOS ─── -->
-    <section class="projects" id="projects">
+    <!-- ─── MANIFESTO (palavras acendem ao rolar) ─── -->
+    <section class="manifesto" id="manifesto" aria-label="Eu transformo ideias em sites rápidos, bonitos e feitos sob medida para o seu negócio crescer.">
+      <div class="manifesto-stage">
+        <p class="manifesto-text" id="manifestoText" aria-hidden="true">Eu transformo ideias em sites <b class="hl">rápidos,</b> <b class="hl">bonitos</b> e feitos sob medida para o seu <b class="hl">negócio</b> crescer.</p>
+        <div class="manifesto-meter" aria-hidden="true"><i id="manifestoMeter"></i></div>
+      </div>
+    </section>
+
+    <!-- ─── SEÇÃO PROJETOS (vitrine: o dispositivo fica fixo, o projeto muda ao rolar) ─── -->
+    <section class="projects showcase" id="projects">
       <div class="container-large">
         <div class="section-header reveal">
           <span class="section-label">Portfólio</span>
           <h2 class="section-title" data-content="projects_title">Projetos Recentes</h2>
         </div>
-        <div class="projects-grid">
+      </div>
 
-          <!-- Projeto 1 -->
-          <div class="project-card reveal tilt-card">
-            <div class="project-thumb">
-              <img src="imagens/projetos/foto-sennatech.png" alt="Preview Senna X1" class="project-img">
-              <div class="thumb-glow"></div>
+      <div class="showcase-track" id="showcaseTrack">
+        <div class="showcase-stage" id="showcaseStage">
+          <div class="sc-glow" aria-hidden="true"></div>
+
+          <div class="sc-main">
+            <div class="sc-device">
+              <div class="sc-bar"><i></i><i></i><i></i><span class="sc-url" id="scUrl"></span></div>
+              <div class="sc-screen" id="scScreen">
+
+            <!-- Projeto 1 -->
+            <div class="sc-shot" data-url="https://sennatechh.netlify.app">
+              <img src="imagens/projetos/foto-sennatech.png" alt="Preview Senna Tech" class="sc-poster" loading="lazy">
+              <iframe class="sc-frame" title="Prévia do site Senna Tech" tabindex="-1" loading="lazy" data-src="https://sennatechh.netlify.app"></iframe>
             </div>
-            <div class="project-body">
+
+            <!-- Projeto 2 -->
+            <div class="sc-shot" data-url="https://identificacaodesitesseguros.netlify.app/">
+              <img src="imagens/projetos/foto-site-seguro.png" alt="Preview Sites Seguros" class="sc-poster" loading="lazy">
+              <iframe class="sc-frame" title="Prévia do site Sites Seguros" tabindex="-1" loading="lazy" data-src="https://identificacaodesitesseguros.netlify.app/"></iframe>
+            </div>
+
+            <!-- Projeto 3 -->
+            <div class="sc-shot" data-url="https://pedidosorecomigo.vercel.app/?tenant=wavemandaguari">
+              <img src="imagens/projetos/foto-ore-comigo.png" alt="Preview Ore Comigo" class="sc-poster" loading="lazy">
+              <iframe class="sc-frame" title="Prévia do site Ore Comigo" tabindex="-1" loading="lazy" data-src="https://pedidosorecomigo.vercel.app/?tenant=wavemandaguari"></iframe>
+            </div>
+                <a class="sc-open" id="scOpen" href="#projects" target="_blank" rel="noopener noreferrer" aria-label="Abrir projeto"><span>Abrir projeto <i class="fas fa-arrow-up-right-from-square"></i></span></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="sc-side">
+            <div class="sc-copy" id="scCopy">
+
+            <article class="sc-text">
               <h3 class="project-title">Senna Tech</h3>
-              <p class="project-desc">Dashboard dinâmico integrado com biometria e IA para monitoramento de capacetes
-                inteligentes em tempo real (Projeto Universitário).</p>
+              <p class="project-desc">Dashboard dinâmico integrado com biometria e IA para monitoramento de capacetes inteligentes em tempo real (Projeto Universitário).</p>
               <a href="https://sennatechh.netlify.app" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Acessar projeto Senna Tech">
                 Acessar projeto <i class="fas fa-arrow-right"></i>
               </a>
-            </div>
-          </div>
+            </article>
 
-          <!-- Projeto 2 -->
-          <div class="project-card reveal tilt-card">
-            <div class="project-thumb">
-              <img src="imagens/projetos/foto-site-seguro.png" alt="Preview Sites Seguros" class="project-img">
-              <div class="thumb-glow"></div>
-            </div>
-            <div class="project-body">
+            <article class="sc-text">
               <h3 class="project-title">Sites Seguros</h3>
-              <p class="project-desc">Website educacional interativo criado para conscientização de usuários sobre
-                segurança e prevenção de golpes virtuais.</p>
+              <p class="project-desc">Website educacional interativo criado para conscientização de usuários sobre segurança e prevenção de golpes virtuais.</p>
               <a href="https://identificacaodesitesseguros.netlify.app/" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Acessar projeto Sites Seguros">
                 Acessar projeto <i class="fas fa-arrow-right"></i>
               </a>
-            </div>
-          </div>
+            </article>
 
-          <!-- Projeto 3 -->
-          <div class="project-card reveal tilt-card">
-            <div class="project-thumb">
-              <img src="imagens/projetos/foto-ore-comigo.png" alt="Preview Pedido orecomigo" class="project-img">
-              <div class="thumb-glow"></div>
-            </div>
-            <div class="project-body">
+            <article class="sc-text">
               <h3 class="project-title">Ore Comigo</h3>
-              <p class="project-desc">Desenvolvi uma plataforma para minha igreja local, ela funciona como uma rede onde
-                uma pessoa pode fazer um pedido de oração, ele cai diretamente num painel para os intercessores orarem.
-              </p>
+              <p class="project-desc">Desenvolvi uma plataforma para minha igreja local, ela funciona como uma rede onde uma pessoa pode fazer um pedido de oração, ele cai diretamente num painel para os intercessores orarem.</p>
               <a href="https://pedidosorecomigo.vercel.app/?tenant=wavemandaguari" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Acessar projeto Ore Comigo">
                 Acessar projeto <i class="fas fa-arrow-right"></i>
               </a>
+            </article>
             </div>
+            <div class="sc-dots" id="scDots" aria-hidden="true"></div>
+          </div>
+
+          <!-- Painel final -->
+          <div class="sc-end">
+            <h3>E o próximo pode<br>ser <span>o seu.</span></h3>
+            <span class="sc-poke" role="img" aria-label="Dedo apontando para você">🫵</span>
+            <p>Tem uma ideia ou um negócio que precisa de um site? Vamos conversar.</p>
+            <a href="#contact" class="btn btn-primary">Falar comigo <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
