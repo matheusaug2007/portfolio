@@ -1,0 +1,6 @@
+# Não publicar ferramentas de desenvolvimento nem o código-fonte do painel.
+# O painel é publicado já compilado em /admin (gerado por `npm run build` em admin-app).
+_bmad
+_bmad-output
+.claude
+admin-app

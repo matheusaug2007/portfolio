@@ -1,68 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Painel | Matheus.dev</title>
-  <link rel="stylesheet" href="/admin/admin.css" />
-</head>
-<body>
-  <!-- Login -->
-  <main id="loginView" class="login" hidden>
-    <form id="loginForm" class="card" autocomplete="on">
-      <h1>Painel do portfólio</h1>
-      <label>E-mail <input id="email" type="email" autocomplete="username" required /></label>
-      <label>Senha <input id="password" type="password" autocomplete="current-password" required /></label>
-      <button class="btn primary" type="submit">Entrar</button>
-      <p id="loginMsg" class="msg" role="alert"></p>
-    </form>
-  </main>
-
-  <!-- Painel -->
-  <div id="appView" hidden>
-    <header class="top">
-      <strong>Painel do portfólio</strong>
-      <nav class="tabs" id="tabs">
-        <button data-tab="texts" class="active">Textos</button>
-        <button data-tab="projects">Projetos</button>
-        <button data-tab="skills">Tecnologias</button>
-      </nav>
-      <span class="spacer"></span>
-      <a class="btn" href="/" target="_blank" rel="noopener noreferrer">Ver site</a>
-      <button class="btn" id="logoutBtn" type="button">Sair</button>
-    </header>
-
-    <main class="content">
-      <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-      <section id="tab-texts">
-        <h2>Textos do site</h2>
-        <p class="hint">Edite e clique em <b>Salvar textos</b>. As mudanças aparecem no site na hora (atualize a página).</p>
-        <div id="textsList"></div>
-        <button class="btn primary" id="saveTexts" type="button">Salvar textos</button>
-      </section>
-
-      <section id="tab-projects" hidden>
-        <h2>Projetos</h2>
-        <p class="hint">Imagens: JPG, PNG ou WebP, até 2 MB.</p>
-        <div id="projectsList"></div>
-        <button class="btn primary" id="addProject" type="button">+ Novo projeto</button>
-      </section>
-
-      <section id="tab-skills" hidden>
-        <h2>Tecnologias</h2>
-        <div id="skillsList"></div>
-        <form id="skillForm" class="row">
-          <input id="newSkill" maxlength="40" placeholder="Nova tecnologia (ex: React)" required />
-          <button class="btn primary" type="submit">Adicionar</button>
-        </form>
-      </section>
-    </main>
-  </div>
-
-  <script src="/assets/vendor/supabase.js"></script>
-  <script src="/assets/js/supabase-config.js"></script>
-  <script src="/admin/admin.js"></script>
-</body>
+  <head>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/admin/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel | Matheus.dev</title>
+    <script type="module" crossorigin src="/admin/assets/index-Bng1yez0.js"></script>
+    <link rel="stylesheet" crossorigin href="/admin/assets/index-CpZGN6-L.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>

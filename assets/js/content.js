@@ -2,6 +2,16 @@
 // Se der erro ou demorar, o HTML estático continua valendo (o site nunca quebra).
 // Tudo é inserido com textContent/atributos (nunca innerHTML), para evitar XSS.
 (function () {
+  // Cloudflare Web Analytics. Fica aqui (e não no HTML) para não contar visitas quando o site
+  // está dentro do iframe de prévia do painel /admin.
+  if (window.parent === window) {
+    const beacon = document.createElement('script');
+    beacon.type = 'module';
+    beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    beacon.setAttribute('data-cf-beacon', '{"token": "7608e650b709424786162cbe5b64b6dc"}');
+    document.head.appendChild(beacon);
+  }
+
   const TIMEOUT_MS = 2500;
   const isHttps = (u) => typeof u === 'string' && /^https:\/\//i.test(u);
   const isImg = (u) => isHttps(u) || /^imagens\//.test(u || '');
@@ -112,4 +122,48 @@
     load().catch(() => {}),
     new Promise((r) => setTimeout(r, TIMEOUT_MS)),
   ]);
+
+  // ── Modo prévia ───────────────────────────────────
+  // Só ativo quando o site roda dentro de um iframe do mesmo domínio (painel /admin).
+  // Aceita apenas mensagens do mesmo origin e só aplica texto (textContent), sem salvar nada.
+  if (window.parent !== window) {
+    const FOCUS_FALLBACK = {
+      hero_phrases: '#heroTitle',
+      whatsapp_number: '#contact',
+      whatsapp_message: '#contact',
+      linkedin_url: '#contact',
+      github_url: '#contact',
+      contact_email: '#contact',
+    };
+
+    const style = document.createElement('style');
+    style.textContent = '.preview-flash{outline:2px solid #4f7cff!important;outline-offset:6px;border-radius:6px;transition:outline-color .4s}';
+    document.head.appendChild(style);
+
+    window.addEventListener('message', (e) => {
+      if (e.origin !== window.location.origin || e.source !== window.parent || !e.data) return;
+
+      if (e.data.type === 'preview-content' && e.data.content && typeof e.data.content === 'object') {
+        const c = {};
+        Object.entries(e.data.content).forEach(([k, v]) => { if (typeof v === 'string') c[k] = v; });
+        applyContent(c);
+      }
+
+      if (e.data.type === 'preview-focus' && typeof e.data.key === 'string') {
+        const key = e.data.key;
+        const target =
+          document.querySelector('[data-content="' + key.replace(/["\\]/g, '') + '"]') ||
+          (FOCUS_FALLBACK[key] && document.querySelector(FOCUS_FALLBACK[key]));
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.querySelectorAll('.preview-flash').forEach((n) => n.classList.remove('preview-flash'));
+        target.classList.add('preview-flash');
+        setTimeout(() => target.classList.remove('preview-flash'), 1600);
+      }
+    });
+
+    window.contentReady.then(() => {
+      window.parent.postMessage({ type: 'preview-ready' }, window.location.origin);
+    });
+  }
 })();
