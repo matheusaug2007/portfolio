@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // E-mail montado no navegador (evita coleta por robôs de spam)
+  const emailLink = document.getElementById('emailLink');
+  if (emailLink) {
+    emailLink.href = 'mailto:' + emailLink.dataset.u + '@' + emailLink.dataset.d;
+  }
+
   // ══════════════════════════════════════════════════
   // 1. CURSOR PERSONALIZADO (Desktop)
   // ══════════════════════════════════════════════════
