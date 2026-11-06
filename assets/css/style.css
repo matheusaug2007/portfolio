@@ -579,7 +579,7 @@ section {
   pointer-events: none;
 }
 
-.about-text h3 {
+.about-text h2 {
   font-size: clamp(1.8rem, 3vw, 2.3rem);
   font-weight: 700;
   color: var(--text-primary);
@@ -1563,7 +1563,7 @@ footer {
     font-size: 1.8rem;
   }
 
-  .about-text h3 {
+  .about-text h2 {
     font-size: 1.6rem;
   }
 
