@@ -18,8 +18,60 @@
   <meta property="og:title" content="Matheus Augusto | Desenvolvedor Web Freelancer" />
   <meta property="og:description" content="Sites rápidos, modernos e feitos sob medida. Veja meus projetos e peça seu orçamento." />
   <meta property="og:url" content="https://www.matheuscode.dev.br/" />
-  <meta property="og:image" content="https://www.matheuscode.dev.br/imagens/fotos_pessoais/matheus_bigode.jpeg" />
+  <meta property="og:image" content="https://www.matheuscode.dev.br/imagens/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Matheus Augusto, desenvolvedor web freelancer: sites rápidos, modernos e feitos sob medida." />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Matheus Augusto | Desenvolvedor Web Freelancer" />
+  <meta name="twitter:description" content="Sites rápidos, modernos e feitos sob medida. Veja meus projetos e peça seu orçamento." />
+  <meta name="twitter:image" content="https://www.matheuscode.dev.br/imagens/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Matheus Augusto, desenvolvedor web freelancer: sites rápidos, modernos e feitos sob medida." />
+
+  <!-- Indexação -->
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+
+  <!-- Dados estruturados (Schema.org). É um bloco de dados, não executa script. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://www.matheuscode.dev.br/#website",
+        "url": "https://www.matheuscode.dev.br/",
+        "name": "Matheus Augusto",
+        "inLanguage": "pt-BR",
+        "publisher": { "@id": "https://www.matheuscode.dev.br/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.matheuscode.dev.br/#person",
+        "name": "Matheus Augusto",
+        "url": "https://www.matheuscode.dev.br/",
+        "image": "https://www.matheuscode.dev.br/imagens/fotos_pessoais/matheus_bigode.jpeg",
+        "jobTitle": "Desenvolvedor Web Freelancer",
+        "description": "Desenvolvedor web freelancer (HTML, CSS, JavaScript, PHP e SQL). Sites rápidos, modernos e feitos sob medida.",
+        "knowsAbout": ["HTML", "CSS", "JavaScript", "PHP", "SQL"],
+        "sameAs": [
+          "https://www.linkedin.com/in/matheus-augusto-lopes-201a08351",
+          "https://github.com/matheusaug2007"
+        ]
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://www.matheuscode.dev.br/#service",
+        "name": "Matheus Augusto - Desenvolvimento Web",
+        "url": "https://www.matheuscode.dev.br/",
+        "image": "https://www.matheuscode.dev.br/imagens/og-image.jpg",
+        "serviceType": "Desenvolvimento de sites e sistemas web",
+        "areaServed": { "@type": "Country", "name": "Brasil" },
+        "provider": { "@id": "https://www.matheuscode.dev.br/#person" }
+      }
+    ]
+  }
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/webp" href="imagens/favicon/favicon.webp" />
@@ -154,7 +206,7 @@
           <!-- Coluna da Foto com Moldura Minimalista -->
           <div class="about-photo-container reveal">
             <div class="about-photo-frame scroll-reveal-photo" id="photoReveal">
-              <img src="imagens/fotos_pessoais/matheus_bigode.jpeg" alt="Matheus Lopes" class="about-photo" />
+              <img src="imagens/fotos_pessoais/matheus_bigode.jpeg" alt="Foto de Matheus Augusto, desenvolvedor web" width="960" height="1280" loading="lazy" decoding="async" class="about-photo" />
               <div class="about-photo-glow"></div>
               <div class="photo-reveal-mask" id="photoRevealMask"></div>
             </div>
@@ -261,19 +313,19 @@
 
             <!-- Projeto 1 -->
             <div class="sc-shot" data-url="https://sennatechh.netlify.app">
-              <img src="imagens/projetos/foto-sennatech.png" alt="Preview Senna Tech" class="sc-poster" loading="lazy">
+              <img src="imagens/projetos/foto-sennatech.png" alt="Prévia do site do projeto Senna Tech" width="1048" height="579" class="sc-poster" loading="lazy" decoding="async">
               <iframe class="sc-frame" title="Prévia do site Senna Tech" tabindex="-1" loading="lazy" data-src="https://sennatechh.netlify.app"></iframe>
             </div>
 
             <!-- Projeto 2 -->
             <div class="sc-shot" data-url="https://identificacaodesitesseguros.netlify.app/">
-              <img src="imagens/projetos/foto-site-seguro.png" alt="Preview Sites Seguros" class="sc-poster" loading="lazy">
+              <img src="imagens/projetos/foto-site-seguro.png" alt="Prévia do site do projeto Sites Seguros" width="423" height="439" class="sc-poster" loading="lazy" decoding="async">
               <iframe class="sc-frame" title="Prévia do site Sites Seguros" tabindex="-1" loading="lazy" data-src="https://identificacaodesitesseguros.netlify.app/"></iframe>
             </div>
 
             <!-- Projeto 3 -->
             <div class="sc-shot" data-url="https://pedidosorecomigo.vercel.app/?tenant=wavemandaguari">
-              <img src="imagens/projetos/foto-ore-comigo.png" alt="Preview Ore Comigo" class="sc-poster" loading="lazy">
+              <img src="imagens/projetos/foto-ore-comigo.png" alt="Prévia do site do projeto Ore Comigo" width="405" height="160" class="sc-poster" loading="lazy" decoding="async">
               <iframe class="sc-frame" title="Prévia do site Ore Comigo" tabindex="-1" loading="lazy" data-src="https://pedidosorecomigo.vercel.app/?tenant=wavemandaguari"></iframe>
             </div>
                 <a class="sc-open" id="scOpen" href="#projects" target="_blank" rel="noopener noreferrer" aria-label="Abrir projeto"><span>Abrir projeto <i class="fas fa-arrow-up-right-from-square"></i></span></a>
