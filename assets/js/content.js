@@ -22,22 +22,96 @@
       auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
     });
 
-    const [content, projects, skills] = await Promise.all([
+    const [content, projects, skills, sections] = await Promise.all([
       db.from('site_content').select('key,value'),
       db.from('projects').select('title,description,url,image_url').eq('visible', true).order('position'),
       db.from('skills').select('name').eq('visible', true).order('position'),
+      db.from('secoes').select('chave,visivel'),
     ]);
 
     if (!content.error && content.data) applyContent(Object.fromEntries(content.data.map((r) => [r.key, r.value])));
     if (!projects.error && projects.data && projects.data.length) renderProjects(projects.data);
     if (!skills.error && skills.data && skills.data.length) renderSkills(skills.data);
+    // Se a tabela ainda não existir (ou der erro), nenhuma seção é ocultada.
+    if (!sections.error && sections.data) applySections(sections.data);
+  }
+
+  // ── Seções ocultas pelo painel ───────────────────
+  // Cada trecho do HTML marcado com data-section="chave" some quando a seção está inativa.
+  // A lista fica guardada no navegador (localStorage) para theme-init.js já esconder antes de pintar a página.
+  function applySections(list) {
+    const hidden = list.filter((s) => s.visivel === false).map((s) => s.chave);
+    document.querySelectorAll('[data-section]').forEach((n) => {
+      n.hidden = hidden.indexOf(n.dataset.section) !== -1;
+    });
+    const cl = document.documentElement.classList;
+    [...cl].filter((k) => k.indexOf('hide-') === 0).forEach((k) => cl.remove(k));
+    hidden.forEach((k) => { if (/^[a-z_]+$/.test(k)) cl.add('hide-' + k); });
+    try { localStorage.setItem('hidden-sections', JSON.stringify(hidden)); } catch (e) { /* sem storage: tudo bem */ }
+  }
+
+  // Texto com formatação simples: "\n" vira quebra de linha e |palavra| vira destaque.
+  // spec = "tag.classe" do destaque (ex.: "b.hl", "span", "strong"). Tudo via textContent (sem innerHTML).
+  function rich(node, text, spec) {
+    const parts = String(spec || 'span').split('.');
+    const frag = document.createDocumentFragment();
+    text.split('\n').forEach((line, i) => {
+      if (i) frag.appendChild(document.createElement('br'));
+      const seg = line.split('|');
+      seg.forEach((s, j) => {
+        if (!s) return;
+        if (j % 2 === 1 && j < seg.length - 1) frag.appendChild(el(parts[0], parts[1] || '', s));
+        else frag.appendChild(document.createTextNode(s));
+      });
+    });
+    node.replaceChildren(frag);
   }
 
   function applyContent(c) {
-    document.querySelectorAll('[data-content]').forEach((el) => {
-      const v = c[el.dataset.content];
-      if (typeof v === 'string' && v !== '') el.textContent = v;
+    document.querySelectorAll('[data-content]').forEach((n) => {
+      const v = c[n.dataset.content];
+      if (typeof v !== 'string' || v === '') return;
+      if (n.dataset.rich) rich(n, v, n.dataset.rich);
+      else n.textContent = v;
     });
+
+    // Frase em destaque: o rótulo de acessibilidade acompanha o texto
+    const manifesto = document.getElementById('manifesto');
+    if (manifesto && c.manifesto_text) manifesto.setAttribute('aria-label', c.manifesto_text.replace(/\|/g, ''));
+
+    // Faixa de tecnologias (um item por linha; o conteúdo é duplicado para o loop ficar contínuo)
+    const track = document.querySelector('.marquee-track');
+    const marquee = (c.marquee_items || '').split('\n').map((l) => l.trim()).filter(Boolean);
+    if (track && marquee.length) {
+      track.replaceChildren();
+      [0, 1].forEach(() => marquee.forEach((t) => track.appendChild(el('span', 'marquee-item', t))));
+    }
+
+    // Terminal do início: skills separadas por vírgula
+    const termSkills = document.getElementById('terminalSkills');
+    const skillsList = (c.terminal_skills || '').split(',').map((s) => s.trim()).filter(Boolean);
+    if (termSkills && skillsList.length) {
+      termSkills.replaceChildren();
+      skillsList.forEach((s, i) => {
+        if (i) termSkills.appendChild(document.createTextNode(', '));
+        termSkills.appendChild(el('span', 'code-val', '"' + s + '"'));
+      });
+    }
+
+    // Foto do Sobre
+    const photo = document.querySelector('img.about-photo');
+    if (photo && c.about_photo_url && isImg(c.about_photo_url)) photo.src = c.about_photo_url;
+
+    // Textos do botão "Ler mais / Ler menos" (script.js alterna entre os dois)
+    const more = document.getElementById('aboutMore');
+    if (more) {
+      if (c.about_more) more.dataset.more = c.about_more;
+      if (c.about_less) more.dataset.less = c.about_less;
+      if (more.getAttribute('aria-expanded') === 'true' && c.about_less) {
+        const lbl = more.querySelector('span');
+        if (lbl) lbl.textContent = c.about_less;
+      }
+    }
 
     // Frases animadas do hero: "texto |destaque|fim"
     if (c.hero_phrases) {
@@ -142,6 +216,10 @@
     document.documentElement.classList.add('in-preview'); // prévia do painel: mostra todos os textos
     const FOCUS_FALLBACK = {
       hero_phrases: '#heroTitle',
+      marquee_items: '.marquee',
+      terminal_skills: '#terminalSkills',
+      about_less: '#aboutMore',
+      about_photo_url: '#photoReveal',
       whatsapp_number: '#contact',
       whatsapp_message: '#contact',
       linkedin_url: '#contact',

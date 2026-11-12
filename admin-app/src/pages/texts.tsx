@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { toast } from 'sonner'
-import { Eye, EyeOff, Link2, Loader2, Save, Shapes, Sparkles, Undo2, User, Undo } from 'lucide-react'
+import {
+  Eye, EyeOff, FolderKanban, Link2, Loader2, Menu, MessageSquareQuote, PanelBottom, Phone, Save, Shapes, Sparkles,
+  Undo2, User, Undo,
+} from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { IMAGE_EXT, IMAGES_BUCKET, MAX_IMAGE_BYTES, supabase } from '@/lib/supabase'
+import { ImageDropzone } from '@/components/projects/image-dropzone'
 import type { SiteText } from '@/lib/types'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -17,28 +21,101 @@ import { cn } from '@/lib/utils'
 
 const MAX_LEN = 2000
 
-type GroupId = 'hero' | 'about' | 'links' | 'other'
+type GroupId = 'menu' | 'hero' | 'about' | 'manifesto' | 'projects' | 'contact' | 'links' | 'footer' | 'other'
 
+// Na ordem em que aparecem no site.
 const GROUPS: { id: GroupId; title: string; description: string; icon: LucideIcon }[] = [
-  { id: 'hero', title: 'Início (Hero)', description: 'Primeira impressão: status, frases animadas e descrição.', icon: Sparkles },
-  { id: 'about', title: 'Sobre mim', description: 'Título e parágrafos da seção sobre.', icon: User },
-  { id: 'links', title: 'Contato e links', description: 'Links externos devem começar com https://.', icon: Link2 },
+  { id: 'menu', title: 'Menu', description: 'Nomes dos links do menu do topo.', icon: Menu },
+  { id: 'hero', title: 'Início (Hero)', description: 'Status, frases animadas, botões, terminal e faixa de tecnologias.', icon: Sparkles },
+  { id: 'about', title: 'Sobre mim', description: 'Foto, títulos, parágrafos e quadros de resumo.', icon: User },
+  { id: 'manifesto', title: 'Frase em destaque', description: 'A frase que acende palavra por palavra ao rolar.', icon: MessageSquareQuote },
+  { id: 'projects', title: 'Projetos', description: 'Título da seção e painel final da vitrine. Os projetos em si ficam em "Projetos".', icon: FolderKanban },
+  { id: 'contact', title: 'Contato', description: 'Título, texto e botão da seção de contato.', icon: Phone },
+  { id: 'links', title: 'Links e contatos', description: 'WhatsApp, LinkedIn, GitHub e e-mail. Links devem começar com https://.', icon: Link2 },
+  { id: 'footer', title: 'Rodapé', description: 'Frases do final da página.', icon: PanelBottom },
   { id: 'other', title: 'Outros textos', description: 'Demais textos do site.', icon: Shapes },
 ]
 
+const PHOTO_KEY = 'about_photo_url'
+const PHOTO_DEFAULT = 'imagens/fotos_pessoais/matheus_bigode.jpeg'
+
 function groupOf(key: string): GroupId {
-  if (key.endsWith('_url') || /^(contact|link|social)/.test(key) || /(email|whatsapp|linkedin|github)/.test(key)) return 'links'
-  if (key.startsWith('hero')) return 'hero'
+  if (key.startsWith('nav_')) return 'menu'
+  if (key.startsWith('footer')) return 'footer'
+  if (/^(hero|terminal|marquee)/.test(key)) return 'hero'
   if (key.startsWith('about')) return 'about'
+  if (key.startsWith('manifesto')) return 'manifesto'
+  if (key.startsWith('projects')) return 'projects'
+  if (key.endsWith('_url') || /^(whatsapp|linkedin|github)/.test(key) || key === 'contact_email') return 'links'
+  if (key.startsWith('contact')) return 'contact'
   return 'other'
 }
 
-const isLong = (r: SiteText) => r.value.length > 70 || /phrases|_p\d|pitch|desc/.test(r.key)
+const isLong = (r: SiteText) =>
+  r.value.length > 70 || /phrases|_p\d|pitch|desc|manifesto|marquee|_text$|end_title/.test(r.key)
+
+// Dicas curtas exibidas abaixo de cada campo especial.
+const HINTS: Record<string, string> = {
+  hero_phrases: 'Uma frase por linha. Use |palavra| para destacar.',
+  marquee_items: 'Um item por linha. A faixa repete a lista sozinha.',
+  terminal_skills: 'Separe com vírgula. Ex.: HTML, CSS, JS',
+  manifesto_text: 'Use |palavra| para destacar em cor. Deixe a pontuação dentro: |negócio.|',
+  projects_end_title: 'Enter quebra a linha. Use |palavra| para destacar.',
+  footer_copy: 'Use |texto| para deixar em negrito.',
+  about_more: 'Botão que aparece só no celular.',
+  about_less: 'Botão que aparece só no celular, depois de expandir.',
+}
+
+// Campos que mostram uma prévia dos destaques (|palavra|).
+const HIGHLIGHT_PREVIEW = new Set(['hero_phrases', 'manifesto_text', 'projects_end_title'])
 
 function validate(key: string, value: string): string | null {
   const v = value.trim()
+  if (key === PHOTO_KEY) {
+    if (v && !/^(https:\/\/|imagens\/)/i.test(v)) return 'A foto precisa ser enviada pelo painel ou começar com https://'
+    return null
+  }
   if (key.endsWith('_url') && v && !/^https:\/\//i.test(v)) return 'Links precisam começar com https://'
   return null
+}
+
+function PhotoField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [uploading, setUploading] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const timer = useRef(0)
+  useEffect(() => () => window.clearInterval(timer.current), [])
+
+  const upload = async (f: File) => {
+    const ext = IMAGE_EXT[f.type]
+    if (!ext) return void toast.error('Use JPG, PNG ou WebP.')
+    if (f.size > MAX_IMAGE_BYTES) return void toast.error('A imagem passa de 2 MB.')
+    setUploading(true)
+    setProgress(8)
+    timer.current = window.setInterval(() => setProgress((p) => Math.min(p + (95 - p) * 0.15, 95)), 150)
+    const path = 'site/' + crypto.randomUUID() + '.' + ext
+    const { error } = await supabase.storage.from(IMAGES_BUCKET).upload(path, f, { contentType: f.type, upsert: false })
+    window.clearInterval(timer.current)
+    setUploading(false)
+    if (error) return void toast.error('Erro: ' + error.message)
+    setProgress(100)
+    onChange(supabase.storage.from(IMAGES_BUCKET).getPublicUrl(path).data.publicUrl)
+    toast.success('Foto enviada. Clique em Salvar alterações para aplicar.')
+  }
+
+  return (
+    <div className="max-w-56">
+      <ImageDropzone
+        value={value}
+        uploading={uploading}
+        progress={progress}
+        onFile={upload}
+        onRemove={() => onChange(PHOTO_DEFAULT)}
+        aspect="aspect-[3/4]"
+        alt="Prévia da foto do Sobre"
+        removeLabel="Foto original"
+      />
+    </div>
+  )
 }
 
 function PhrasesPreview({ value }: { value: string }) {
@@ -89,11 +166,13 @@ function Field({
     'aria-describedby': error ? errId : undefined,
   }
   let control: ReactNode
-  if (long) {
+  if (row.key === PHOTO_KEY) {
+    control = <PhotoField value={value} onChange={onChange} />
+  } else if (long) {
     control = (
       <Textarea
         {...common}
-        rows={row.key === 'hero_phrases' ? 5 : 4}
+        rows={row.key === 'hero_phrases' || row.key === 'marquee_items' ? 5 : 4}
         onChange={(e) => onChange(e.target.value)}
         className="min-h-24 resize-y"
       />
@@ -118,14 +197,14 @@ function Field({
       <div className="flex items-start justify-between gap-2">
         {error ? (
           <p id={errId} role="alert" className="text-xs text-destructive">{error}</p>
-        ) : row.key === 'hero_phrases' ? (
-          <p className="text-xs text-muted-foreground">Uma frase por linha. Use |palavra| para destacar.</p>
+        ) : HINTS[row.key] ? (
+          <p className="text-xs text-muted-foreground">{HINTS[row.key]}</p>
         ) : <span />}
         {long && (
           <span className="shrink-0 text-xs tabular-nums text-muted-foreground">{value.length}/{MAX_LEN}</span>
         )}
       </div>
-      {row.key === 'hero_phrases' && <PhrasesPreview value={value} />}
+      {HIGHLIGHT_PREVIEW.has(row.key) && <PhrasesPreview value={value} />}
     </div>
   )
 }
@@ -230,7 +309,7 @@ export function TextsPage() {
   }
 
   const grouped = useMemo(() => {
-    const map: Record<GroupId, SiteText[]> = { hero: [], about: [], links: [], other: [] }
+    const map = Object.fromEntries(GROUPS.map((g) => [g.id, [] as SiteText[]])) as Record<GroupId, SiteText[]>
     rows.forEach((r) => map[groupOf(r.key)].push(r))
     return map
   }, [rows])
@@ -251,7 +330,7 @@ export function TextsPage() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Textos</h1>
-          <p className="text-sm text-muted-foreground">Edite os textos exibidos no portfólio. Ctrl/Cmd+S para salvar.</p>
+          <p className="text-sm text-muted-foreground">Edite todos os textos, botões, links e a foto do portfólio. Ctrl/Cmd+S para salvar.</p>
         </div>
         <Button
           variant="outline"

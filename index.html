@@ -107,11 +107,11 @@
       <!-- Navegação Principal -->
       <nav>
         <ul class="nav-links" id="navLinks">
-          <li><a href="#home">Início</a></li>
-          <li><a href="#about">Sobre</a></li>
+          <li><a href="#home" data-content="nav_home">Início</a></li>
+          <li data-section="about"><a href="#about" data-content="nav_about">Sobre</a></li>
           <!--<li><a href="#construcao">Processo</a></li>-->
-          <li><a href="#projects">Projetos</a></li>
-          <li><a href="#contact">Contato</a></li>
+          <li data-section="projects"><a href="#projects" data-content="nav_projects">Projetos</a></li>
+          <li data-section="contact"><a href="#contact" data-content="nav_contact">Contato</a></li>
         </ul>
       </nav>
 
@@ -160,13 +160,13 @@
           <h1 id="heroTitle" class="typewriter-target">Um pouco de mim e muito <span>código</span>.</h1>
           <p class="hero-desc" data-content="hero_desc">Desenvolvedor Web criando projetos com foco em excelência e performance. Fazendo aquilo que precisa ser feito.</p>
           <div class="hero-actions">
-            <a href="#contact" class="btn btn-primary">Fale Comigo! <i class="fas fa-arrow-right"></i></a>
-            <a href="#projects" class="btn btn-secondary">Ver Projetos</a>
+            <a href="#contact" class="btn btn-primary" data-section="contact"><span data-content="hero_btn_primary">Fale Comigo!</span> <i class="fas fa-arrow-right"></i></a>
+            <a href="#projects" class="btn btn-secondary" data-section="projects" data-content="hero_btn_secondary">Ver Projetos</a>
           </div>
         </div>
 
         <!-- Terminal de Código Falando Sobre Mim -->
-        <div class="hero-visual">
+        <div class="hero-visual" data-section="hero_terminal">
           <div class="terminal-container">
             <div class="terminal-header">
               <span class="terminal-dot red"></span>
@@ -175,15 +175,14 @@
               <span class="terminal-title">matheus.json</span>
             </div>
             <div class="terminal-body">
-              <span class="line-number">1</span><span class="code-key">"nome"</span>: <span class="code-val">"Matheus
-                Augusto"</span>,<br>
-              <span class="line-number">2</span><span class="code-key">"skills"</span>: [<span
+              <span class="line-number">1</span><span class="code-key">"nome"</span>: <span class="code-val">"<span data-content="terminal_name">Matheus Augusto</span>"</span>,<br>
+              <span class="line-number">2</span><span class="code-key">"skills"</span>: [<span id="terminalSkills"><span
                 class="code-val">"HTML"</span>, <span class="code-val">"CSS"</span>, <span
-                class="code-val">"JS"</span>],<br>
+                class="code-val">"JS"</span></span>],<br>
               <span class="line-number">3</span><span class="code-key">"alvo"</span>: <span
-                class="code-val">"Excelência"</span>,<br>
+                class="code-val">"<span data-content="terminal_target">Excelência</span>"</span>,<br>
               <span class="line-number">4</span><span class="code-key">"status"</span>: <span
-                class="code-val">"Disponível"</span><span class="code-caret"></span>
+                class="code-val">"<span data-content="terminal_status">Disponível</span>"</span><span class="code-caret"></span>
             </div>
           </div>
         </div>
@@ -192,7 +191,7 @@
     </section>
 
     <!-- Faixa de tecnologias (conteúdo duplicado para o loop ficar contínuo) -->
-    <div class="marquee" aria-hidden="true">
+    <div class="marquee" aria-hidden="true" data-section="marquee">
       <div class="marquee-track">
         <span class="marquee-item">HTML5</span><span class="marquee-item">CSS3</span><span class="marquee-item">JavaScript</span><span class="marquee-item">PHP</span><span class="marquee-item">SQL</span><span class="marquee-item">Supabase</span><span class="marquee-item">Responsivo</span><span class="marquee-item">Performance</span>
         <span class="marquee-item">HTML5</span><span class="marquee-item">CSS3</span><span class="marquee-item">JavaScript</span><span class="marquee-item">PHP</span><span class="marquee-item">SQL</span><span class="marquee-item">Supabase</span><span class="marquee-item">Responsivo</span><span class="marquee-item">Performance</span>
@@ -200,7 +199,7 @@
     </div>
 
     <!-- ─── SOBRE MIM (Com Moldura de Foto) ─── -->
-    <section class="about" id="about">
+    <section class="about" id="about" data-section="about">
       <div class="container-large">
         <div class="about-grid">
           <!-- Coluna da Foto com Moldura Minimalista -->
@@ -214,7 +213,7 @@
 
           <!-- Coluna dos textos -->
           <div class="about-text reveal">
-            <span class="section-label">Sobre mim</span>
+            <span class="section-label" data-content="about_label">Sobre mim</span>
             <h2 data-content="about_title">Quem é o Matheus?</h2>
             <p data-content="about_p1">Olá! Sou o Matheus Augusto, estudante de Análise e Desenvolvimento de Sistemas na Unicesumar e
               desenvolvedor web freelancer. Minha missão é traduzir as necessidades do seu negócio em interfaces
@@ -222,26 +221,28 @@
             <p data-content="about_p2">Trabalho focando na experiência do usuário, confiabilidade, usabilidade e uma navegação fenomenal. Cada
               projeto é único e desenvolvido de acordo com as necessidades do cliente, garantindo que ele tenha um site
               que atenda às suas expectativas.</p>
-            <button type="button" class="about-more" id="aboutMore" aria-expanded="false"><span>Ler mais</span> <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
+            <button type="button" class="about-more" id="aboutMore" aria-expanded="false"><span data-content="about_more">Ler mais</span> <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
 
-            <div class="about-facts">
+            <div class="about-facts" data-section="about_facts">
               <div class="fact">
-                <span class="fact-label">Formação</span>
-                <span class="fact-value">ADS · Unicesumar</span>
+                <span class="fact-label" data-content="about_fact1_label">Formação</span>
+                <span class="fact-value" data-content="about_fact1_value">ADS · Unicesumar</span>
               </div>
               <div class="fact">
-                <span class="fact-label">Atuação</span>
-                <span class="fact-value">Dev Web Freelancer</span>
+                <span class="fact-label" data-content="about_fact2_label">Atuação</span>
+                <span class="fact-value" data-content="about_fact2_value">Dev Web Freelancer</span>
               </div>
             </div>
 
-            <h4 class="skills-title">// tecnologias principais</h4>
-            <div class="skills-flex stagger-container" id="skillsContainer">
-              <span class="skill-badge stagger-item">HTML5</span>
-              <span class="skill-badge stagger-item">CSS3</span>
-              <span class="skill-badge stagger-item">JavaScript</span>
-              <span class="skill-badge stagger-item">PHP</span>
-              <span class="skill-badge stagger-item">SQL</span>
+            <div data-section="about_skills">
+              <h4 class="skills-title" data-content="about_skills_title">// tecnologias principais</h4>
+              <div class="skills-flex stagger-container" id="skillsContainer">
+                <span class="skill-badge stagger-item">HTML5</span>
+                <span class="skill-badge stagger-item">CSS3</span>
+                <span class="skill-badge stagger-item">JavaScript</span>
+                <span class="skill-badge stagger-item">PHP</span>
+                <span class="skill-badge stagger-item">SQL</span>
+              </div>
             </div>
           </div>
         </div>
@@ -287,18 +288,18 @@
     </section> -->
 
     <!-- ─── MANIFESTO (palavras acendem ao rolar) ─── -->
-    <section class="manifesto" id="manifesto" aria-label="Eu transformo ideias em sites rápidos, bonitos e feitos sob medida para o seu negócio crescer.">
+    <section class="manifesto" id="manifesto" data-section="manifesto" aria-label="Eu transformo ideias em sites rápidos, bonitos e feitos sob medida para o seu negócio crescer.">
       <div class="manifesto-stage">
-        <p class="manifesto-text" id="manifestoText" aria-hidden="true">Eu transformo ideias em sites <b class="hl">rápidos,</b> <b class="hl">bonitos</b> e feitos sob medida para o seu <b class="hl">negócio</b> crescer.</p>
+        <p class="manifesto-text" id="manifestoText" aria-hidden="true" data-content="manifesto_text" data-rich="b.hl">Eu transformo ideias em sites <b class="hl">rápidos,</b> <b class="hl">bonitos</b> e feitos sob medida para o seu <b class="hl">negócio</b> crescer.</p>
         <div class="manifesto-meter" aria-hidden="true"><i id="manifestoMeter"></i></div>
       </div>
     </section>
 
     <!-- ─── SEÇÃO PROJETOS (vitrine: o dispositivo fica fixo, o projeto muda ao rolar) ─── -->
-    <section class="projects showcase" id="projects">
+    <section class="projects showcase" id="projects" data-section="projects">
       <div class="container-large">
         <div class="section-header reveal">
-          <span class="section-label">Portfólio</span>
+          <span class="section-label" data-content="projects_label">Portfólio</span>
           <h2 class="section-title" data-content="projects_title">Projetos Recentes</h2>
         </div>
       </div>
@@ -366,20 +367,20 @@
 
           <!-- Painel final -->
           <div class="sc-end">
-            <h3>E o próximo pode<br>ser <span>o seu.</span></h3>
+            <h3 data-content="projects_end_title" data-rich="span">E o próximo pode<br>ser <span>o seu.</span></h3>
             <span class="sc-poke" role="img" aria-label="Dedo apontando para você">🫵</span>
-            <p>Tem uma ideia ou um negócio que precisa de um site? Vamos conversar.</p>
-            <a href="#contact" class="btn btn-primary">Falar comigo <i class="fas fa-arrow-right"></i></a>
+            <p data-content="projects_end_text">Tem uma ideia ou um negócio que precisa de um site? Vamos conversar.</p>
+            <a href="#contact" class="btn btn-primary" data-section="contact"><span data-content="projects_end_btn">Falar comigo</span> <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ─── SEÇÃO CONTATO ─── -->
-    <section class="contact" id="contact">
+    <section class="contact" id="contact" data-section="contact">
       <div class="container-large">
         <div class="contact-wrap-v2 reveal">
-          <span class="section-label">Contato</span>
+          <span class="section-label" data-content="contact_label">Contato</span>
           <h2 data-content="contact_title">Vamos construir algo juntos?</h2>
           <p class="contact-pitch" data-content="contact_pitch">Estou disponível para novos projetos. Se você pensa em ter um site
             personalizado, bonito e moderno, entre em contato comigo pelo WhatsApp!</p>
@@ -387,7 +388,7 @@
           <!-- Botão Principal Destaque de Conversa -->
           <a data-wa href="https://wa.me/5544999071031?text=Olá,%20Matheus!%20Gostaria%20de%20saber%20mais%20sobre%20seus%20serviços%20de%20desenvolvimento%20de%20sites."
             target="_blank" rel="noopener noreferrer" class="contact-main-btn">
-            <i class="fab fa-whatsapp"></i> Iniciar conversa no WhatsApp
+            <i class="fab fa-whatsapp"></i> <span data-content="contact_btn">Iniciar conversa no WhatsApp</span>
           </a>
 
           <!-- Grade de Informações e Links Minimalista -->
@@ -427,7 +428,7 @@
       <div class="footer-bottom">
   <a href="#home" class="logo">Matheus<span>.</span>dev</a>
         <p data-content="footer_tagline">Desenvolvido com foco em performance e design.</p>
-        <p>&copy; 2026 <strong>Matheus Augusto</strong>. Todos os direitos reservados.</p>
+        <p data-content="footer_copy" data-rich="strong">&copy; 2026 <strong>Matheus Augusto</strong>. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>

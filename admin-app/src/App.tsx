@@ -6,6 +6,7 @@ import { useSession } from '@/hooks/use-session'
 import { HomePage } from '@/pages/home'
 import { LoginPage } from '@/pages/login'
 import { ProjectsPage } from '@/pages/projects'
+import { SectionsPage } from '@/pages/sections'
 import { SkillsPage } from '@/pages/skills'
 import { TextsPage } from '@/pages/texts'
 
@@ -26,6 +27,7 @@ export default function App() {
       <AppShell route={route} go={go} email={session.user.email}>
         {route === 'home' && <HomePage go={go} />}
         {route === 'texts' && <TextsPage />}
+        {route === 'sections' && <SectionsPage />}
         {route === 'projects' && <ProjectsPage />}
         {route === 'skills' && <SkillsPage />}
       </AppShell>

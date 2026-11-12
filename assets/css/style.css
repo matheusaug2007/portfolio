@@ -1864,3 +1864,20 @@ footer {
   from { opacity: 0; transform: translateX(var(--fact-from)); }
   to { opacity: 1; transform: none; }
 }
+
+/* ─── Seções ocultas pelo painel (/admin → Seções) ───
+   content.js usa o atributo [hidden]; theme-init.js usa as classes hide-* (lembradas da última visita)
+   para a seção nem aparecer antes de o Supabase responder. */
+[data-section][hidden] { display: none !important; }
+html.hide-hero_terminal [data-section="hero_terminal"],
+html.hide-marquee [data-section="marquee"],
+html.hide-about [data-section="about"],
+html.hide-about_facts [data-section="about_facts"],
+html.hide-about_skills [data-section="about_skills"],
+html.hide-manifesto [data-section="manifesto"],
+html.hide-projects [data-section="projects"],
+html.hide-contact [data-section="contact"] { display: none !important; }
+
+/* Sem o terminal, o texto do início ocupa a largura toda */
+.hero-container:has(> [data-section="hero_terminal"][hidden]),
+html.hide-hero_terminal .hero-container { grid-template-columns: 1fr; }

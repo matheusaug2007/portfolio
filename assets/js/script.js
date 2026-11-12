@@ -619,6 +619,6 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', () => {
     const open = box.classList.toggle('expanded');
     btn.setAttribute('aria-expanded', String(open));
-    btn.querySelector('span').textContent = open ? 'Ler menos' : 'Ler mais';
+    btn.querySelector('span').textContent = open ? (btn.dataset.less || 'Ler menos') : (btn.dataset.more || 'Ler mais');
   });
 });
