@@ -1719,3 +1719,148 @@ footer {
 
   .whatsapp-float { bottom: 18px; right: 18px; width: 52px; height: 52px; }
 }
+
+/* ─── CELULAR: INÍCIO E SOBRE MAIS ENXUTOS ─── */
+.about-more { display: none; }
+
+@media (max-width: 768px) {
+  /* Início cabe em uma tela: selo, título, uma ação principal e o terminal */
+  .hero {
+    min-height: 100svh;
+    padding: 104px 6% 72px;
+    view-timeline: --hero block;
+  }
+
+  .hero-container { gap: 40px; }
+
+  .hero h1 {
+    font-size: clamp(2.7rem, 12.5vw, 3.6rem);
+    margin-bottom: 28px;
+  }
+
+  /* o terminal já apresenta nome, skills e status: o parágrafo fica só no desktop */
+  .hero-desc { display: none; }
+
+  .hero-actions {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-actions .btn-primary { flex: 1 1 auto; justify-content: center; }
+
+  /* "Ver Projetos" vira link de texto, para sobrar um único botão */
+  .hero-actions .btn-secondary {
+    flex: 0 0 auto;
+    background: none;
+    border-color: transparent;
+    box-shadow: none;
+    padding: 13px 14px;
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--primary);
+    text-underline-offset: 6px;
+  }
+
+  .terminal-body { line-height: 1.75; }
+
+  .scroll-hint {
+    display: flex;
+    bottom: 14px;
+    font-size: 0.62rem;
+    gap: 6px;
+  }
+  .scroll-hint::after { height: 22px; }
+
+  /* Sobre: foto menor e menos texto de cara */
+  .about { overflow-x: clip; } /* os cards entram pelos lados sem alargar a página */
+  .about-grid { gap: 40px; }
+
+  .about-photo-frame,
+  .about-photo-container::before { max-width: 210px; }
+
+  .about-photo-container::before { transform: translate(12px, 12px) rotate(3deg); }
+
+  .about-text h2 { margin-bottom: 18px; }
+
+  .about-text p { font-size: 1rem; margin-bottom: 14px; }
+
+  .about-text:not(.expanded) p[data-content="about_p2"] { display: none; }
+  html.in-preview .about-text p[data-content="about_p2"] { display: block; }
+  html.in-preview .about-more { display: none; }
+
+  .about-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    padding: 6px 0;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    cursor: pointer;
+  }
+  .about-more i { font-size: 0.7rem; transition: transform 0.3s var(--ease); }
+  .about-more[aria-expanded="true"] i { transform: rotate(180deg); }
+
+  .about-facts {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 22px 0 26px;
+  }
+  .fact { padding: 14px; }
+  .fact-label { font-size: 0.62rem; letter-spacing: 1px; }
+  .fact-value { font-size: 0.92rem; line-height: 1.25; display: block; }
+
+  .skills-flex { gap: 8px; }
+  .skill-badge { padding: 7px 14px; font-size: 0.76rem; }
+}
+
+@media (max-width: 768px) and (max-height: 640px) {
+  .scroll-hint { display: none; }
+}
+
+/* Animações ligadas à rolagem (só onde o navegador suporta e sem "reduzir movimento") */
+@media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* o início se afasta e some conforme a página sobe */
+    .hero-container {
+      animation: heroScrollOut linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 85%;
+    }
+
+    /* a foto chega pequena e inclinada e se ajeita */
+    .about-photo-container {
+      animation: photoScrollIn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 38%;
+    }
+
+    /* os cards de fatos entram um de cada lado */
+    .fact {
+      animation: factScrollIn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+      --fact-from: -36px;
+    }
+    .fact:nth-child(even) { --fact-from: 36px; }
+  }
+}
+
+@keyframes heroScrollOut {
+  to { opacity: 0; transform: translateY(-48px) scale(0.94); }
+}
+
+@keyframes photoScrollIn {
+  from { transform: scale(0.78) rotate(-6deg); }
+  to { transform: none; }
+}
+
+@keyframes factScrollIn {
+  from { opacity: 0; transform: translateX(var(--fact-from)); }
+  to { opacity: 1; transform: none; }
+}

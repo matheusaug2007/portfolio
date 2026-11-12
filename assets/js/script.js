@@ -610,3 +610,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateShowcase();
 
 });
+
+// "Ler mais" do Sobre (só aparece no celular, onde o segundo parágrafo começa recolhido)
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('aboutMore');
+  const box = btn && btn.closest('.about-text');
+  if (!btn || !box) return;
+  btn.addEventListener('click', () => {
+    const open = box.classList.toggle('expanded');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.querySelector('span').textContent = open ? 'Ler menos' : 'Ler mais';
+  });
+});

@@ -139,6 +139,7 @@
   // Só ativo quando o site roda dentro de um iframe do mesmo domínio (painel /admin).
   // Aceita apenas mensagens do mesmo origin e só aplica texto (textContent), sem salvar nada.
   if (window.parent !== window) {
+    document.documentElement.classList.add('in-preview'); // prévia do painel: mostra todos os textos
     const FOCUS_FALLBACK = {
       hero_phrases: '#heroTitle',
       whatsapp_number: '#contact',
