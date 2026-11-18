@@ -15,6 +15,14 @@ export type Project = {
   position: number
 }
 
+export type Section = {
+  chave: string
+  nome: string
+  descricao: string
+  visivel: boolean
+  posicao: number
+}
+
 export type Skill = {
   id: string
   name: string

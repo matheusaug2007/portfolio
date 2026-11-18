@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
-  ArrowUpRight, BarChart3, Cpu, ExternalLink, FolderKanban, Globe, Type,
+  ArrowUpRight, BarChart3, Cpu, ExternalLink, FolderKanban, Globe, LayoutList, Type,
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import type { Route } from '@/hooks/use-route'
@@ -73,7 +73,8 @@ export function HomePage({ go }: { go: (r: Route) => void }) {
   ]
 
   const actions: { route: Route; title: string; desc: string; icon: typeof Type }[] = [
-    { route: 'texts', title: 'Editar textos', desc: 'Títulos, frases e descrições do site.', icon: Type },
+    { route: 'texts', title: 'Editar textos', desc: 'Todos os textos, botões, links e a foto do site.', icon: Type },
+    { route: 'sections', title: 'Mostrar/ocultar seções', desc: 'Desligue partes do site sem apagar nada.', icon: LayoutList },
     { route: 'projects', title: 'Gerenciar projetos', desc: 'Adicionar, ordenar e ocultar projetos.', icon: FolderKanban },
     { route: 'skills', title: 'Gerenciar tecnologias', desc: 'Organize as tecnologias exibidas.', icon: Cpu },
   ]
@@ -122,7 +123,7 @@ export function HomePage({ go }: { go: (r: Route) => void }) {
 
       <section aria-label="Ações rápidas" className="space-y-3">
         <h2 className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">Ações rápidas</h2>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           {actions.map(({ route, title, desc, icon: Icon }) => (
             <button
               key={route}

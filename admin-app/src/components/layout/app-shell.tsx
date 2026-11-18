@@ -1,4 +1,4 @@
-import { ExternalLink, FileText, FolderKanban, LayoutDashboard, LogOut, Moon, Sparkles, Sun } from 'lucide-react'
+import { ExternalLink, FileText, FolderKanban, LayoutDashboard, LayoutList, LogOut, Moon, Sparkles, Sun } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import {
@@ -22,6 +22,7 @@ import { supabase } from '@/lib/supabase'
 const NAV: { route: Route; label: string; icon: typeof FileText }[] = [
   { route: 'home', label: 'Visão geral', icon: LayoutDashboard },
   { route: 'texts', label: 'Textos', icon: FileText },
+  { route: 'sections', label: 'Seções', icon: LayoutList },
   { route: 'projects', label: 'Projetos', icon: FolderKanban },
   { route: 'skills', label: 'Tecnologias', icon: Sparkles },
 ]
@@ -29,6 +30,7 @@ const NAV: { route: Route; label: string; icon: typeof FileText }[] = [
 const TITLES: Record<Route, string> = {
   home: 'Visão geral',
   texts: 'Textos do site',
+  sections: 'Seções do site',
   projects: 'Projetos',
   skills: 'Tecnologias',
 }

@@ -11,9 +11,16 @@ type Props = {
   progress: number
   onFile: (file: File) => void
   onRemove: () => void
+  /** Classe de proporção da área (padrão: 16:9). */
+  aspect?: string
+  alt?: string
+  removeLabel?: string
 }
 
-export function ImageDropzone({ value, uploading, progress, onFile, onRemove }: Props) {
+export function ImageDropzone({
+  value, uploading, progress, onFile, onRemove,
+  aspect = 'aspect-video', alt = 'Prévia da imagem do projeto', removeLabel = 'Remover',
+}: Props) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [over, setOver] = useState(false)
   const img = resolveImage(value)
@@ -58,7 +65,8 @@ export function ImageDropzone({ value, uploading, progress, onFile, onRemove }: 
           if (f && !uploading) onFile(f)
         }}
         className={cn(
-          'relative flex aspect-video w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-input bg-muted/30 text-center outline-none transition-colors hover:bg-muted/60 focus-visible:ring-3 focus-visible:ring-ring/50',
+          'relative flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-input bg-muted/30 text-center outline-none transition-colors hover:bg-muted/60 focus-visible:ring-3 focus-visible:ring-ring/50',
+          aspect,
           over && 'border-primary bg-primary/10',
           uploading && 'cursor-progress',
         )}
@@ -66,7 +74,7 @@ export function ImageDropzone({ value, uploading, progress, onFile, onRemove }: 
         {img && (
           <img
             src={img}
-            alt="Prévia da imagem do projeto"
+            alt={alt}
             className={cn('absolute inset-0 size-full object-cover', uploading && 'opacity-30')}
           />
         )}
@@ -97,7 +105,7 @@ export function ImageDropzone({ value, uploading, progress, onFile, onRemove }: 
             <RefreshCw aria-hidden /> Substituir
           </Button>
           <Button type="button" variant="ghost" size="sm" onClick={onRemove}>
-            <Trash2 aria-hidden /> Remover
+            <Trash2 aria-hidden /> {removeLabel}
           </Button>
         </div>
       )}
