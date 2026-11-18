@@ -148,47 +148,27 @@
 
   <main>
     <!-- ─── HERO SECTION ─── -->
+    <!-- O nome é a peça gráfica, em duas linhas escalonadas. Uma gota de metal líquido
+         (3D) fica atrás das letras: o texto passa sempre na frente e continua legível. -->
     <section class="hero" id="home">
-      <!-- Canvas de Partículas -->
-      <canvas id="particlesCanvas" class="particles-canvas"></canvas>
-      <div class="hero-container">
-        <div class="hero-content">
-          <div class="badge-status">
-            <span class="pulse-dot"></span>
-            <span data-content="hero_badge">Disponível para novos projetos</span>
-          </div>
-          <h1 id="heroTitle" class="typewriter-target">Um pouco de mim e muito <span>código</span>.</h1>
-          <p class="hero-desc" data-content="hero_desc">Desenvolvedor Web criando projetos com foco em excelência e performance. Fazendo aquilo que precisa ser feito.</p>
+      <div class="hero-inner">
+        <div class="hero-stage" id="heroStage">
+          <p class="hero-greet">Olá, eu sou o</p>
+          <h1 class="hero-name" aria-label="Matheus Augusto">
+            <span class="hn-line" aria-hidden="true"><span class="hn-word"><span class="hn-ch">M</span><span class="hn-ch">A</span><span class="hn-ch">T</span><span class="hn-ch">H</span><span class="hn-ch">E</span><span class="hn-ch">U</span><span class="hn-ch">S</span></span> <span class="hn-word"><span class="hn-ch">A</span><span class="hn-ch">U</span><span class="hn-ch">G</span><span class="hn-ch">U</span><span class="hn-ch">S</span><span class="hn-ch">T</span><span class="hn-ch">O</span></span></span>
+          </h1>
+
+          <!-- Gota de metal líquido (three.js desenha aqui; sem WebGL a área fica vazia e o nome continua inteiro) -->
+          <div class="hero-orb" id="heroOrb" aria-hidden="true"><canvas id="orbCanvas"></canvas></div>
+        </div>
+
+        <div class="hero-foot">
           <div class="hero-actions">
             <a href="#contact" class="btn btn-primary">Fale Comigo! <i class="fas fa-arrow-right"></i></a>
             <a href="#projects" class="btn btn-secondary">Ver Projetos</a>
           </div>
         </div>
-
-        <!-- Terminal de Código Falando Sobre Mim -->
-        <div class="hero-visual">
-          <div class="terminal-container">
-            <div class="terminal-header">
-              <span class="terminal-dot red"></span>
-              <span class="terminal-dot yellow"></span>
-              <span class="terminal-dot green"></span>
-              <span class="terminal-title">matheus.json</span>
-            </div>
-            <div class="terminal-body">
-              <span class="line-number">1</span><span class="code-key">"nome"</span>: <span class="code-val">"Matheus
-                Augusto"</span>,<br>
-              <span class="line-number">2</span><span class="code-key">"skills"</span>: [<span
-                class="code-val">"HTML"</span>, <span class="code-val">"CSS"</span>, <span
-                class="code-val">"JS"</span>],<br>
-              <span class="line-number">3</span><span class="code-key">"alvo"</span>: <span
-                class="code-val">"Excelência"</span>,<br>
-              <span class="line-number">4</span><span class="code-key">"status"</span>: <span
-                class="code-val">"Disponível"</span><span class="code-caret"></span>
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="scroll-hint" aria-hidden="true">scroll</div>
     </section>
 
     <!-- Faixa de tecnologias (conteúdo duplicado para o loop ficar contínuo) -->
@@ -443,6 +423,7 @@
   <script src="assets/js/supabase-config.js" defer></script>
   <script src="assets/js/content.js" defer></script>
   <script src="assets/js/script.js" defer></script>
+  <script type="module" src="assets/js/orb.js"></script>
   <!-- Cloudflare Web Analytics: carregado por assets/js/content.js (não conta a prévia do painel) -->
 </body>
 

@@ -224,6 +224,23 @@ header.scrolled .nav-container {
   margin: 0 1px;
 }
 
+/* No topo (sobre a Hero) o logo some: o nome gigante já é a assinatura.
+   Ao rolar para fora da Hero ele surge no cabeçalho. */
+header .logo {
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0s 0.4s;
+}
+
+header:not(.logo-on) .logo {
+  opacity: 0;
+  transform: translateY(-8px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+header.logo-on .logo {
+  transition-delay: 0s;
+}
+
 nav {
   display: flex;
   align-items: center;
@@ -375,233 +392,157 @@ body.dark-theme .sun-icon { opacity: 1; transform: scale(1) rotate(0deg); }
   transform: translateY(-2px);
 }
 
-/* ─── HERO ─── */
+/* ─── HERO: o nome como peça gráfica + gota de metal líquido ───
+   O nome fica em duas linhas escalonadas (a segunda encosta na direita). A gota 3D
+   (canvas do three.js) fica ATRÁS das letras, no encontro das duas linhas: o texto passa
+   sempre na frente e continua legível; a gota aparece nos vãos e ao redor das letras. */
 .hero {
+  --gutter: 5vw;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   position: relative;
-  padding: 150px 5% 90px;
+  padding: 118px var(--gutter) 52px;
   overflow: hidden;
-  /* fundo original: brilho azul suave no canto + partículas */
-  background: radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.05) 0%, transparent 60%);
 }
 
-.particles-canvas {
+.hero-inner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero-stage {
+  --fs: min(15.4vw, 25svh);
+  --pad-b: 0.1em;
+  --lx: 55.5%;        /* centro da gota na horizontal */
+  --orb-size: 3.3em;
+  --orb-cy: 0.82em;   /* centro da gota acima da base do nome (no encontro das duas linhas) */
+  position: relative;
+  font-size: var(--fs);
+  /* a gota pode passar um pouco da área do nome sem ser cortada */
+  margin-inline: calc(var(--gutter) * -1);
+  padding: 0 var(--gutter) var(--pad-b);
+}
+
+.hero-greet {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.25vw, 1.15rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-secondary);
+  /* começa exatamente onde começa a haste do "M" */
+  margin: 0 0 clamp(10px, 0.09em, 22px) calc(var(--fs) * 0.016);
+  animation: greetIn 0.7s var(--ease) 0.08s both;
+}
+
+.hero-name {
+  position: relative;
+  z-index: 2; /* acima da gota */
+  font-family: var(--font-display);
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 0.84;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.hn-line { display: block; }
+
+.hn-word {
+  display: block;
+  white-space: nowrap;
+}
+
+/* desktop: a segunda palavra encosta na direita, o nome fica escalonado */
+.hn-word + .hn-word { text-align: right; }
+
+.hn-ch { display: inline-block; }
+
+/* entrada: cada letra sobe por trás da linha de base */
+.hero-name .hn-word { clip-path: inset(-0.3em -0.3em -0.03em -0.3em); }
+
+.hero-name .hn-ch {
+  animation: chRise 0.78s var(--ease) both;
+  animation-delay: calc(0.06s + var(--i, 0) * 0.032s);
+}
+
+.hero-name .hn-word:first-child .hn-ch:nth-child(2) { --i: 1; }
+.hero-name .hn-word:first-child .hn-ch:nth-child(3) { --i: 2; }
+.hero-name .hn-word:first-child .hn-ch:nth-child(4) { --i: 3; }
+.hero-name .hn-word:first-child .hn-ch:nth-child(5) { --i: 4; }
+.hero-name .hn-word:first-child .hn-ch:nth-child(6) { --i: 5; }
+.hero-name .hn-word:first-child .hn-ch:nth-child(7) { --i: 6; }
+.hero-name .hn-word + .hn-word .hn-ch:nth-child(1) { --i: 4; }
+.hero-name .hn-word + .hn-word .hn-ch:nth-child(2) { --i: 5; }
+.hero-name .hn-word + .hn-word .hn-ch:nth-child(3) { --i: 6; }
+.hero-name .hn-word + .hn-word .hn-ch:nth-child(4) { --i: 7; }
+.hero-name .hn-word + .hn-word .hn-ch:nth-child(5) { --i: 8; }
+.hero-name .hn-word + .hn-word .hn-ch:nth-child(6) { --i: 9; }
+.hero-name .hn-word + .hn-word .hn-ch:nth-child(7) { --i: 10; }
+
+/* ── gota (atrás do nome) ── */
+.hero-orb {
   position: absolute;
-  top: 0;
-  left: 0;
+  z-index: 1;
+  left: var(--lx);
+  bottom: calc(var(--pad-b) + var(--orb-cy) - var(--orb-size) / 2);
+  width: var(--orb-size);
+  height: var(--orb-size);
+  translate: -50% 0;
+  pointer-events: none;
+  animation: orbIn 1.2s cubic-bezier(0.16, 0.84, 0.24, 1) 0.5s backwards;
+}
+
+.hero-orb canvas {
+  position: relative;
+  display: block;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  z-index: 1;
 }
 
-.hero-container {
-  max-width: 1160px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 64px;
-  align-items: center;
-  width: 100%;
-}
-
-.hero-content {
-  z-index: 2;
-}
-
-.badge-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--surface-2);
-  color: var(--text-secondary);
-  padding: 8px 18px 8px 14px;
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 500;
-  margin-bottom: 28px;
-  border: 1px solid var(--border-strong);
-  backdrop-filter: blur(8px);
-  animation: fadeInUp 0.6s var(--ease) both;
-}
-
-.badge-status .pulse-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #22c55e;
-  border-radius: 50%;
-  position: relative;
-}
-
-.badge-status .pulse-dot::after {
+/* halo azul atrás da gota */
+.hero-orb::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background-color: #22c55e;
+  inset: 18%;
   border-radius: 50%;
-  animation: dotPulse 1.8s infinite;
+  background: radial-gradient(closest-side, rgba(0, 102, 255, 0.28), transparent);
+  filter: blur(0.12em);
 }
 
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 6vw, 4.8rem);
-  font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -0.04em;
-  color: var(--text-primary);
-  margin-bottom: 24px;
-  min-height: 2.1em;
-  animation: fadeInUp 0.8s var(--ease) 0.1s both;
+body.dark-theme .hero-orb::before {
+  background: radial-gradient(closest-side, rgba(0, 102, 255, 0.45), transparent);
 }
 
-.hero h1 span:not(.typewriter-cursor) {
-  background: var(--grad);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-desc {
-  font-size: 1.15rem;
-  color: var(--text-secondary);
-  max-width: 520px;
-  margin-bottom: 40px;
-  animation: fadeInUp 0.8s var(--ease) 0.2s both;
+/* ── ações ── */
+.hero-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: clamp(28px, 5.5svh, 60px);
 }
 
 .hero-actions {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   flex-wrap: wrap;
-  animation: fadeInUp 0.8s var(--ease) 0.3s both;
+  animation: fadeInUp 0.8s var(--ease) 0.95s both;
 }
 
-.typewriter-cursor {
-  display: inline-block;
-  width: 4px;
-  height: 0.85em;
-  background: var(--primary);
-  margin-left: 4px;
-  vertical-align: baseline;
-  border-radius: 2px;
-  animation: typewriterBlink 0.8s step-end infinite;
+@keyframes chRise {
+  from { transform: translateY(115%); }
 }
 
-/* indicador de scroll */
-.scroll-hint {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
+@keyframes greetIn {
+  from { opacity: 0; transform: translateX(-12px); }
 }
 
-.scroll-hint::after {
-  content: '';
-  width: 1px;
-  height: 36px;
-  background: linear-gradient(var(--primary), transparent);
-  animation: scrollLine 2s ease-in-out infinite;
-  transform-origin: top;
-}
-
-/* ─── TERMINAL ─── */
-.hero-visual {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-visual::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  max-width: 440px;
-  margin: 0 auto;
-  border-radius: var(--radius-lg);
-  background: var(--grad);
-  filter: blur(36px);
-  opacity: 0.25;
-  z-index: 0;
-}
-
-.terminal-container {
-  position: relative;
-  z-index: 1;
-  background: rgba(10, 12, 20, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.6);
-  width: 100%;
-  max-width: 440px;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  text-align: left;
-  overflow: hidden;
-  margin: 0 auto;
-  backdrop-filter: blur(14px);
-  animation: floatHero 7s ease-in-out infinite;
-}
-
-.terminal-header {
-  background: rgba(255, 255, 255, 0.04);
-  padding: 12px 18px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.terminal-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-.terminal-dot.red { background-color: #ff5f56; }
-.terminal-dot.yellow { background-color: #ffbd2e; }
-.terminal-dot.green { background-color: #27c93f; }
-
-.terminal-title {
-  color: #8b93a8;
-  font-size: 0.78rem;
-  margin-left: auto;
-}
-
-.terminal-body {
-  padding: 22px 22px 24px;
-  color: #dfe4f1;
-  line-height: 1.9;
-}
-
-.line-number {
-  color: #4a5268;
-  margin-right: 16px;
-  user-select: none;
-}
-
-.code-key { color: #7cb7ff; }
-.code-val { color: #6ee7b7; }
-
-.code-caret {
-  display: inline-block;
-  width: 8px;
-  height: 1.05em;
-  background: #7cb7ff;
-  vertical-align: text-bottom;
-  margin-left: 4px;
-  animation: typewriterBlink 1s step-end infinite;
+@keyframes orbIn {
+  from { opacity: 0; scale: 0.35; }
 }
 
 /* ─── MARQUEE (faixa de tecnologias) ─── */
@@ -1564,16 +1505,6 @@ footer {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes floatHero {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-
-@keyframes typewriterBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
 @keyframes drift1 {
   to { transform: translate(120px, 80px) scale(1.15); }
 }
@@ -1586,12 +1517,6 @@ footer {
 
 @keyframes marquee {
   to { transform: translateX(-50%); }
-}
-
-@keyframes scrollLine {
-  0% { transform: scaleY(0); opacity: 1; }
-  60% { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(1); opacity: 0; }
 }
 
 /* ─── ACESSIBILIDADE ─── */
@@ -1619,15 +1544,6 @@ footer {
 @media (max-width: 992px) {
   section { padding: 90px 5%; }
 
-  .hero { padding: 130px 5% 90px; }
-
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: 56px;
-  }
-
-  .hero-desc { max-width: 100%; }
-
   .about-grid {
     grid-template-columns: 1fr;
     gap: 56px;
@@ -1635,8 +1551,6 @@ footer {
 
   .about-photo-frame,
   .about-photo-container::before { max-width: 320px; }
-
-  .scroll-hint { display: none; }
 }
 
 @media (max-width: 768px) {
@@ -1691,18 +1605,8 @@ footer {
 @media (max-width: 480px) {
   section { padding: 70px 5%; }
 
-  .hero { padding: 110px 5% 70px; }
-
-  .hero h1 { letter-spacing: -0.03em; }
-
-  .badge-status { font-size: 0.7rem; padding: 6px 14px 6px 12px; }
 
   .btn { padding: 13px 24px; font-size: 0.9rem; }
-
-  .hero-actions .btn { flex: 1 1 100%; justify-content: center; }
-
-  .terminal-container { font-size: 0.8rem; }
-  .terminal-body { padding: 18px; }
 
   .marquee-item { font-size: 1.2rem; padding: 0 20px; gap: 40px; }
 
@@ -1723,24 +1627,42 @@ footer {
 /* ─── CELULAR: INÍCIO E SOBRE MAIS ENXUTOS ─── */
 .about-more { display: none; }
 
-@media (max-width: 768px) {
-  /* Início cabe em uma tela: selo, título, uma ação principal e o terminal */
+/* Celular e tablet em pé: o nome ocupa a largura toda, as duas linhas ficam alinhadas à
+   esquerda e a gota fica atrás do começo do nome, vazando pela borda direita da tela */
+@media (max-width: 768px), (max-width: 1100px) and (orientation: portrait) {
   .hero {
-    min-height: 100svh;
-    padding: 104px 6% 72px;
+    --gutter: max(20px, 5vw);
+    align-items: stretch;
+    padding: 88px var(--gutter) 92px; /* embaixo: espaço do botão flutuante do WhatsApp */
     view-timeline: --hero block;
   }
 
-  .hero-container { gap: 40px; }
-
-  .hero h1 {
-    font-size: clamp(2.7rem, 12.5vw, 3.6rem);
-    margin-bottom: 28px;
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  /* o terminal já apresenta nome, skills e status: o parágrafo fica só no desktop */
-  .hero-desc { display: none; }
+  .hero-stage {
+    --fs: calc((100vw - 2 * var(--gutter)) / 4.5);
+    --lx: 76%;
+    --orb-size: 3.1em;
+    --orb-cy: 1.15em;
+  }
 
+  .hn-word + .hn-word { text-align: left; }
+
+  .hero-greet { font-size: 1rem; margin-bottom: 12px; }
+
+  .hero-foot {
+    justify-content: stretch;
+    margin-top: 16px;
+  }
+
+  .hero-actions { width: 100%; }
+}
+
+@media (max-width: 768px) {
   .hero-actions {
     flex-wrap: nowrap;
     align-items: center;
@@ -1761,16 +1683,6 @@ footer {
     text-decoration-color: var(--primary);
     text-underline-offset: 6px;
   }
-
-  .terminal-body { line-height: 1.75; }
-
-  .scroll-hint {
-    display: flex;
-    bottom: 14px;
-    font-size: 0.62rem;
-    gap: 6px;
-  }
-  .scroll-hint::after { height: 22px; }
 
   /* Sobre: foto menor e menos texto de cara */
   .about { overflow-x: clip; } /* os cards entram pelos lados sem alargar a página */
@@ -1819,15 +1731,11 @@ footer {
   .skill-badge { padding: 7px 14px; font-size: 0.76rem; }
 }
 
-@media (max-width: 768px) and (max-height: 640px) {
-  .scroll-hint { display: none; }
-}
-
 /* Animações ligadas à rolagem (só onde o navegador suporta e sem "reduzir movimento") */
 @media (max-width: 768px) and (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     /* o início se afasta e some conforme a página sobe */
-    .hero-container {
+    .hero-inner {
       animation: heroScrollOut linear both;
       animation-timeline: --hero;
       animation-range: exit 0% exit 85%;

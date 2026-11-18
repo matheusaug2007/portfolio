@@ -141,7 +141,7 @@
   if (window.parent !== window) {
     document.documentElement.classList.add('in-preview'); // prévia do painel: mostra todos os textos
     const FOCUS_FALLBACK = {
-      hero_phrases: '#heroTitle',
+      hero_phrases: '#home',
       whatsapp_number: '#contact',
       whatsapp_message: '#contact',
       linkedin_url: '#contact',
