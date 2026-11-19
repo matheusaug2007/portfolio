@@ -58,11 +58,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   const homeSection = document.getElementById('home');
   function updateHeader() {
     header.classList.toggle('scrolled', window.scrollY > 40);
+    document.body.classList.toggle('is-intro', window.scrollY < 40); // primeira tela: só o nome
     const heroGone = !homeSection || homeSection.getBoundingClientRect().bottom < 110;
     header.classList.toggle('logo-on', heroGone);
   }
   window.addEventListener('scroll', updateHeader, { passive: true });
   updateHeader();
+  // quem navega pelo teclado precisa enxergar o menu: Tab libera o cabeçalho na primeira tela
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') document.body.classList.remove('is-intro');
+  });
 
   // ══════════════════════════════════════════════════
   // 3. MENU HAMBÚRGUER (Mobile)
@@ -373,6 +378,78 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
   }
 
+  // ══════════════════════════════════════════════════
+  // 16. GOTA ACOMPANHA O SCROLL (do nome até o ponto final da frase)
+  // ══════════════════════════════════════════════════
+  // A gota (#heroOrb) é fixa na tela. Em repouso ela fica onde está #orbHome (atrás do nome).
+  // Ao rolar, sai desse ponto e vai até #orbAnchor (o "." depois de "um pouco de mim"),
+  // encolhendo até o tamanho do ponto. O progresso vem só do scroll: sem relógio, sem salto.
+  const orbEl = document.getElementById('heroOrb');
+  const orbHome = document.getElementById('orbHome');
+  const orbAnchor = document.getElementById('orbAnchor');
+  const introSection = document.getElementById('intro');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const SPHERE = 0.7; // a esfera ocupa cerca de 70% do canvas da gota
+  const orb = { size: 0, hx: 0, hy: 0, ax: 0, ay: 0, aw: 0 };
+
+  // posição no documento ignorando transforms (a frase entra com transform, e isso não deve mexer na meta)
+  function docCenter(el) {
+    let x = 0, y = 0;
+    for (let n = el; n; n = n.offsetParent) { x += n.offsetLeft; y += n.offsetTop; }
+    return { x: x + el.offsetWidth / 2, y: y + el.offsetHeight / 2, w: el.offsetWidth, h: el.offsetHeight };
+  }
+
+  const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+  function measureOrb() {
+    if (!orbEl || !orbHome) return;
+    const h = docCenter(orbHome);
+    // #orbHome usa translate:-50% no X: o centro dele é a própria borda esquerda
+    orb.size = h.w;
+    orb.hx = h.x - h.w / 2;
+    orb.hy = h.y;
+    if (orbAnchor) {
+      const a = docCenter(orbAnchor);
+      orb.ax = a.x; orb.ay = a.y; orb.aw = a.w;
+    }
+    orbEl.style.width = orbEl.style.height = orb.size + 'px';
+    orbEl.classList.add('is-placed');
+    updateOrb();
+  }
+
+  function updateOrb() {
+    if (!orbEl || !orb.size) return;
+    const sy = window.scrollY;
+    let cx = orb.hx, cy = orb.hy - sy, sc = 1, p = 0;
+
+    if (reduceMotion.matches || !orbAnchor) {
+      // sem viagem: a gota fica na Hero e rola junto com a página
+    } else {
+      const vh = window.innerHeight;
+      const end = orb.ay - 0.58 * vh;          // scroll em que o ponto final chega a 58% da tela
+      p = end > 0 ? clamp(sy / end) : 1;
+      const e = easeInOut(p);
+      // meta = posição ATUAL do ponto final na tela (ele sobe com a página); até chegar,
+      // a gota fica "presa" à tela e vai deslizando para a meta; ao chegar (e = 1) gruda nela
+      cx = orb.hx + (orb.ax - orb.hx) * e;
+      cy = orb.hy + ((orb.ay - sy) - orb.hy) * e;
+      sc = 1 + ((orb.aw / (orb.size * SPHERE)) - 1) * e;
+    }
+    orbEl.dataset.p = p.toFixed(3);
+    orbEl.style.transform = 'translate3d(' + (cx - orb.size / 2).toFixed(1) + 'px,' + (cy - orb.size / 2).toFixed(1) + 'px,0) scale(' + sc.toFixed(4) + ')';
+  }
+
+  // a frase aparece linha por linha quando a seção entra na tela
+  if (introSection) {
+    new IntersectionObserver((entries, io) => {
+      if (entries[0].isIntersecting) { introSection.classList.add('in'); io.disconnect(); }
+    }, { threshold: 0.2 }).observe(introSection);
+  }
+
+  measureOrb();
+  if (document.fonts) document.fonts.ready.then(measureOrb);
+  window.addEventListener('load', measureOrb);
+
   // um único handler de scroll (com requestAnimationFrame) para as duas seções
   let ticking = false;
   function onScrollScenes() {
@@ -381,11 +458,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     requestAnimationFrame(() => {
       updateManifesto();
       updateShowcase();
+      updateOrb();
       ticking = false;
     });
   }
   window.addEventListener('scroll', onScrollScenes, { passive: true });
-  window.addEventListener('resize', () => { fitFrames(); onScrollScenes(); });
+  window.addEventListener('resize', () => { fitFrames(); measureOrb(); onScrollScenes(); });
   fitFrames();
   updateManifesto();
   updateShowcase();

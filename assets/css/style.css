@@ -403,11 +403,13 @@ body.dark-theme .sun-icon { opacity: 1; transform: scale(1) rotate(0deg); }
   display: flex;
   align-items: center;
   position: relative;
-  padding: 118px var(--gutter) 52px;
+  padding: 64px var(--gutter) 64px;
   overflow: hidden;
 }
 
 .hero-inner {
+  position: relative;
+  z-index: 2; /* sempre acima da gota (fixa no body), mesmo quando a animação do mobile cria uma camada */
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
@@ -485,16 +487,24 @@ body.dark-theme .sun-icon { opacity: 1; transform: scale(1) rotate(0deg); }
 .hero-name .hn-word + .hn-word .hn-ch:nth-child(6) { --i: 9; }
 .hero-name .hn-word + .hn-word .hn-ch:nth-child(7) { --i: 10; }
 
-/* ── gota (atrás do nome) ── */
+/* ── gota: elemento FIXO na tela (fica no <body>) ──
+   O script.js a move: começa em repouso atrás do nome (onde está .orb-home), acompanha o
+   scroll encolhendo e pousa como o ponto final da frase (.orb-anchor). Tamanho e posição
+   são escritos pelo script; z-index 1 = atrás do nome (2) e do texto da frase (2). */
 .hero-orb {
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1;
-  left: var(--lx);
-  bottom: calc(var(--pad-b) + var(--orb-cy) - var(--orb-size) / 2);
-  width: var(--orb-size);
-  height: var(--orb-size);
-  translate: -50% 0;
+  width: 0;
+  height: 0;
   pointer-events: none;
+  opacity: 0; /* só aparece depois da primeira medição (evita um salto no carregamento) */
+  will-change: transform;
+}
+
+.hero-orb.is-placed {
+  opacity: 1;
   animation: orbIn 1.2s cubic-bezier(0.16, 0.84, 0.24, 1) 0.5s backwards;
 }
 
@@ -512,25 +522,123 @@ body.dark-theme .sun-icon { opacity: 1; transform: scale(1) rotate(0deg); }
   inset: 18%;
   border-radius: 50%;
   background: radial-gradient(closest-side, rgba(0, 102, 255, 0.28), transparent);
-  filter: blur(0.12em);
+  filter: blur(24px);
 }
 
 body.dark-theme .hero-orb::before {
   background: radial-gradient(closest-side, rgba(0, 102, 255, 0.45), transparent);
 }
 
-/* ── ações ── */
-.hero-foot {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: clamp(28px, 5.5svh, 60px);
+/* caixa invisível que marca onde a gota fica em repouso (o script mede esta caixa) */
+.orb-home {
+  position: absolute;
+  left: var(--lx);
+  bottom: calc(var(--pad-b) + var(--orb-cy) - var(--orb-size) / 2);
+  width: var(--orb-size);
+  height: var(--orb-size);
+  translate: -50% 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
-.hero-actions {
+/* ── seta "role para baixo" ── */
+.hero-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: max(22px, 3.6svh);
+  width: 26px;
+  translate: -50% 0;
+  color: var(--text-secondary);
+  transition: opacity 0.4s var(--ease), color 0.3s;
+}
+
+.hero-scroll svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* a entrada fica no svg para o link poder sumir (opacity) quando o visitante rola */
+  animation: fadeInUp 0.9s var(--ease) 1.7s both, arrowFloat 2s ease-in-out 2.6s infinite;
+}
+
+.hero-scroll:hover { color: var(--primary); }
+
+/* ── primeira tela limpa: sem cabeçalho, WhatsApp e barra de progresso ──
+   (a classe is-intro sai do <body> assim que o visitante começa a rolar ou aperta Tab) */
+.scroll-progress { transition: opacity 0.4s var(--ease); }
+
+.is-intro header,
+.is-intro .whatsapp-float,
+.is-intro .scroll-progress {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.is-intro header { transform: translateY(-14px); }
+
+body:not(.is-intro) .hero-scroll { opacity: 0; pointer-events: none; }
+
+/* ── ABERTURA: "E eu vim te mostrar um pouco de mim." ── */
+.intro {
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  animation: fadeInUp 0.8s var(--ease) 0.95s both;
+  align-items: center;
+  background-color: var(--bg-primary);
+}
+
+.intro-text {
+  position: relative;
+  z-index: 2; /* o texto fica acima da gota */
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 10vw, 7rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  color: var(--text-primary);
+}
+
+/* cada linha entra por baixo de uma "máscara" (com folga para as hastes de p e g) */
+.il {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.il > span {
+  display: inline-block;
+  white-space: nowrap; /* o ponto final nunca vai para a linha de baixo */
+  transform: translateY(115%);
+  transition: transform 1s cubic-bezier(0.16, 0.84, 0.24, 1);
+}
+
+.il:nth-child(1) { color: var(--text-secondary); }
+.il:nth-child(2) > span { transition-delay: 0.12s; }
+.il:nth-child(3) > span { transition-delay: 0.24s; }
+
+.intro.in .il > span { transform: none; }
+
+/* o lugar onde a gota pousa: um ponto assentado na linha de base, como um ponto final */
+.orb-anchor {
+  display: inline-block;
+  width: 0.3em;
+  height: 0.3em;
+  margin-left: 0.07em;
+  border-radius: 50%;
+}
+
+@keyframes arrowFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(7px); }
 }
 
 @keyframes chRise {
@@ -1523,6 +1631,11 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
+  /* sem viagem da gota: ela fica na Hero e a frase mostra um ponto azul simples */
+  .il > span { transform: none !important; }
+  .orb-anchor { background: var(--primary); }
+  .hero-scroll svg { animation: none !important; }
+
   *,
   *::before,
   *::after {
@@ -1633,7 +1746,7 @@ footer {
   .hero {
     --gutter: max(20px, 5vw);
     align-items: stretch;
-    padding: 88px var(--gutter) 92px; /* embaixo: espaço do botão flutuante do WhatsApp */
+    padding: 64px var(--gutter) 72px; /* embaixo: espaço da seta */
     view-timeline: --hero block;
   }
 
@@ -1654,36 +1767,9 @@ footer {
 
   .hero-greet { font-size: 1rem; margin-bottom: 12px; }
 
-  .hero-foot {
-    justify-content: stretch;
-    margin-top: 16px;
-  }
-
-  .hero-actions { width: 100%; }
 }
 
 @media (max-width: 768px) {
-  .hero-actions {
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .hero-actions .btn-primary { flex: 1 1 auto; justify-content: center; }
-
-  /* "Ver Projetos" vira link de texto, para sobrar um único botão */
-  .hero-actions .btn-secondary {
-    flex: 0 0 auto;
-    background: none;
-    border-color: transparent;
-    box-shadow: none;
-    padding: 13px 14px;
-    color: var(--text-primary);
-    text-decoration: underline;
-    text-decoration-color: var(--primary);
-    text-underline-offset: 6px;
-  }
-
   /* Sobre: foto menor e menos texto de cara */
   .about { overflow-x: clip; } /* os cards entram pelos lados sem alargar a página */
   .about-grid { gap: 40px; }

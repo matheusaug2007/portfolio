@@ -8,3 +8,7 @@ try {
     if (/^[a-z_]+$/.test(k)) document.documentElement.classList.add('hide-' + k);
   });
 } catch (e) { /* sem storage ou valor inválido: segue normal */ }
+
+// Primeira tela só com o nome: sem cabeçalho, WhatsApp e barra de progresso até o visitante rolar
+// (script.js tira esta classe ao rolar ou ao apertar Tab).
+if (window.scrollY < 40) document.body.classList.add('is-intro');

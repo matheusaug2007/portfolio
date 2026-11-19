@@ -160,6 +160,8 @@ function start() {
 
   if (finePointer && !reduceMotion && hero) {
     hero.addEventListener('pointermove', (e) => {
+      // durante a viagem pelo scroll a gota não acompanha o mouse
+      if (parseFloat(box.dataset.p || '0') > 0.05) { target.x = 0; target.y = 0; return; }
       const r = hero.getBoundingClientRect();
       target.x = ((e.clientX - r.left) / r.width - 0.5) * 2;
       target.y = ((e.clientY - r.top) / r.height - 0.5) * 2;

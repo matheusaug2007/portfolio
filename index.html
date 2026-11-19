@@ -106,6 +106,10 @@
   <div class="cursor" id="customCursor"></div>
   <div class="cursor-ring" id="customCursorRing"></div>
 
+  <!-- Gota de metal líquido (three.js desenha aqui). Fica fixa na tela: começa atrás do nome,
+       acompanha o scroll encolhendo e pousa como o ponto final da frase da seção seguinte. -->
+  <div class="hero-orb" id="heroOrb" aria-hidden="true"><canvas id="orbCanvas"></canvas></div>
+
   <!-- ─── HEADER / NAV ─── -->
   <header id="header">
     <div class="nav-container">
@@ -155,49 +159,37 @@
 
   <main>
     <!-- ─── HERO SECTION ─── -->
-    <!-- O nome é a peça gráfica, em duas linhas escalonadas. Uma gota de metal líquido
-         (3D) fica atrás das letras: o texto passa sempre na frente e continua legível. -->
+    <!-- Primeira tela: só o nome, em duas linhas escalonadas, e uma seta para rolar. A gota 3D
+         (fixa, no <body>) fica atrás das letras: o texto passa sempre na frente. -->
     <section class="hero" id="home">
       <div class="hero-inner">
         <div class="hero-stage" id="heroStage">
           <p class="hero-greet">Olá, eu sou o</p>
           <h1 class="hero-name" aria-label="Matheus Augusto">
-            <span class="hn-line" aria-hidden="true"><span class="hn-word"><span class="hn-ch">M</span><span
-                  class="hn-ch">A</span><span class="hn-ch">T</span><span class="hn-ch">H</span><span
-                  class="hn-ch">E</span><span class="hn-ch">U</span><span class="hn-ch">S</span></span> <span
-                class="hn-word"><span class="hn-ch">A</span><span class="hn-ch">U</span><span
-                  class="hn-ch">G</span><span class="hn-ch">U</span><span class="hn-ch">S</span><span
-                  class="hn-ch">T</span><span class="hn-ch">O</span></span></span>
+            <span class="hn-line" aria-hidden="true"><span class="hn-word"><span class="hn-ch">M</span><span class="hn-ch">A</span><span class="hn-ch">T</span><span class="hn-ch">H</span><span class="hn-ch">E</span><span class="hn-ch">U</span><span class="hn-ch">S</span></span> <span class="hn-word"><span class="hn-ch">A</span><span class="hn-ch">U</span><span class="hn-ch">G</span><span class="hn-ch">U</span><span class="hn-ch">S</span><span class="hn-ch">T</span><span class="hn-ch">O</span></span></span>
           </h1>
 
-          <!-- Gota de metal líquido (three.js desenha aqui; sem WebGL a área fica vazia e o nome continua inteiro) -->
-          <div class="hero-orb" id="heroOrb" aria-hidden="true"><canvas id="orbCanvas"></canvas></div>
-        </div>
-
-        <div class="hero-foot">
-          <div class="hero-actions">
-            <a href="#contact" class="btn btn-primary" data-section="contact"><span data-content="hero_btn_primary">Fale
-                Comigo!</span> <i class="fas fa-arrow-right"></i></a>
-            <a href="#projects" class="btn btn-secondary" data-section="projects" data-content="hero_btn_secondary">Ver
-              Projetos</a>
-          </div>
+          <!-- marca onde a gota fica em repouso (o script mede esta caixa) -->
+          <span class="orb-home" id="orbHome" aria-hidden="true"></span>
         </div>
       </div>
+
+      <a href="#intro" class="hero-scroll" aria-label="Rolar para baixo">
+        <svg viewBox="0 0 24 56" aria-hidden="true" focusable="false">
+          <path d="M12 2v48M3 41l9 10 9-10" />
+        </svg>
+      </a>
     </section>
 
-    <!-- Faixa de tecnologias (conteúdo duplicado para o loop ficar contínuo) -->
-    <div class="marquee" aria-hidden="true" data-section="marquee">
-      <div class="marquee-track">
-        <span class="marquee-item">HTML5</span><span class="marquee-item">CSS3</span><span
-          class="marquee-item">JavaScript</span><span class="marquee-item">PHP</span><span
-          class="marquee-item">SQL</span><span class="marquee-item">Supabase</span><span
-          class="marquee-item">Responsivo</span><span class="marquee-item">Performance</span>
-        <span class="marquee-item">HTML5</span><span class="marquee-item">CSS3</span><span
-          class="marquee-item">JavaScript</span><span class="marquee-item">PHP</span><span
-          class="marquee-item">SQL</span><span class="marquee-item">Supabase</span><span
-          class="marquee-item">Responsivo</span><span class="marquee-item">Performance</span>
-      </div>
-    </div>
+    <!-- ─── ABERTURA: ponte entre o nome e o Sobre. A gota pousa no ponto final. ─── -->
+    <section class="intro" id="intro">
+      <p class="intro-text">
+        <span class="il"><span>E eu vim</span></span>
+        <span class="il"><span>te mostrar</span></span>
+        <span class="il"><span>um pouco de mim<i class="orb-anchor" id="orbAnchor" aria-hidden="true"></i></span></span>
+      </p>
+    </section>
+
 
     <!-- ─── SOBRE MIM (Com Moldura de Foto) ─── -->
     <section class="about" id="about" data-section="about">
@@ -254,6 +246,20 @@
         </div>
       </div>
     </section>
+
+    <!-- Faixa de tecnologias (conteúdo duplicado para o loop ficar contínuo) -->
+    <div class="marquee" aria-hidden="true" data-section="marquee">
+      <div class="marquee-track">
+        <span class="marquee-item">HTML5</span><span class="marquee-item">CSS3</span><span
+          class="marquee-item">JavaScript</span><span class="marquee-item">PHP</span><span
+          class="marquee-item">SQL</span><span class="marquee-item">Supabase</span><span
+          class="marquee-item">Responsivo</span><span class="marquee-item">Performance</span>
+        <span class="marquee-item">HTML5</span><span class="marquee-item">CSS3</span><span
+          class="marquee-item">JavaScript</span><span class="marquee-item">PHP</span><span
+          class="marquee-item">SQL</span><span class="marquee-item">Supabase</span><span
+          class="marquee-item">Responsivo</span><span class="marquee-item">Performance</span>
+      </div>
+    </div>
 
     <!-- ─── SEÇÃO CONSTRUÇÃO (Como Trabalho) ─── 
     <section class="construction-section" id="construcao">
